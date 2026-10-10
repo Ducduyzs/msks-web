@@ -41,6 +41,7 @@ Cấu hình:
 | `.venv/Scripts/python db/verify_schema.py` | Ràng buộc + RLS trên database thật, luôn rollback |
 | `.venv/Scripts/python scripts/e2e_smoke.py [--pdf file.pdf]` | End-to-end trên Supabase thật với 2 user tạm; tự dọn dữ liệu. Gọi OpenAI (vài trăm token) |
 | `cd web && npm test` | Frontend trên API mock (logic + giao diện jsdom) |
+| `.venv/Scripts/python scripts/make_sample_lecture.py OUT` rồi `scripts/e2e_lecture.py OUT/sample_lecture.mp4 OUT/sample_lecture.srt` | Bài giảng end-to-end (upload nhiều phần, ASR, OCR, citation thời gian, YouTube caption, sửa transcript, xóa) |
 
 ## Mã nguồn backend
 
@@ -54,6 +55,10 @@ Cấu hình:
 | `src/msks/ingest.py` | Docling/Markdown/TXT → canonical text, offset code point, khối trang, MinHash |
 | `src/msks/ml.py` | Model v11 nạp lười trên GPU, khóa concurrency = 1 |
 | `src/msks/dto.py` | JSON đúng hợp đồng `web/src/api/types.ts`; che nội dung nguồn đã xóa |
+| `src/msks/profiles.py` | Profile model `product` / `lecture_vi_v1`; không trộn embedding giữa profile |
+| `src/msks/indexing.py` | Ghi cây node, embed theo profile, publish generation (dùng chung tài liệu/bài giảng/reindex) |
+| `src/msks/api_media.py` | Bài giảng: phiên upload nhiều phần, caption, YouTube (caption người dùng), timeline, URL media, sửa transcript, reindex |
+| `src/msks/media/` | Probe/FFmpeg, caption SRT/VTT, chọn frame, ASR faster-whisper, OCR EasyOCR, alignment + canonical + source map, pipeline worker |
 | `src/edahr/` | Snapshot EDAHR v11 không sửa — [src/EDAHR_VENDOR.md](src/EDAHR_VENDOR.md) |
 
 ## Quyết định triển khai MVP (ARCHITECTURE.md mục 0.1)
@@ -70,7 +75,8 @@ Cấu hình:
 
 Chi tiết lỗi đã sửa, migration chưa áp dụng và việc còn lại: [REVIEW_2026-10-08.md](REVIEW_2026-10-08.md). Các test local không thay thế kiểm thử Supabase/GPU thật.
 
-- **Chưa có:** đối chứng chéo, tổng hợp, URL/DOI, DOCX/HTML, OCR, và xuất DOCX/PDF. Đây là các giai đoạn G3–G4; API trả `501 feature_disabled`.
+- **Bài giảng video:** backend L0–L1 + YouTube với phụ đề người dùng cung cấp đã có; Drive và giao diện frontend chưa có. Trạng thái và phát hiện khi đo: [LECTURE_ARCHITECTURE.md mục 13](LECTURE_ARCHITECTURE.md#13-trạng-thái-triển-khai-09102026).
+- **Chưa có:** đối chứng chéo, tổng hợp, URL/DOI, DOCX/HTML, OCR cho PDF scan, và xuất DOCX/PDF. Đây là các giai đoạn G3–G4; API trả `501 feature_disabled`.
 - **Ngưỡng NLI chưa được hiệu chỉnh:** đang dùng ngưỡng lịch sử của v11 (0,25 / 0,50). Mọi run vì thế mang nhãn "Kết quả thử nghiệm" (`calibration_artifact = null`).
 - **Thiếu cache:** chưa có cache cho reranker/NLI/LLM (mục 12.3).
 - **Chưa đo hiệu năng:** chưa có số đo N1/N2 (mục 3.2).

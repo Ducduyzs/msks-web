@@ -20,6 +20,8 @@ class Models:
     def __init__(self) -> None:
         self.settings = get_settings()
         self.lock = threading.Lock()  # GPU concurrency = 1 (mục 12.2)
+        self._sbert: dict[str, object] = {}
+        self._nli: dict[str, object] = {}
 
     @property
     def device(self) -> str:
@@ -42,17 +44,30 @@ class Models:
 
         return BGEReranker(self.settings.reranker_model, self.device, self.settings.use_fp16)
 
-    @cached_property
+    def sbert_for(self, name: str | None = None):
+        """SBERT theo profile; nạp lười, giữ trong process (mục 7: không trộn model giữa profile)."""
+        name = name or self.settings.sbert_model
+        if name not in self._sbert:
+            from sentence_transformers import SentenceTransformer
+
+            self._sbert[name] = SentenceTransformer(name, device=self.device)
+        return self._sbert[name]
+
+    def nli_for(self, name: str | None = None):
+        name = name or self.settings.nli_model
+        if name not in self._nli:
+            from edahr.models import NliVerifier
+
+            self._nli[name] = NliVerifier(name, self.device)
+        return self._nli[name]
+
+    @property
     def sbert(self):
-        from sentence_transformers import SentenceTransformer
+        return self.sbert_for()
 
-        return SentenceTransformer(self.settings.sbert_model, device=self.device)
-
-    @cached_property
+    @property
     def nli(self):
-        from edahr.models import NliVerifier
-
-        return NliVerifier(self.settings.nli_model, self.device)
+        return self.nli_for()
 
     # ----------------------------------------------------------------- encode
 
@@ -67,10 +82,10 @@ class Models:
         sparse = [{int(k): float(v) for k, v in weights.items()} for weights in out["lexical_weights"]]
         return dense, sparse
 
-    def sbert_encode(self, texts: Sequence[str]) -> np.ndarray:
+    def sbert_encode(self, texts: Sequence[str], model: str | None = None) -> np.ndarray:
         with self.lock:
             return np.asarray(
-                self.sbert.encode(list(texts), normalize_embeddings=True, show_progress_bar=False, batch_size=32),
+                self.sbert_for(model).encode(list(texts), normalize_embeddings=True, show_progress_bar=False, batch_size=32),
                 dtype=np.float32,
             )
 
@@ -78,9 +93,19 @@ class Models:
         with self.lock:
             return self.reranker.score(query, list(texts))
 
-    def nli_scores(self, claim: str, evidence: str) -> tuple[float, float]:
+    def nli_scores(self, claim: str, evidence: str, model: str | None = None) -> tuple[float, float]:
         with self.lock:
-            return self.nli.score_details(claim, evidence)
+            return self.nli_for(model).score_details(claim, evidence)
+
+    def free_gpu_cache(self) -> None:
+        """Trả bộ nhớ đệm CUDA sau các bước media (ASR/OCR) để QA không thiếu VRAM."""
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except ImportError:  # pragma: no cover
+            pass
 
     def revisions(self) -> dict[str, str]:
         s = self.settings
@@ -104,16 +129,19 @@ def get_models() -> Models:
 
 
 class LockedVerifier:
-    """Bọc NLI để edahr.verification gọi qua cùng khóa GPU."""
+    """Bọc NLI (theo profile) để edahr.verification gọi qua cùng khóa GPU."""
 
-    def __init__(self, models: Models):
+    def __init__(self, models: Models, model: str | None = None, preprocess=None):
         self.models = models
+        self.model = model
+        # Chuẩn hóa chỉ áp vào đầu vào NLI (vd. số viết bằng chữ → chữ số); text đã lưu không đổi.
+        self.preprocess = preprocess or (lambda text: text)
 
     def support_score(self, claim: str, evidence: str) -> float:
-        return self.models.nli_scores(claim, evidence)[0]
+        return self.score_details(claim, evidence)[0]
 
     def score_details(self, claim: str, evidence: str) -> tuple[float, float]:
-        return self.models.nli_scores(claim, evidence)
+        return self.models.nli_scores(self.preprocess(claim), self.preprocess(evidence), self.model)
 
 
 def vector_literal(values: np.ndarray) -> str:

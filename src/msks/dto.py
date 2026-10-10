@@ -49,6 +49,11 @@ def source_dto(row: dict) -> dict:
         "deleted_at": iso(row["deleted_at"]),
         "created_at": iso(row["created_at"]),
         "revision": None,
+        # Bài giảng (LECTURE mục 8–9): ngôn ngữ, thời lượng, nhánh đã đọc được và độ phủ thực tế.
+        "language": row.get("language"),
+        "duration_ms": row.get("duration_ms"),
+        "capabilities": row.get("capabilities_json"),
+        "coverage": row.get("coverage_json"),
     }
     if row.get("pr_id"):
         out["revision"] = {
@@ -68,6 +73,7 @@ def workspace_dto(row: dict) -> dict:
         "created_at": iso(row["created_at"]),
         "source_count": int(row.get("source_count") or 0),
         "run_count": int(row.get("run_count") or 0),
+        "asr_glossary": (row.get("settings_json") or {}).get("asr_glossary") or [],
     }
 
 
@@ -96,7 +102,7 @@ order by ce.claim_id, case ce.role when 'primary' then 0 when 'corroborating' th
 """
 
 _CONTEXT_SQL = """
-select cb.*, n.parse_revision_id, n.page_start, n.page_end, s.alias, s.deleted_at
+select cb.*, n.parse_revision_id, n.page_start, n.page_end, n.modality, n.start_ms, n.end_ms, s.alias, s.deleted_at
 from public.context_block cb
 join public.node n on n.id = cb.node_id
 join public.parse_revision pr on pr.id = n.parse_revision_id
@@ -128,10 +134,24 @@ def evidence_dto(row: dict) -> dict:
         "contradiction": float(row["contradiction"]),
         "verifier_revision": row["verifier_revision"],
         "position": row["position"],
+        "modality": row.get("modality") or "text",
+        # Nguồn đã xóa: không trả locator (asset/bbox/thời gian) để không mở lại được media.
+        "locator": None if deleted else row.get("locator_json"),
+        "transcription_state": row.get("transcription_state") or "not_applicable",
     }
     if deleted:
         out["source_deleted"] = True
     return out
+
+
+def support_basis(evidence: list[dict]) -> str:
+    """Nhãn trung thực cho UI (LECTURE mục 7): bản chép máy khác văn bản gốc và khác bản đã đối chiếu."""
+    states = {e.get("transcription_state") for e in evidence if e.get("role") == "primary"}
+    if "automatic" in states:
+        return "automatic_transcript"
+    if "reviewed" in states:
+        return "reviewed_transcript"
+    return "document"
 
 
 def claims_with_evidence(conn: Connection, claim_rows: list[dict]) -> tuple[list[dict], list[dict]]:
@@ -165,6 +185,7 @@ def claim_dto(row: dict, evidence: list[dict]) -> dict:
         "cross_check_status": row["cross_check_status"],
         "verification_method": row["verification_method"],
         "generator_confidence": float(row["generator_confidence"] or 0.0),
+        "support_basis": support_basis(evidence),
         "evidence": evidence,
     }
 
@@ -183,6 +204,9 @@ def context_dto(row: dict) -> dict:
         "token_count": row["token_count"],
         "truncated": row["truncated"],
         "trace": row["trace_json"],
+        "modality": row.get("modality") or "text",
+        "start_ms": row.get("start_ms"),
+        "end_ms": row.get("end_ms"),
     }
 
 
@@ -272,9 +296,16 @@ def run_to_markdown(run: dict) -> str:
     """Xuất từ claim/evidence đã persist, không gọi LLM (mục 11)."""
     lines = [f"# {run['query']}", "", f"> Run {run['run_id']} · {run['status']} · {run.get('answer_status') or '—'} · profile {run['profile']}", ""]
 
+    def where(e: dict) -> str:
+        locator = e.get("locator") or {}
+        if locator.get("start_ms") is not None:
+            seconds = locator["start_ms"] // 1000
+            return f", {seconds // 60:02d}:{seconds % 60:02d}"
+        return f", tr. {e['page_start']}" if e["page_start"] else ""
+
     def cite(claim: dict) -> str:
         e = claim["evidence"][0]
-        return f"[{e['source_alias']}{', tr. ' + str(e['page_start']) if e['page_start'] else ''}]"
+        return f"[{e['source_alias']}{where(e)}]"
 
     by_id = {c["id"]: c for c in run["claims"]}
     if run["mode"] == "synthesis" and run.get("sections"):
@@ -291,6 +322,6 @@ def run_to_markdown(run: dict) -> str:
     for claim in run["claims"]:
         for e in claim["evidence"]:
             body = "_[nguồn đã xóa — nội dung đã ẩn]_" if e.get("source_deleted") else f"\"{e['evidence_snapshot']}\""
-            page = f" tr. {e['page_start']}" if e["page_start"] else ""
-            lines.append(f"- **{e['source_alias']}**{page} ({e['role']}, revision {e['parse_revision_id']}): {body}")
+            label = "bản chép tự động" if e.get("transcription_state") == "automatic" else e["role"]
+            lines.append(f"- **{e['source_alias']}**{where(e)} ({label}, revision {e['parse_revision_id']}): {body}")
     return "\n".join(lines)

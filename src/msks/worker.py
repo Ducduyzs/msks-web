@@ -11,12 +11,15 @@ import argparse
 import logging
 import time
 import traceback
-import uuid
+
+import psycopg
 
 from . import db, jobs
 from .errors import PermanentError, TransientError
 from .ingest import build_tree, fingerprint_hex, jaccard_estimate, minhash, parse, sha256
-from .ml import get_models, sparse_literal, vector_literal
+from .indexing import LeafRow, check_leaf_quota, embed_and_publish, persist_tree
+from .media import pipeline as media_pipeline
+from .profiles import LECTURE_KINDS, default_index_profile
 from .qa import Cancelled, RunState, finish_cancelled, finish_failed, run_qa
 from .settings import get_settings
 from .storage import BlobStore
@@ -42,11 +45,14 @@ def handle_ingest(job: dict) -> None:
         source = conn.execute("select * from public.source where id = %s", (job["target_id"],)).fetchone()
         if not source or source["deleted_at"]:
             return  # nguồn đã bị xóa trong lúc chờ: bỏ qua
-        if source["status"] == "ready":
+        if source["status"] in ("ready", "ready_limited", "review_required"):
             return  # publication committed before the previous worker lost its lease
         revision = conn.execute(
             "select * from public.document_revision where source_id = %s order by revision_no desc limit 1", (source["id"],)
         ).fetchone()
+    if source["kind"] in LECTURE_KINDS:
+        media_pipeline.ingest_media(job, source)
+        return
     source_id = str(source["id"])
 
     jobs.set_stage(job, "parsing")
@@ -63,56 +69,28 @@ def handle_ingest(job: dict) -> None:
     _source_progress(job, source_id, "chunking", 0.35)
     tree = build_tree(document, settings, paginated, parser, parser_version)
     leaves = tree.leaves
-    with jobs.guarded(job) as conn:
-        existing = conn.execute(
-            """select count(*) as n from public.leaf_embedding e join public.index_generation g on g.id = e.index_generation_id
-               where g.workspace_id = %s and g.state = 'active'""",
-            (source["workspace_id"],),
-        ).fetchone()["n"]
-    if existing + len(leaves) > settings.max_leaves_per_workspace:
-        raise PermanentError("workspace_leaf_limit", f"Workspace vượt giới hạn {settings.max_leaves_per_workspace} đoạn lá.")
-
-    ws = source["workspace_id"]
-    with jobs.guarded(job) as conn:
-        parse_revision_id = conn.execute(
-            """insert into public.parse_revision (workspace_id, document_revision_id, parser, parser_version,
-               normalizer_version, chunker_version, config_hash, text_sha256, page_count, leaf_count, status,
-               canonical_text, pages_json)
-               values (%s, %s, %s, %s, 'edahr-normalize-1', 'edahr-pack_spans-v11', %s, %s, %s, %s, 'running', %s, %s)
-               returning id""",
-            (ws, revision["id"], parser, parser_version, settings.config_hash(), sha256(tree.canonical_text),
-             tree.page_count, len(leaves), tree.canonical_text, db.jsonb(tree.pages) if tree.pages is not None else None),
-        ).fetchone()["id"]
-        ids = {n.legacy_node_id: str(uuid.uuid4()) for n in tree.nodes}
-        # Chèn theo thứ tự cha trước con để khóa ngoại section/parent hợp lệ.
-        order = {"document": 0, "section": 1, "parent": 2, "child": 3}
-        with conn.cursor() as cur:
-            cur.executemany(
-                """insert into public.node (id, workspace_id, parse_revision_id, legacy_node_id, level, section_id, parent_id,
-                   position, text, text_sha256, token_count, page_start, page_end, char_start, char_end, paragraph_ids_json)
-                   values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-                [
-                    (ids[n.legacy_node_id], ws, parse_revision_id, n.legacy_node_id, n.level,
-                     ids.get(n.section_legacy) if n.section_legacy else None,
-                     ids.get(n.parent_legacy) if n.parent_legacy and n.parent_legacy in ids and n.level != "section" else None,
-                     n.position, n.text, sha256(n.text), n.token_count, n.page_start, n.page_end, n.char_start, n.char_end,
-                     db.jsonb(n.paragraph_ids))
-                    for n in sorted(tree.nodes, key=lambda n: order[n.level])
-                ],
-            )
-            cur.executemany(
-                "insert into public.node_edge (workspace_id, parent_node_id, child_node_id, ordinal) values (%s, %s, %s, %s)",
-                [(ws, ids[p], ids[c], o) for p, c, o in tree.edges if p in ids and c in ids],
-            )
+    ws = str(source["workspace_id"])
+    check_leaf_quota(job, ws, len(leaves))
+    parse_revision_id, ids = persist_tree(job, ws, str(revision["id"]), tree)
 
     # Nhóm nguồn gốc theo fingerprint (mục 6.2): phát hiện bản sao, không chứng minh độc lập.
-    fingerprint = fingerprint_hex(minhash(tree.canonical_text))
+    assign_origin_group(job, source, tree.canonical_text)
+
+    jobs.set_stage(job, "embedding")
+    _source_progress(job, source_id, "embedding", 0.6)
+    rows = [LeafRow(ids[n.legacy_node_id], n.text, n.embedding_text) for n in leaves]
+    jobs.set_stage(job, "publishing")
+    embed_and_publish(job, source_id, ws, parse_revision_id, rows, default_index_profile(source["kind"]))
+
+
+def assign_origin_group(job: dict, source: dict, canonical_text: str) -> None:
+    fingerprint = fingerprint_hex(minhash(canonical_text))
     with jobs.guarded(job) as conn:
         group, reason = source["origin_group_id"], None
         for other in conn.execute(
             """select alias, origin_group_id, origin_fingerprint from public.source
                where workspace_id = %s and id <> %s and deleted_at is null and origin_fingerprint is not null""",
-            (ws, source_id),
+            (source["workspace_id"], source["id"]),
         ):
             estimate = jaccard_estimate(fingerprint, other["origin_fingerprint"])
             if estimate >= 0.8:
@@ -121,52 +99,7 @@ def handle_ingest(job: dict) -> None:
                 break
         conn.execute(
             "update public.source set origin_fingerprint = %s, origin_group_id = %s, grouping_reason = %s where id = %s",
-            (fingerprint, group, reason, source_id),
-        )
-
-    jobs.set_stage(job, "embedding")
-    _source_progress(job, source_id, "embedding", 0.6)
-    models = get_models()
-    leaf_ids = [ids[n.legacy_node_id] for n in leaves]
-    dense, sparse = models.encode([n.embedding_text or n.text for n in leaves])
-    sbert = models.sbert_encode([n.text for n in leaves])
-
-    jobs.set_stage(job, "publishing")
-    _source_progress(job, source_id, "publishing", 0.85)
-    with jobs.guarded(job) as conn:
-        generation_id = conn.execute(
-            """insert into public.index_generation (workspace_id, parse_revision_id, embedding_revision, config_hash,
-               expected_points, state) values (%s, %s, %s, %s, %s, 'building') returning id""",
-            (ws, parse_revision_id, f"{settings.embedding_model}+{settings.sbert_model}", settings.config_hash(), len(leaves)),
-        ).fetchone()["id"]
-        with conn.cursor() as cur:
-            cur.executemany(
-                """insert into public.leaf_embedding (workspace_id, index_generation_id, node_id, dense, sparse, sbert)
-                   values (%s, %s, %s, %s::extensions.vector, %s::extensions.sparsevec, %s::extensions.vector)""",
-                [(ws, generation_id, leaf_ids[i], vector_literal(dense[i]), sparse_literal(sparse[i]), vector_literal(sbert[i]))
-                 for i in range(len(leaves))],
-            )
-    # Publish: kiểm tra đủ điểm rồi mới chuyển active, trong một transaction (mục 6.5).
-    with jobs.guarded(job) as conn:
-        written = conn.execute(
-            "select count(*) as n from public.leaf_embedding where index_generation_id = %s", (generation_id,)
-        ).fetchone()["n"]
-        if written != len(leaves):
-            raise TransientError(f"Index thiếu điểm: {written}/{len(leaves)}")
-        current = conn.execute("select deleted_at from public.source where id = %s for update", (source_id,)).fetchone()
-        if not current or current["deleted_at"]:
-            conn.execute("update public.index_generation set state = 'orphaned' where id = %s", (generation_id,))
-            return
-        conn.execute(
-            """update public.index_generation g set state = 'retired' from public.parse_revision p
-               join public.document_revision d on d.id = p.document_revision_id
-               where g.parse_revision_id = p.id and d.source_id = %s and g.state = 'active'""",
-            (source_id,),
-        )
-        conn.execute("update public.index_generation set state = 'active', published_at = now() where id = %s", (generation_id,))
-        conn.execute("update public.parse_revision set status = 'succeeded' where id = %s", (parse_revision_id,))
-        conn.execute(
-            "update public.source set status = 'ready', progress = 1, error_json = null where id = %s", (source_id,)
+            (fingerprint, group, reason, source["id"]),
         )
 
 
@@ -201,9 +134,45 @@ def handle_delete(job: dict) -> None:
             """update public.context_block cb set visible_text = '' from public.node n
                where cb.node_id = n.id and n.parse_revision_id = any(%s::uuid[])""", (revisions,)
         )
-    BlobStore().delete(keys)
+    BlobStore().delete([k for k in keys if k and not k.endswith("/")])
+    media_pipeline.delete_media(source_id)
     with jobs.guarded(job) as conn:
         conn.execute("update public.source set status = 'deleted', progress = 1 where id = %s", (source_id,))
+
+
+# ----------------------------------------------------------------- reindex
+
+
+def handle_reindex(job: dict) -> None:
+    """payload.action = 'transcript_edit' (revision trích xuất mới từ bản sửa) | 'profile' (index thêm profile)."""
+    payload = job["payload_json"] or {}
+    with jobs.guarded(job) as conn:
+        source = conn.execute("select * from public.source where id = %s", (job["target_id"],)).fetchone()
+    if not source or source["deleted_at"]:
+        return
+    if payload.get("action") == "transcript_edit":
+        new_id = media_pipeline.apply_edits(job, source, payload["base_extraction_revision_id"],
+                                            payload.get("segments", {}), payload.get("regions", {}), payload.get("user_id"))
+        media_pipeline.rebuild(job, source, new_id)
+        return
+    if payload.get("action") == "profile":
+        profile = payload["profile"]
+        with jobs.guarded(job) as conn:
+            revision = conn.execute(
+                """select p.id from public.parse_revision p join public.document_revision d on d.id = p.document_revision_id
+                   join public.index_generation g on g.parse_revision_id = p.id and g.state = 'active'
+                   where d.source_id = %s order by g.published_at desc limit 1""", (source["id"],)).fetchone()
+            if not revision:
+                raise PermanentError("no_active_revision", "Nguồn chưa có bản index đang dùng để reindex.")
+            leaves = conn.execute(
+                "select id, text from public.node where parse_revision_id = %s and level = 'child' order by char_start",
+                (revision["id"],)).fetchall()
+        # Header truy xuất (tiêu đề tài liệu/section) không được lưu theo node: reindex embed nội dung leaf.
+        rows = [LeafRow(str(r["id"]), r["text"], r["text"]) for r in leaves]
+        embed_and_publish(job, str(source["id"]), str(source["workspace_id"]), str(revision["id"]), rows, profile,
+                          final_status=source["status"])
+        return
+    raise PermanentError("invalid_reindex", "Yêu cầu reindex không hợp lệ.")
 
 
 # --------------------------------------------------------------------- run
@@ -224,7 +193,7 @@ def handle_run(job: dict) -> None:
         finish_cancelled(state)
 
 
-HANDLERS = {"ingest": handle_ingest, "delete": handle_delete, "run": handle_run}
+HANDLERS = {"ingest": handle_ingest, "delete": handle_delete, "run": handle_run, "reindex": handle_reindex}
 
 
 def process(job: dict) -> None:
@@ -253,7 +222,7 @@ def _on_failure(job: dict, code: str, message: str, retryable: bool) -> None:
         log.warning("job %s sẽ thử lại: %s", job["id"], message)
         return
     error = {"code": code, "message": message, "retryable": retryable}
-    if job["kind"] == "ingest":
+    if job["kind"] == "ingest":  # reindex lỗi không làm hỏng index đang dùng
         with jobs.guarded(job, states=("failed",)) as conn:
             conn.execute(
                 "update public.source set status = 'failed', error_json = %s where id = %s and deleted_at is null",
@@ -272,8 +241,26 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     db.open_pool(min_size=1, max_size=3)
     log.info("worker sẵn sàng (device=%s, llm=%s)", get_settings().device, get_settings().llm_provider)
+    last_sweep = 0.0
+    db_backoff = 0.0
     while True:
-        job = jobs.claim_next()
+        if time.monotonic() - last_sweep > 60:
+            last_sweep = time.monotonic()
+            try:
+                swept = media_pipeline.sweep()
+                if any(swept.values()):
+                    log.info("thu gom media: %s", swept)
+            except Exception:  # thu gom lỗi không được chặn hàng đợi
+                log.warning("thu gom media lỗi: %s", traceback.format_exc())
+        try:
+            job = jobs.claim_next()
+        except psycopg.OperationalError as exc:
+            # Mất kết nối DB lúc nhận job: transaction đã rollback, chưa nhận job nào → chờ rồi thử lại, không thoát.
+            db_backoff = min(30.0, db_backoff * 2 or 1.0)
+            log.warning("mất kết nối DB khi nhận job (%s); thử lại sau %.0f s", str(exc).splitlines()[0], db_backoff)
+            time.sleep(db_backoff)
+            continue
+        db_backoff = 0.0
         if job:
             process(job)
             if args.once:

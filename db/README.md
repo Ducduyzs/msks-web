@@ -23,8 +23,10 @@ Backend chạy request nên dùng `DATABASE_URL` (transaction pooler, cổng 654
 | `0004_vector_index.sql` | pgvector dense/sparse/SBERT, canonical text và page map |
 | `0005_node_fk_no_action.sql` | Điều chỉnh FK node |
 | `0006_tombstone_read_protection.sql` | Chặn raw run_event qua Data API, ẩn canonical text khi source tombstone |
+| `0007_lecture_media.sql` | Bài giảng: `upload_session`, `acquisition`, `media_asset`, `extraction_revision`, `transcript_segment`, `frame_region`, `alignment_edge`, `source_map_span`; `node.modality/start_ms/end_ms`; `index_generation.model_profile` (active theo từng profile); `claim_evidence.locator_json/modality/transcription_state`; `job.payload_json`; trạng thái `ready_limited`/`review_required`; bucket riêng tư `media` |
+| `0008_media_fk_deferred.sql` | Khóa ngoại media/revision kiểm lúc commit — sửa lỗi xóa cascade cả workspace thất bại (tái hiện bằng `verify_schema.py`) |
 
-Không sửa migration đã áp dụng — tạo file mới. `migrate.py` từ chối khi checksum lệch. Migration 0006 mới được chuẩn bị trong lần rà soát 08/10; cần áp dụng và chạy `verify_schema.py` trên môi trường kiểm thử trước triển khai.
+Không sửa migration đã áp dụng — tạo file mới. `migrate.py` từ chối khi checksum lệch. Ngày 09/10 đã áp dụng `0006`–`0008` lên dự án Supabase dev (lúc đó 0 workspace); `verify_schema.py` đạt 38/38. Nội dung transcript/OCR/source map/object key media **không** cấp SELECT cho `authenticated` — chỉ đọc qua FastAPI.
 
 ## Mô hình phân quyền
 

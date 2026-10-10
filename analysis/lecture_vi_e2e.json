@@ -1,0 +1,126 @@
+{
+  "asr": {
+    "clean": {
+      "wer": 0.058,
+      "cer": 0.0449,
+      "number_recall": 1.0,
+      "numbers_in_reference": 4,
+      "start_offset_ms_p50": 188,
+      "start_offset_ms_max": 1500.0,
+      "cues_covered": "8/8",
+      "segments": 8,
+      "segments_flagged": 0,
+      "hypothesis": "Hôm nay chúng ta học về Argument Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của Cross Encoder với thứ hạng của SBRT bằng Reciport Run Fusion. Hằng số ca trong công thức được đặt bằng 60. Khác với Raptor, Argument Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3.097 giây Trên tập dữ liệu PETK, Agamem Ranking không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "reference": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion. Hằng số k trong công thức được đặt bằng 60. Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây. Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng. Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo. Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+      "board_regions": [
+        "Agreement Ranking",
+        "RRF giữa cross-encoder và SBERT",
+        "Hằng số k = 60",
+        "Chi phí lập chỉ mục",
+        "Không dựng cây tóm tắt",
+        "70 bài: 32 giây so với 3097 giây",
+        "Kết quả trên PeerQA",
+        "Không kém RAPTOR",
+        "Kết quả trên PeerQA",
+        "Không kém RAPTOR",
+        "Chưa chứng minh tốt hơn rerank toàn bài"
+      ],
+      "status": "ready",
+      "seconds": 35,
+      "asr_model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+      "glossary_sha256": null
+    },
+    "noisy": {
+      "wer": 0.0652,
+      "cer": 0.0449,
+      "number_recall": 1.0,
+      "numbers_in_reference": 4,
+      "start_offset_ms_p50": 188,
+      "start_offset_ms_max": 1520.0,
+      "cues_covered": "8/8",
+      "segments": 8,
+      "segments_flagged": 0,
+      "hypothesis": "Hôm nay chúng ta học về Argument Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của Cross Encoder với thứ hạng của SBRT bằng Resiport Rang Fusion. Hằng số ca trong công thức được đặt bằng 60. Khác với Raptor, Argument Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3097 giây Trên tập dữ liệu PETCA, Agamem Rankin không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "reference": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion. Hằng số k trong công thức được đặt bằng 60. Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây. Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng. Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo. Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+      "board_regions": [
+        "Agreement Ranking",
+        "RRF giữa cross-encoder và SBERT",
+        "Hằng số k = 60",
+        "Chi phí lập chỉ mục",
+        "Không dựng cây tóm tắt",
+        "70 bài: 32 giây so với 3097 giây",
+        "Kết quả trên PeerQA",
+        "Không kém RAPTOR",
+        "Kết quả trên PeerQA",
+        "Không kém RAPTOR",
+        "Chưa chứng minh tốt hơn rerank toàn bài"
+      ],
+      "status": "ready",
+      "seconds": 35,
+      "asr_model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+      "glossary_sha256": null
+    }
+  },
+  "qa": {
+    "constant": {
+      "question": "Hằng số k trong Agreement Ranking bằng bao nhiêu?",
+      "profile": "lecture_vi_v1",
+      "answer_status": "answered",
+      "claims": [
+        {
+          "text": "Hằng số k trong Agreement Ranking bằng 60.",
+          "modality": "board",
+          "locator_ms": [
+            0,
+            20000
+          ],
+          "basis": "automatic_transcript",
+          "evidence": "Agreement Ranking RRF giữa cross-encoder và SBERT Hằng số k = 60"
+        }
+      ],
+      "rejected": []
+    },
+    "numbers": {
+      "question": "Lập chỉ mục 70 bài báo mất bao lâu với Agreement Ranking và với RAPTOR?",
+      "profile": "lecture_vi_v1",
+      "answer_status": "answered",
+      "claims": [
+        {
+          "text": "Thời gian lập chỉ mục 70 bài báo với Agreement Ranking là 32 giây.",
+          "modality": "speech",
+          "locator_ms": [
+            22440,
+            37160
+          ],
+          "basis": "automatic_transcript",
+          "evidence": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3.097 giây Trên tập dữ liệu PETK, Agamem Ranking không kém Raptor về độ chính"
+        },
+        {
+          "text": "Thời gian lập chỉ mục 70 bài báo với RAPTOR là khoảng 3.097 giây.",
+          "modality": "speech",
+          "locator_ms": [
+            22440,
+            37160
+          ],
+          "basis": "automatic_transcript",
+          "evidence": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3.097 giây Trên tập dữ liệu PETK, Agamem Ranking không kém Raptor về độ chính"
+        }
+      ],
+      "rejected": []
+    },
+    "comparison": {
+      "question": "Agreement Ranking có tốt hơn RAPTOR trên PeerQA không?",
+      "profile": "lecture_vi_v1",
+      "answer_status": "insufficient_evidence",
+      "claims": [],
+      "rejected": []
+    },
+    "absent": {
+      "question": "Agreement Ranking được công bố vào năm nào?",
+      "profile": "lecture_vi_v1",
+      "answer_status": "insufficient_evidence",
+      "claims": [],
+      "rejected": []
+    }
+  }
+}

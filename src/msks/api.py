@@ -8,32 +8,33 @@ worker (`python -m msks.worker`) xử lý phần nặng.
 from __future__ import annotations
 
 import asyncio
-import base64
 import json
 import logging
 import secrets
 import time
 import uuid
 from contextlib import asynccontextmanager
-from datetime import datetime
 from typing import Annotated, Literal
 
-from fastapi import Depends, FastAPI, File, Header, Query, Request, UploadFile
+from fastapi import FastAPI, File, Header, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 from . import db
-from .auth import CSRF_COOKIE, SESSION_COOKIE, User, current_user, verify_token
+from .api_deps import (  # noqa: F401 — re-export cho router và test
+    UserDep, _uuid, decode_cursor, encode_cursor, idempotent_job, require_owned, require_workspace, source_row,
+)
+from .auth import CSRF_COOKIE, SESSION_COOKIE, verify_token
 from .dto import SOURCE_SELECT, TERMINAL, job_dto, run_dto, run_event_dto, run_summary_dto, run_to_markdown, source_dto, workspace_dto
 from .errors import AppError, PermanentError, feature_disabled, not_found
 from .ingest import sha256, sniff
+from .profiles import choose_run_profile, get_profile
 from .settings import EDAHR_COMMIT, code_hash, get_settings
 from .storage import BlobStore
 
 log = logging.getLogger("msks.api")
-UserDep = Annotated[User, Depends(current_user)]
 
 
 @asynccontextmanager
@@ -93,71 +94,6 @@ async def unhandled_handler(request: Request, exc: Exception):
 
 
 # ---------------------------------------------------------------- helpers
-
-
-def _uuid(value: str, what: str) -> str:
-    try:
-        return str(uuid.UUID(value))
-    except ValueError as exc:
-        raise not_found(what) from exc
-
-
-def require_workspace(conn, workspace_id: str, user: User) -> dict:
-    row = conn.execute(
-        "select * from public.workspace where id = %s and owner_id = %s", (_uuid(workspace_id, "Workspace"), user.id)
-    ).fetchone()
-    if not row:
-        raise not_found("Workspace")
-    return row
-
-
-def require_owned(conn, table: str, row_id: str, user: User, what: str) -> dict:
-    row = conn.execute(
-        f"""select t.* from public.{table} t join public.workspace w on w.id = t.workspace_id
-            where t.id = %s and w.owner_id = %s""",
-        (_uuid(row_id, what), user.id),
-    ).fetchone()
-    if not row:
-        raise not_found(what)
-    return row
-
-
-def encode_cursor(created_at: datetime, row_id) -> str:
-    return base64.urlsafe_b64encode(f"{created_at.isoformat()}|{row_id}".encode()).decode()
-
-
-def decode_cursor(cursor: str | None) -> tuple[str, str] | None:
-    if not cursor:
-        return None
-    try:
-        created, row_id = base64.urlsafe_b64decode(cursor.encode()).decode().split("|", 1)
-        parsed = datetime.fromisoformat(created)
-        if parsed.tzinfo is None:
-            raise ValueError("Cursor timestamp must include timezone")
-        return parsed.isoformat(), str(uuid.UUID(row_id))
-    except Exception as exc:
-        raise AppError(422, "invalid_cursor", "Cursor không hợp lệ.") from exc
-
-
-def idempotent_job(conn, workspace_id: str, kind: str, key: str | None, request_hash: str) -> dict | None:
-    """Cùng key + cùng nội dung → trả job cũ; cùng key khác nội dung → 409 (mục 5.2)."""
-    if not key:
-        return None
-    if len(key) > 200:
-        raise AppError(422, "invalid_idempotency_key", "Idempotency-Key quá dài.")
-    # Serialize same-key requests for this transaction, including the insert.
-    conn.execute("select pg_advisory_xact_lock(hashtextextended(%s, 0))", (f"{workspace_id}:{kind}:{key}",))
-    row = conn.execute(
-        "select * from public.job where workspace_id = %s and kind = %s and idempotency_key = %s",
-        (workspace_id, kind, key),
-    ).fetchone()
-    if row and row["request_hash"] != request_hash:
-        raise AppError(409, "idempotency_conflict", "Idempotency-Key đã dùng cho một yêu cầu khác.")
-    return row
-
-
-def source_row(conn, source_id) -> dict:
-    return conn.execute(SOURCE_SELECT + " where s.id = %s", (source_id,)).fetchone()
 
 
 # ------------------------------------------------------------ health/auth
@@ -387,34 +323,59 @@ class QaIn(BaseModel):
     budget: Literal[512, 1024, 2048] = 2048
     mode: Literal["standard"] = "standard"
     rerun_of: str | None = None
+    profile: Literal["product", "lecture_vi_v1"] | None = None
 
 
-def scope_snapshot(conn, workspace_id: str, source_ids: list[str]) -> dict:
-    """Chốt document/parse revision, index generation và nhóm nguồn lúc bắt đầu run (mục 5.4)."""
+QUERYABLE = ("ready", "ready_limited")
+
+
+def scope_snapshot(conn, workspace_id: str, source_ids: list[str], requested_profile: str | None = None) -> dict:
+    """Chốt document/parse revision, index generation, nhóm nguồn và profile lúc bắt đầu run (mục 5.4).
+
+    Cả phạm vi phải có generation của **cùng một profile** — không trộn embedding/ngưỡng giữa profile
+    (LECTURE mục 7). Nguồn thiếu generation của profile được chọn → 422 kèm hướng dẫn reindex.
+    """
     wanted = [_uuid(s, "Nguồn") for s in source_ids]
-    rows = conn.execute(
-        """
-        select s.id as source_id, s.alias, s.origin_group_id, s.grouping_version, d.id as document_revision_id,
-               p.id as parse_revision_id, g.id as index_generation_id
-        from public.source s
-        join public.document_revision d on d.source_id = s.id
-        join public.parse_revision p on p.document_revision_id = d.id and p.status = 'succeeded'
-        join public.index_generation g on g.parse_revision_id = p.id and g.state = 'active'
-        where s.workspace_id = %s and s.status = 'ready' and s.deleted_at is null
-          and (cardinality(%s::uuid[]) = 0 or s.id = any(%s::uuid[]))
-        order by s.alias
-        """,
-        (workspace_id, wanted, wanted),
+    candidates = conn.execute(
+        """select id, alias, kind from public.source
+           where workspace_id = %s and status = any(%s) and deleted_at is null
+             and (cardinality(%s::uuid[]) = 0 or id = any(%s::uuid[]))
+           order by alias""",
+        (workspace_id, list(QUERYABLE), wanted, wanted),
     ).fetchall()
-    found = {str(r["source_id"]) for r in rows}
+    found = {str(r["id"]) for r in candidates}
     missing = [s for s in wanted if s not in found]
     if missing:
         raise AppError(422, "source_not_ready", f"{len(missing)} nguồn được chọn không tồn tại hoặc chưa sẵn sàng.")
-    if not rows:
+    if not candidates:
         raise AppError(422, "empty_scope", "Phạm vi không có nguồn nào sẵn sàng.")
+    profile = choose_run_profile([r["kind"] for r in candidates], requested_profile)
+    rows = conn.execute(
+        """
+        select distinct on (s.id) s.id as source_id, s.alias, s.kind, s.origin_group_id, s.grouping_version,
+               d.id as document_revision_id, p.id as parse_revision_id, g.id as index_generation_id
+        from public.source s
+        join public.document_revision d on d.source_id = s.id
+        join public.parse_revision p on p.document_revision_id = d.id and p.status = 'succeeded'
+        join public.index_generation g on g.parse_revision_id = p.id and g.state = 'active' and g.model_profile = %s
+        where s.id = any(%s::uuid[])
+        order by s.id, g.published_at desc
+        """,
+        (profile, [str(r["id"]) for r in candidates]),
+    ).fetchall()
+    indexed = {str(r["source_id"]) for r in rows}
+    lacking = [r["alias"] for r in candidates if str(r["id"]) not in indexed]
+    if lacking:
+        raise AppError(
+            422, "profile_index_missing",
+            f"{', '.join(lacking)} chưa có index cho profile {profile}. Chọn phạm vi khác hoặc gọi "
+            f"POST /api/sources/{{id}}/reindex với profile \"{profile}\".",
+        )
     return {
+        "profile": profile,
         "requested_source_ids": wanted,
-        "sources": [{k: str(v) if isinstance(v, uuid.UUID) else v for k, v in r.items()} for r in rows],
+        "sources": sorted(({k: str(v) if isinstance(v, uuid.UUID) else v for k, v in r.items()} for r in rows),
+                          key=lambda r: r["alias"]),
     }
 
 
@@ -428,25 +389,26 @@ def ask(workspace_id: str, body: QaIn, user: UserDep,
         existing = idempotent_job(conn, workspace_id, "run", idempotency_key, request_hash)
         if existing:
             return _accepted(str(existing["target_id"]))
-        snapshot = scope_snapshot(conn, workspace_id, body.source_ids)
+        snapshot = scope_snapshot(conn, workspace_id, body.source_ids, body.profile)
+        profile = get_profile(snapshot["profile"])
         rerun_of = None
         if body.rerun_of:
             previous = require_owned(conn, "run", body.rerun_of, user, "Lượt chạy")
             if str(previous["workspace_id"]) != str(workspace_id):
                 raise AppError(422, "rerun_workspace_mismatch", "Lượt chạy gốc phải thuộc cùng workspace.")
             rerun_of = str(previous["id"])
-        _, _, calibrated = settings.thresholds
         models = {
-            "embedding": settings.embedding_model, "reranker": settings.reranker_model, "sbert": settings.sbert_model,
-            "nli": settings.nli_model, "llm": f"{settings.llm_provider}:{settings.llm_model}",
-            "edahr_commit": EDAHR_COMMIT, "verifier_revision": settings.nli_model,
-            "calibration_artifact": settings.calibration_artifact if calibrated else None,
+            "embedding": profile.embedding_model, "reranker": profile.reranker_model, "sbert": profile.sbert_model,
+            "nli": profile.nli_model, "llm": f"{settings.llm_provider}:{settings.llm_model}",
+            "profile_digest": profile.digest(),
+            "edahr_commit": EDAHR_COMMIT, "verifier_revision": profile.nli_model,
+            "calibration_artifact": profile.calibration_artifact,
         }
         run = conn.execute(
             """insert into public.run (workspace_id, rerun_of, created_by, mode, profile, query, config_hash, code_hash,
                model_ids_json, scope_snapshot_json, grouping_snapshot_json, budget_json)
-               values (%s, %s, %s, 'qa', 'product', %s, %s, %s, %s, %s, %s, %s) returning id""",
-            (workspace_id, rerun_of, user.id, body.question.strip(), settings.config_hash(), code_hash(),
+               values (%s, %s, %s, 'qa', %s, %s, %s, %s, %s, %s, %s, %s) returning id""",
+            (workspace_id, rerun_of, user.id, profile.name, body.question.strip(), settings.config_hash(), code_hash(),
              db.jsonb(models), db.jsonb(snapshot),
              db.jsonb({"grouping_version": max(s["grouping_version"] for s in snapshot["sources"]),
                        "groups": {s["source_id"]: s["origin_group_id"] for s in snapshot["sources"]}}),
@@ -584,5 +546,12 @@ def export_run(run_id: str, user: UserDep, format: Literal["md", "json", "docx",
     if format == "json":
         return Response(json.dumps(run, ensure_ascii=False, indent=2), media_type="application/json", headers=headers)
     return Response(run_to_markdown(run), media_type="text/markdown; charset=utf-8", headers=headers)
+
+
+# Bài giảng / media (LECTURE_ARCHITECTURE.md mục 9). Import cuối file để router dùng được helper ở trên.
+from .api_media import router as media_router  # noqa: E402
+
+app.include_router(media_router)
+
 
 

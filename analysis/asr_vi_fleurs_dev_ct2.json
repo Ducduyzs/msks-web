@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "dataset": "google/fleurs vi_vn dev",
+    "license": "CC BY 4.0",
+    "utterances": 361,
+    "normalization": "NFC, lowercase, punctuation/symbols removed except %, digits kept as written",
+    "decoding": "language=vi, beam=5, no VAD, condition_on_previous_text=False",
+    "glossary": null
+  },
+  "results": [
+    {
+      "model": "ct2:mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+      "utterances": 361,
+      "audio_minutes": 71.7,
+      "wer": 0.0835,
+      "cer": 0.0505,
+      "number_recall": 0.9238,
+      "numbers_in_reference": 105,
+      "median_utt_wer": 0.0612,
+      "wer_by_gender": {
+        "MALE": 0.0835
+      },
+      "rtf": 0.059,
+      "seconds": 253.7,
+      "vram_peak_mib": 1898,
+      "worst": [
+        {
+          "id": "1578/10330493063020763016.wav",
+          "wer": 0.5,
+          "reference": "sau đó lakkha singh giữ vai trò chính khi hát các bài hát bhajan",
+          "hypothesis": "sau đó la kha xin giữ vây dầu chính khi hát các bài hát ha chan"
+        },
+        {
+          "id": "1591/1104103894665075119.wav",
+          "wer": 0.481,
+          "reference": "cựu chủ tịch hạ viện newt gingrich thống đốc bang texas rick perry và nữ dân biểu michele bachmann lần lượt về thứ tư năm và sáu",
+          "hypothesis": "của chủ tịch hạ viện neal greenwich thống đốc băng tê sát rich burry và nữ dân biểu mitchell batman lần lượt về thứ 4 5 và 6"
+        },
+        {
+          "id": "1578/17774135997069232481.wav",
+          "wer": 0.429,
+          "reference": "sau đó lakkha singh giữ vai trò chính khi hát các bài hát bhajan",
+          "hypothesis": "sau đó lắc kha xin giữ vây trò chính khi hát các bài hát hà giang"
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "wer": 0.421,
+          "reference": "arly velasquez của mexico về thứ mười lăm trong giải trượt ngồi super g dành cho nam adam hall đến từ new zealand đã xếp thứ chín trong bảng xếp hạng super g trượt đứng dành cho nam",
+          "hypothesis": "ollie velazquez của mexico về thứ 15 trong giải chuột ngồi supergirl dành cho nam adam hare đến từ new zealand đại sứ thứ 9 cho mẹ xếp hẹn supergirl trượt đứng dành cho nam"
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.394,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đĩa chả hấp banh và hốc trong quán đậu giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dân lên thần linh được phụ dụng cho ba ba si am"
+        }
+      ]
+    },
+    {
+      "model": "ct2:Systran/faster-whisper-medium",
+      "utterances": 361,
+      "audio_minutes": 71.7,
+      "wer": 0.1232,
+      "cer": 0.0737,
+      "number_recall": 0.8762,
+      "numbers_in_reference": 105,
+      "median_utt_wer": 0.1034,
+      "wer_by_gender": {
+        "MALE": 0.1232
+      },
+      "rtf": 0.2789,
+      "seconds": 1199.0,
+      "vram_peak_mib": 1860,
+      "worst": [
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.515,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đẻ 130 b hood cho mắn đậu giáo 56 món ăn như đậu ngọt trái cây các lo hạt các món ăn đậu dâng linh thẳng linh đậu phục vụ cho ba ba siam"
+        },
+        {
+          "id": "1578/10330493063020763016.wav",
+          "wer": 0.5,
+          "reference": "sau đó lakkha singh giữ vai trò chính khi hát các bài hát bhajan",
+          "hypothesis": "sau đó la ka sing giữ vây vọng chính khi hát các bài hát ha giang"
+        },
+        {
+          "id": "1591/1104103894665075119.wav",
+          "wer": 0.444,
+          "reference": "cựu chủ tịch hạ viện newt gingrich thống đốc bang texas rick perry và nữ dân biểu michele bachmann lần lượt về thứ tư năm và sáu",
+          "hypothesis": "của chủ tật hạ viện neil gingrich thống đốc bang tê sát rich lurie và nữ dân biểu micho batman lần lượt về thứ 4 5 và 6"
+        },
+        {
+          "id": "1591/5791309772889786111.wav",
+          "wer": 0.407,
+          "reference": "cựu chủ tịch hạ viện newt gingrich thống đốc bang texas rick perry và nữ dân biểu michele bachmann lần lượt về thứ tư năm và sáu",
+          "hypothesis": "cựu chủ tịch hạ viện neil gingrich thống đốc ban tết sát rigbury và nữ dân biểu michael bachman lờ lượt về thứ 4 5 và 6"
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "wer": 0.39,
+          "reference": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để khoe mẽ các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng long non mẫu vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ",
+          "hypothesis": "cấu chúc của lông vũ gãy gần bộ lông này không dùng để bay mà để kiểm soát nhiều độ cơ thể hoặc để khoe mẻ các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng lông non mẫu vặt thể hiện một bộ lông trưởng thành chứ không phải là lông tơ hãy subscribe cho kênh ghiền mì gõ để không bỏ lỡ những video hấp dẫn"
+        }
+      ]
+    }
+  ]
+}

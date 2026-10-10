@@ -3,9 +3,10 @@
 > **Tên dự án:** MSKS — Multi-Source Knowledge Synthesis
 > **Đề tài:** Xây dựng hệ thống web tổng hợp kiến thức đa nguồn có kiểm chứng bằng truy xuất phân cấp thích ứng và mô hình ngôn ngữ lớn
 > **Nền tảng kế thừa:** dự án EDAHR / *Attribution-Risk-Constrained Adaptive Hierarchical Retrieval*, cấu hình **v11** (`D:\AI PROJECT\Evidence-Density-Aware Adaptive Hierarchical Retrieval for Scientific Document Question Answering`)
-> **Phiên bản tài liệu:** 0.3 — 2026-10-08 (đối chiếu mã MVP)
+> **Phiên bản tài liệu:** 0.4 — 2026-10-09 (bổ sung thiết kế bài giảng video và tiếng Việt)
 > **Trạng thái:** Đã có frontend, API, worker và migration MVP. Chưa nghiệm thu production hoặc benchmark chất lượng/hiệu năng. Xem [báo cáo rà soát](REVIEW_2026-10-08.md).
 > **Cách đọc:** Mục 0.1 ghi quyết định triển khai hiện tại và được ưu tiên khi khác bản thiết kế đích bên dưới. Các mục mô tả tính năng/stack đích không có nghĩa mã đã hoàn thành chúng.
+> **Phần mở rộng mới:** [Kiến trúc bài giảng](LECTURE_ARCHITECTURE.md) và mục 19 là thiết kế đề xuất; chưa có code, migration hay model mới được triển khai trong lần cập nhật 09/10.
 
 ---
 
@@ -30,6 +31,7 @@
 16. [Lộ trình triển khai](#16-lộ-trình-triển-khai)
 17. [Rủi ro và câu hỏi mở](#17-rủi-ro-và-câu-hỏi-mở)
 18. [Nguồn đối chiếu](#18-nguồn-đối-chiếu)
+19. [Mở rộng bài giảng video và tiếng Việt](#19-mở-rộng-bài-giảng-video-và-tiếng-việt)
 
 ---
 
@@ -105,7 +107,7 @@ Chế độ Tổng hợp được xây trên chế độ QA: chủ đề đượ
 
 - Thu thập web tự động quy mô lớn (crawler). Chỉ nạp URL người dùng cung cấp.
 - Huấn luyện lại mô hình. Ưu tiên model đã dùng ở v10/v11; adapter/model mới chỉ được bật sau đánh giá, không kế thừa kết luận v11 một cách tự động.
-- Đa ngôn ngữ đầy đủ. Ưu tiên tiếng Anh (như dữ liệu v11); tiếng Việt hỗ trợ ở mức phân loại truy vấn (bộ từ khóa trong `pipeline.classify_query` đã có cụm tiếng Việt).
+- Đa ngôn ngữ đầy đủ. MVP tài liệu ưu tiên tiếng Anh; tiếng Việt hiện chỉ có hỗ trợ phân loại truy vấn. Profile bài giảng tiếng Việt là thiết kế mở rộng ở mục 19, cần thay model phù hợp và đánh giá riêng trước mở nhãn kiểm chứng.
 
 ### 1.4 Phạm vi MVP được đề xuất
 
@@ -113,6 +115,8 @@ Chế độ Tổng hợp được xây trên chế độ QA: chủ đề đượ
 - **Sau MVP:** DOCX/HTML/URL/DOI, OCR và bảng phức tạp, đối chứng chéo, synthesis, xuất DOCX/PDF, LLM local. UI tiếng Việt không đồng nghĩa pipeline đã hỗ trợ QA tiếng Việt.
 - **Stack chốt cho MVP:** React + Vite (TypeScript, SPA) + FastAPI; một Python package; job trên PostgreSQL; pgvector dense/sparse/SBERT; Supabase Storage qua `BlobStore`, Supabase Auth. Celery/Redis/Qdrant là phương án mở rộng cần có số đo chứng minh nhu cầu.
 - **Một provider LLM được cấu hình khi chạy**, không cần hoàn thiện mọi adapter ở G0. Chỉ số/tham số chưa có thực nghiệm MSKS được ghi rõ là giả thuyết hoặc giá trị khởi đầu.
+
+Phạm vi bài giảng ghi sẵn là nhánh mở rộng riêng: upload video → YouTube caption được phép → Drive → extension Zoom/LMS. Tái sử dụng core QA và provenance; không đưa livestream hoặc tự huấn luyện model vào MVP. Chi tiết hợp đồng media/timeline nằm ở [LECTURE_ARCHITECTURE.md](LECTURE_ARCHITECTURE.md).
 
 ---
 
@@ -369,6 +373,8 @@ class SourceInfo:
 
 ### 5.4 Hợp đồng vị trí trích dẫn và phiên bản
 
+Bài giảng mở rộng hợp đồng này bằng locator thời gian/asset/frame-region; không dùng số trang giả cho video. Source map có thể ánh xạ một canonical span tới nhiều segment hoặc frame. Xem mục 6 của [thiết kế bài giảng](LECTURE_ARCHITECTURE.md#6-mô-hình-dữ-liệu-và-provenance).
+
 - `char_start/char_end` là khoảng nửa mở `[start, end)` theo **Unicode code point trong canonical text của parse revision**. `quote_start/quote_end` dùng cùng hệ tọa độ, phải nằm trong leaf và trong phần evidence thực sự được kiểm chứng. Frontend đổi sang UTF-16 nếu API DOM yêu cầu; kiểm thử dấu tiếng Việt, emoji, ký tự ghép và xuống dòng.
 - Parser/normalizer/chunker thay đổi tạo parse revision mới. Document bytes đổi tạo document revision mới. Re-embedding chỉ tạo index generation mới. Không sửa text/node mà run cũ đang trích dẫn.
 - Source map nối canonical span → block gốc → trang và bbox. PDF bbox ghi hệ tọa độ, kích thước trang và rotation; PDF.js không tự suy được bbox từ char offset. Với HTML dùng snapshot đã làm sạch + mapping DOM; định dạng không phân trang để `page=null`.
@@ -396,6 +402,8 @@ flowchart LR
 ### 6.1 Connector
 
 Mỗi connector trả về `ScientificDocument` (cùng dataclass v11), nên mọi bước sau không phụ thuộc loại nguồn.
+
+Hợp đồng trên áp dụng cho connector tài liệu. Connector video/YouTube/Drive nhận media trả `AcquisitionManifest`; pipeline ASR/OCR/alignment chuyển manifest thành canonical document có source map rồi mới vào hierarchy. Không ép mọi connector media chạy ASR hoặc tải được video gốc; capability của manifest quyết định các nhánh có thể chạy.
 
 | Connector | Thư viện | Ghi chú |
 |---|---|---|
@@ -540,6 +548,8 @@ Nguyên tắc cho Synthesis:
 ## 8. Kiểm chứng và rủi ro quy kết đa nguồn
 
 ### 8.1 Kiểm chứng mức leaf
+
+Với bài giảng, NLI chỉ kiểm tra claim có được transcript/OCR hỗ trợ; không chứng minh bản chép đúng âm thanh/hình. Chất lượng trích xuất và nhãn đối chiếu media có policy riêng, mô tả ở mục 7 của [thiết kế bài giảng](LECTURE_ARCHITECTURE.md#7-model-tiếng-việt-và-chính-sách-kiểm-chứng).
 
 **Profile `v11_parity`** giữ `verification.verify_generation` + `experimental_v9.verify_visible`, gồm các ngưỡng lịch sử dưới đây để tái lập; không coi chúng đã được hiệu chỉnh cho MSKS:
 
@@ -989,3 +999,33 @@ Tài liệu chính thức dùng để rà soát quyết định kỹ thuật (tr
 - [Qdrant: Hybrid Queries](https://qdrant.tech/documentation/search/hybrid-queries/) và [Multitenancy](https://qdrant.tech/documentation/examples/multitenancy/) — fusion và lọc tenant; các tham số MSKS là đề xuất riêng.
 - [Conformal Risk Control — Angelopoulos và cộng sự](https://arxiv.org/abs/2208.02814) — cơ sở và giả định kiểm soát expected monotone loss.
 - [OWASP: Prompt Injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) — rủi ro và phòng vệ nhiều lớp.
+
+Nguồn chính thức về caption YouTube, Drive API, upload resumable, FFmpeg và model tiếng Việt được dẫn ngay cạnh quyết định tương ứng trong [LECTURE_ARCHITECTURE.md](LECTURE_ARCHITECTURE.md), đối chiếu ngày 09/10/2026.
+
+---
+
+## 19. Mở rộng bài giảng video và tiếng Việt
+
+**Mục tiêu:** hỏi đáp bài giảng ghi sẵn từ lời nói và slide/bảng, mỗi citation mở đúng thời điểm và evidence thuộc revision đã dùng. Thiết kế chi tiết: [LECTURE_ARCHITECTURE.md](LECTURE_ARCHITECTURE.md).
+
+```mermaid
+flowchart LR
+    C["Upload / YouTube caption / Drive"] --> M["Manifest + quyền + capability"]
+    M --> X["Caption hoặc ASR\nFrame → OCR/VLM"]
+    X --> A["Alignment theo thời gian\ncanonical text + source map"]
+    A --> L["Leaf → index theo profile"]
+    L --> Q["QA + NLI tiếng Việt đã đánh giá"]
+    Q --> V["Citation → transcript / audio / frame"]
+```
+
+Các quyết định trọng tâm:
+
+1. **Connector và model là hai trục độc lập.** Thêm nguồn không đòi tự train; dùng model có sẵn rồi đo chất lượng trên bài giảng thực.
+2. **Media upload có phiên và quota riêng.** Resumable vào staging private, hoàn tất rồi probe/extract; giới hạn 50 MB của file tài liệu không dùng làm giới hạn chung cho video. Không giữ video lớn trong RAM API.
+3. **Provenance đi xuyên pipeline.** Giữ caption/transcript revision, audio/frame/crop, timestamp và map canonical code point → media locator. Sửa bản chép tạo revision mới, không ghi đè citation lịch sử.
+4. **Tiết kiệm lưu trữ có đánh đổi rõ.** Nếu xóa video gốc sau extraction, chỉ cam kết phát audio và frame đã giữ; không thể khôi phục phần hình chưa chọn hay re-sample toàn video.
+5. **Tiếng Việt có model profile riêng.** SBERT/NLI đa ngôn ngữ là ứng viên đánh giá; không tái sử dụng ngưỡng v11 hoặc trộn embedding khác profile. “Bản chép hỗ trợ claim” khác “đã đối chiếu media”.
+6. **Không tạo đồng thuận giả.** Lời nói, bảng, bản upload, YouTube và Drive của cùng bài giảng không tự trở thành các nguồn độc lập.
+7. **Vận hành theo stage.** Tách công việc CPU/media và GPU/QA bằng hàng việc logic, resume theo chunk, có backpressure, cancellation và coverage thiếu; giữ PostgreSQL queue trước khi có nhu cầu broker khác.
+
+Thứ tự triển khai đề xuất L0 nền tảng/profile → L1 video upload → L2 YouTube caption được phép → L3 Drive → L4 extension. Trong lần cập nhật này chỉ viết tài liệu; các mốc chưa được coi là đã thực hiện.

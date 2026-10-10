@@ -1,0 +1,2677 @@
+{
+  "meta": {
+    "dataset": "google/fleurs vi_vn dev",
+    "license": "CC BY 4.0",
+    "utterances": 120,
+    "normalization": "NFC, lowercase, punctuation/symbols removed except %, digits kept as written; *_digits: number words → digits (msks.vi_text.words_to_digits) on both sides first",
+    "decoding": "language=vi, beam=5, no VAD, condition_on_previous_text=False",
+    "glossary": null
+  },
+  "results": [
+    {
+      "model": "ct2:mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+      "utterances": 120,
+      "audio_minutes": 24.5,
+      "wer": 0.0809,
+      "cer": 0.047,
+      "number_recall": 1.0,
+      "numbers_in_reference": 18,
+      "median_utt_wer": 0.0548,
+      "wer_digits": 0.0778,
+      "cer_digits": 0.0438,
+      "number_recall_digits": 1.0,
+      "wer_by_gender": {
+        "MALE": 0.0809
+      },
+      "rtf": 0.0922,
+      "seconds": 135.3,
+      "vram_peak_mib": 1314,
+      "worst": [
+        {
+          "id": "1630/12613185066383956764.wav",
+          "wer": 0.421,
+          "reference": "arly velasquez của mexico về thứ mười lăm trong giải trượt ngồi super g dành cho nam adam hall đến từ new zealand đã xếp thứ chín trong bảng xếp hạng super g trượt đứng dành cho nam",
+          "hypothesis": "ollie velazquez của mexico về thứ 15 trong giải chuột ngồi supergirl dành cho nam adam hare đến từ new zealand đại sứ thứ 9 cho mẹ xếp hẹn supergirl trượt đứng dành cho nam"
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.394,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đĩa chả hấp banh và hốc trong quán đậu giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dân lên thần linh được phụ dụng cho ba ba si am"
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.394,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đĩa champagne bia hút trong món đậu giáo 56 món ăn như đậu ngọt trái cây các loại hạt các món ăn đậu giang linh thần linh được phục vụ cho papa si am"
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "wer": 0.263,
+          "reference": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las cañitas",
+          "hypothesis": "dạy đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân mã cầu ở la canita"
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "wer": 0.263,
+          "reference": "thêm ba quả bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ",
+          "hypothesis": "thêm 3 bỏ bơm nửa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng đồng hồ"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "1543/10959203197012192023.wav",
+          "hypothesis": "Người bệnh cũng đã từng tới Nigeria, nơi một số ca mắc bệnh Ebola xây ra."
+        },
+        {
+          "id": "1543/4731254860765043074.wav",
+          "hypothesis": "Người bệnh cũng đã từng tới Nigeria, nơi một số ca mắc bệnh Ebola xảy ra."
+        },
+        {
+          "id": "1600/16525570830762756295.wav",
+          "hypothesis": "Các ví dụ về hoạt động tại chỗ bao gồm sân bắn, câu cá chụp ảnh, ngắm chêm và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1600/8123673859785570169.wav",
+          "hypothesis": "Các ví dụ về hoạt động tại chỗ bao gồm săn bắn câu cá, chụp ảnh, ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái"
+        },
+        {
+          "id": "1517/10467396475561744099.wav",
+          "hypothesis": "Nghiên cứu trí tệ nhân tạo bao gồm tạo ra những cỗ máy tự động hóa, các tác dụ đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1517/13754775770768255557.wav",
+          "hypothesis": "Nghiên cứu trí tệ, nhân tạo bao gồm tạo ra những cỗ máy tự động hóa, các tác dụ đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1642/15730294784062856962.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa, đế quốc Hoa Kỳ trong cuộc trinh phạt Philippines được chính những người dân Philippines chi trả"
+        },
+        {
+          "id": "1642/7565136047219100223.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa đế quốc Hoa Kỳ trong cuộc trinh phạt Philippines được chính những người dân Philippines chi trả."
+        },
+        {
+          "id": "1642/4120594822382949754.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa đế quốc Hoa Kỳ trong cuộc trinh phạt Philippines được chính những người dân Philippines chi trả"
+        },
+        {
+          "id": "1659/12090846728876801190.wav",
+          "hypothesis": "Các nhà khoa học cho viết vụ vơi chạm đã gây ra vụ nổ rất lớn."
+        },
+        {
+          "id": "1659/9443759897372819477.wav",
+          "hypothesis": "Các nhà pha học cho biết vụ va chạm đã gây ra vụ ngổ rất lớn"
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "hypothesis": "Dạy đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân mã cầu ở La Canita."
+        },
+        {
+          "id": "1567/12176772846678576008.wav",
+          "hypothesis": "Giải đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân Mã Cầu ở La Canita"
+        },
+        {
+          "id": "1567/16530155469086716256.wav",
+          "hypothesis": "Giải đau lớn nhất trong năm diễn ra vào tháng 12 trên sân Mã Cầu ở Las Canitas."
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "hypothesis": "Với vai trò NSA, ông hỗ trợ Carter xử lý về mặt ngoại giao các sự kiện của thế giới như Hòa ước chạy David 1978, bình thường hóa quan hệ Mỹ-Trung, những năm cuối thập niên 1970, cách mạng Iran dẫn tới khủng hoảng con tin Iran 1979 và Soviet xâm lược Afghanistan 1979. Hẹn gặp lại các bạn trong những video tiếp theo."
+        },
+        {
+          "id": "1539/7080457166221655676.wav",
+          "hypothesis": "Các thành viên của một nhóm văn hóa thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang, cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/5269659892008038187.wav",
+          "hypothesis": "Các thành viên của một nhóm văn hóa thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính, đặc trưng và biểu tượng như thời trang, cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/592822020933322380.wav",
+          "hypothesis": "Các thành viên của một nhóm văn hóa thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang, các anh nói và tiếng lóng."
+        },
+        {
+          "id": "1526/6619325603971378631.wav",
+          "hypothesis": "Nếu đến thăm vùng Bắc Cực hoặc Nam Cực vào mùa đông, bạn sẽ được trải nghiệm đêm vùng Cực, nghĩa là mặt trời không nhú lên khỏi chân trời"
+        },
+        {
+          "id": "1526/10398673072244472767.wav",
+          "hypothesis": "Nếu đến thăm vùng Bắc Cực hoặc Nam Cực vào mùa đông, bạn sẽ được trải nghiệm đêm vùng cực, nghĩa là mặt trời không nhú lên khỏi chân trời"
+        },
+        {
+          "id": "1601/12354289598552290116.wav",
+          "hypothesis": "Các nhà khoa học nghĩ rằng mèo rừng Nam Mỹ theo dấu và tìm các loài động vật để ăn thịt, con mòi, bằng mùi, đánh hơi từng chỗ mà con mòi đã đứng."
+        },
+        {
+          "id": "1601/155163866501153764.wav",
+          "hypothesis": "Các nhà khoa học nghĩ rằng, mèo rừng Nam Mỹ theo dấu và tìm các loài động vật để ăn thịt, con mòi bằng mùi đánh hơi từng chỗ mà con mòi đã đứng."
+        },
+        {
+          "id": "1588/6238389016614768363.wav",
+          "hypothesis": "Theo cảnh sát, người lái chiếc xe tông vào phóng viên, ảnh có thể không bị chi tố hình sự."
+        },
+        {
+          "id": "1588/13570834282701147205.wav",
+          "hypothesis": "Theo cảnh sát, người lấy chiếc xe tông vào phóng viên ảnh có thể không bị chia tố hành sự."
+        },
+        {
+          "id": "1588/132407571318475132.wav",
+          "hypothesis": "Theo cảnh sát, người lái chiếc xe tông vào phóng viên ảnh có thể không bị chi tố hình sự."
+        },
+        {
+          "id": "1595/13268479210390696192.wav",
+          "hypothesis": "Phật giáo Tây Tạng dựa trên những lời giải của Đức Phật, nhưng được mở rộng bằng con đường tự bi của Phật giáo, Đại Thừa và rất nhiều kỹ thuật vô gã Ấn Độ."
+        },
+        {
+          "id": "1595/12840552791233455752.wav",
+          "hypothesis": "Phật giáo Tây Tạng dựa trên những lời dạy của Đức Phật, nhưng được mở rộng bằng con đường từ bi của Phật giáo Đại Thừa và rất nhiều kỹ thuật vô ra Ấn Độ."
+        },
+        {
+          "id": "1595/12375302090960524617.wav",
+          "hypothesis": "Phật giáo Tây Tạng dựa trên những lời dạy của Đức Phật, nhưng được mở rộng bằng con đường từ bi của Phật giáo Đại Thừa và rất nhiều kỹ thuật yoga Ấn Độ."
+        },
+        {
+          "id": "1555/9558180444501391590.wav",
+          "hypothesis": "Trong sân nhà thờ, có những tác phẩm điêu khắc bằng đá, cẩm thạch, khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/11416600578316126877.wav",
+          "hypothesis": "Trong sân nhà thờ có những cá phẩm điêu gắt bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/12081037594217867808.wav",
+          "hypothesis": "Trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thật khá là độc đáo trên một số ngôi mộ"
+        },
+        {
+          "id": "1656/12887163887499710126.wav",
+          "hypothesis": "Cảnh sát cho biết thi thể nơi nhân đã ở đó được khoảng 1 ngày."
+        },
+        {
+          "id": "1656/17757384667472487467.wav",
+          "hypothesis": "Cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1572/11025013104549101811.wav",
+          "hypothesis": "Thêm 3 quả bơm nữa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng đồng hồ."
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "hypothesis": "Thêm 3 bỏ bơm nữa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng đồng hồ."
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "hypothesis": "Thêm 3 bỏ bơm nửa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng đồng hồ."
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "hypothesis": "Công viên có diện tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau. Mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/57822069306015643.wav",
+          "hypothesis": "Công viên có diện tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau, mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "hypothesis": "Công viên có diện tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau. Mỗi khu là nơi ở của một hành động vật hoang dã."
+        },
+        {
+          "id": "1649/6722230310396280157.wav",
+          "hypothesis": "Ở Nhật, những bữa tuyệt ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/14783247390946343063.wav",
+          "hypothesis": "Ở Nhật, những bữa tiệc nhóm hoa anh đạo đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên, quý tộc, quân khu vực triều đình."
+        },
+        {
+          "id": "1649/5915526011302588851.wav",
+          "hypothesis": "Ở Nhật, những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức ghiêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1651/3719603297869202172.wav",
+          "hypothesis": "Một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1651/16875267973097515138.wav",
+          "hypothesis": "Một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghĩa phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1540/15401984597053465222.wav",
+          "hypothesis": "Về nguyên tắc, Phật giáo Thay Tạng rất đơn giản. Nó bao gồm Kundalini Yoga, Thiền Pháp và Con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/4230520510342676079.wav",
+          "hypothesis": "Về nguyên tắc, Phật giáo Tây Tạng rất đơn giản. Nó bao gồm Kundalini Yoga, thiện Pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/10734584756155989470.wav",
+          "hypothesis": "Về nguyên tắc, Phật giáo Tây Tạng rất đơn giản, nó bao gồm Kundalini Yoga, Thiền Pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1541/15583589234736745664.wav",
+          "hypothesis": "Các công ty chuyển phát được trả tiền để vận chuyển các vật phẩm một cách nhanh chóng, thông thường, thời gian rất quan trọng đối với các tài liệu kinh doanh, hàng hóa hoặc các phụ tùng phục vụ cho việc sửa chữa kháng cấp."
+        },
+        {
+          "id": "1639/1665394027477463848.wav",
+          "hypothesis": "Học sinh thường là những nhà phê bình khó tính nhất, nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1639/9919202051882179979.wav",
+          "hypothesis": "Học sinh thường là những nhà phê bình khó tính Nhất nên tác giả blog bắt đầu Cố gắng cải thiện chất lượng bài viết để tránh bị phê bình"
+        },
+        {
+          "id": "1625/17343506464706503834.wav",
+          "hypothesis": "Các ca sĩ nổi tiếng trên khắp cả nước trình bài Hazan hoặc các bài hát mộ đạo tại chân của Sri Sam."
+        },
+        {
+          "id": "1625/4767212356465567922.wav",
+          "hypothesis": "Các ca sĩ nổi chiến trên khắp cả nước trình bày ha danh hoặc các bài hát mộ đạo tại chân cổ Sri Hyam."
+        },
+        {
+          "id": "1645/422363421073634118.wav",
+          "hypothesis": "Quyền lực tròn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân"
+        },
+        {
+          "id": "1645/9410324112140689433.wav",
+          "hypothesis": "Quyền lực toàn diện của nó đã tác động đến mọi người, từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/4094972119462061491.wav",
+          "hypothesis": "Quyền lực toàn diện của nó đã tác động đến mọi người Từ vua chúa đến thường dân"
+        },
+        {
+          "id": "1648/2271496750613408044.wav",
+          "hypothesis": "Không có khu gừng lớn nào trong vùng Canaan nên ở đây gỗ rất rất đỏ"
+        },
+        {
+          "id": "1547/4193038624446861874.wav",
+          "hypothesis": "NHK cũng thông tin rằng nhà máy hạt nhân Kashiwazaki Kariwa tại quận Niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "hypothesis": "NHK cũng thông tin rằng nhà máy hạt nhân Kashiwajaki Kariwa tại quận Niigata đã hoạt động bình thường"
+        },
+        {
+          "id": "1535/10629394448273158255.wav",
+          "hypothesis": "Nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất, cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/8880245916021909710.wav",
+          "hypothesis": "Nó sử dụng công nghệ bê tinh cơ sở cháy ngược với công nghệ da đa mặt đất cơ sở cho phép kiểm soát viên không đua định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/13087390736778565204.wav",
+          "hypothesis": "Nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở, cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1630/12496802784834699865.wav",
+          "hypothesis": "Early Velasquez của Mexico về thứ 15 trong giải trượt ngồi Super-G dành cho Nam Adam Hall đến từ New Zealand đã xếp thứ 9 trong bản xếp hạng Super-G trượt đứng dành cho Nam."
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "hypothesis": "Ollie Velazquez của Mexico về thứ 15 trong giải chuột ngồi Supergirl dành cho nam Adam Hare đến từ New Zealand đại sứ thứ 9 cho mẹ xếp hẹn Supergirl trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/14135486895615497173.wav",
+          "hypothesis": "Ali Velazquez của Mexico về thứ 15 trong giải trượt ngồi Super G dành cho Nam. Adam Hall đến từ New Zealand đã xếp thứ 9 trong ảnh xếp hàng Super G trượt đứng dành cho Nam."
+        },
+        {
+          "id": "1538/10880870198356795831.wav",
+          "hypothesis": "Khoảng cách xa giữa Bonbarion và Fairmont tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ Buffalo, Big Bird, thường xuyên đi qua những vùng rừng đậm cô hoạnh."
+        },
+        {
+          "id": "1538/9427648485582527577.wav",
+          "hypothesis": "Khoảng cách xa giữa Pont Marion và Fairmont tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ Buffalo Bigport, thường xuyên đi qua những vùng rừng rậm câu ảnh."
+        },
+        {
+          "id": "1512/9523847873989791627.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/11588273444475915758.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng tích nghi khác để trở thành một đối thủ cạnh tranh hồng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/9295877030604668222.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1552/13852086126243292433.wav",
+          "hypothesis": "Kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1552/9611754808191357343.wav",
+          "hypothesis": "Kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng"
+        },
+        {
+          "id": "1644/16380958649268722082.wav",
+          "hypothesis": "Khi được yêu cầu bình mận, Miller cho biết Mai nói rất nhiều trong buổi điều trần tôi đang chuẩn bị Nên tôi không thật sự nghe thấy anh ấy nói gì"
+        },
+        {
+          "id": "1644/8351071813159259518.wav",
+          "hypothesis": "Khi được yêu cầu bình luận, Miller cho biết, Mai nói rất nhiều trong buổi điều trần, tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "hypothesis": "108 đĩa chả hấp banh và hốc trong quán đậu giáo. 56 món ăn như đồ ngọt, trái cây, các loại hạt, các món ăn được dân lên thần linh, được phụ dụng cho ba ba si am."
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "hypothesis": "108 đĩa, champagne, bia, hút trong món, đậu giáo, 56 món ăn như đậu ngọt, trái cây, các loại hạt, các món ăn, đậu giang linh, thần linh, được phục vụ cho papa, si am."
+        },
+        {
+          "id": "1634/5533470844379665137.wav",
+          "hypothesis": "Với gần 7.000 đảo, lớn nhất là đảo Honsu, Nhật Bản trở thành hoàn đảo lớn thứ 7 trên thế giới."
+        },
+        {
+          "id": "1634/14591500972909447387.wav",
+          "hypothesis": "Với gần 7.000 đảo, lớn nhất là đảo Honsu, Nhật Bản trở thành hòn đảo, lớn thứ 7 trên thế giới."
+        },
+        {
+          "id": "1536/16996955127997669122.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo thư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/15035374286050916121.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vội nước."
+        },
+        {
+          "id": "1536/12506759633525739535.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo cư dân ở dùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ dồi nước."
+        },
+        {
+          "id": "1631/9793757361398247147.wav",
+          "hypothesis": "Người Ai Cập cổ đại thời Tân Vương Quốc đã rất kinh ngạc trước những công trình của Tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/297703781105006747.wav",
+          "hypothesis": "Người Á Chập cổ đại, thời Tân Vương quốc đã rất kinh nghiệp trước những công trình của Tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/7829487342299494550.wav",
+          "hypothesis": "Người Ai Cập cổ đại thời Tân Vương quốc đã gắt kinh ngạc trước những công trình của Tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1613/11383083381372198060.wav",
+          "hypothesis": "Tiếp theo, một số yên ngựa, đặc biệt là yên ngựa của anh có thanh trắng an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cưới ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/12036288405168204198.wav",
+          "hypothesis": "Tiếp theo, một số yên ngựa đặc biệt là yên ngựa của anh có thanh chấn an toàn cho phép phòng đai da gây xuống khỏi yên ngựa nếu người cửa ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/2230979303912403628.wav",
+          "hypothesis": "Tiếp theo, một số y ngựa, đặc biệt là y ngựa của anh, có thanh chán an toàn cho phép phần đai da gây xuống khỏi y ngựa nếu người cửa y ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1602/4651283719339281268.wav",
+          "hypothesis": "Nền ẩm thực của Mijokka cũng giống như những khu vực tương tự trong vùng địa trung hải, chủ yếu bao gồm bánh mì, rau củ và thịt, nhắc là thịt heo, và dầu oleo được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/10668675586953055114.wav",
+          "hypothesis": "Nền ẩm thực của Majorka cũng giống như những khu vực tương tự trong vùng địa chung hải, chủ yếu bao gồm bánh mì, rau củ và thịt, nhất là thịt heo và dầu oleo được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/382364229624885411.wav",
+          "hypothesis": "Nền ẩm thực của Mazoka cũng giống như những khu vực tương tự trong vùng địa Trung Hải, chủ yếu bao gồm bánh mì, rau củ và thịt, nhất là thịt heo và dầu ô liu được sử dụng gọn rãi"
+        },
+        {
+          "id": "1641/9288426586650771406.wav",
+          "hypothesis": "Không chỉ có thầm lầy và rừng ngập mặn, các khu rừng này còn bao gồm một số khu vực còn soát lại của những khu rừng hùng vĩ, từng bao phủ đồng bằng Guangetic."
+        },
+        {
+          "id": "1641/473838346406749031.wav",
+          "hypothesis": "Không chỉ có đầm lầy rừng gặp mạng, các khu rừng này còn bao gồm một số khu vực còn sắp lại của những khu rừng hùng vĩ, từng bao phủ đồng bằng Gangetic."
+        },
+        {
+          "id": "1620/4996295396067242252.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo ẩm thực Java, bao gồm một lọt các món ăn chế biến gia vị đơn giản, hương vị yêu thích hơn cả của người Java là đậu ớt, đường, đặc biệt là đường dừa Java và nhiều gia vị dạy mùi thơm khác nhau"
+        },
+        {
+          "id": "1620/8929602921504135773.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo, ẩm thực Java bao gồm một loại các món ăn chế biến gia vị đơn giản. Hương vị yêu thích hơn cả của người Java là đậu, ớt, đường, đặc biệt là đường dừa Java và nhiều gia vị, dạy mùi, thơm khác nhau."
+        },
+        {
+          "id": "1620/2763948773294193642.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo ẩm thực Java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người Java là đậu ớt đường đặc biệt là nhiều da ba và nhiều gia vị dễ mùi thơm khác nhau"
+        },
+        {
+          "id": "1558/2229409451032120912.wav",
+          "hypothesis": "Trước khi một tổ chức có thể sáng tạo, ban lãnh đạo cần phải tạo ra văn hóa sáng tạo cũng như chia sẻ kiến thức và sự kiềm tòi của cả đặc thể."
+        },
+        {
+          "id": "1558/2646439179284829458.wav",
+          "hypothesis": "Trước khi một tổ chức có thể sáng tạo, bang lãnh đạo cần phải tạo ra văn hóa sáng tạo cũng như chia sẻ kiến thức và sự tìm tồi của cả tập thể"
+        },
+        {
+          "id": "1510/3423713313417871592.wav",
+          "hypothesis": "Liên Hợp Quốc cũng hy vọng thông qua một khoản ngân sách để hào trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống trợ với tác động."
+        },
+        {
+          "id": "1510/1703310497318542579.wav",
+          "hypothesis": "Liên Hiệp Quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/288972552359107972.wav",
+          "hypothesis": "Liên Hợp Quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động"
+        },
+        {
+          "id": "1537/17555495090009921752.wav",
+          "hypothesis": "Bạn có thể nhìn thấy các kim tử tháp trong bóng tối và bạn có thể ngắm nhìn chúng trong tỉnh lặng trước khi buổi trình diễn bắt đầu."
+        },
+        {
+          "id": "1546/7578764335098022430.wav",
+          "hypothesis": "Cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nguyệt độ cơ thể hoặc để khoa mẻ. Các nhà kiên cơ cho rằng mặc dù đây là đuôi của một con khủng lông non, bộ vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "hypothesis": "Cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay, mà để kiểm soát nhiệt độ cơ thể, hoặc để khoe mẻ. Các nhà nghiên cứu cho rằng, mặc dù đây là đuôi của một con khủng lông non, mẫu giặc thể hiện một bộ lông trưởng thành, chứ không phải là lông tơ."
+        },
+        {
+          "id": "1605/17865182669535813706.wav",
+          "hypothesis": "Vì xa cách với lục địa nên các loài thú có vú không đã đến được đây, khiến cho gồ biển khổng lồ trở thành loài động vật ăn cỏ chính ở Galapagot."
+        },
+        {
+          "id": "1524/7862656875199214490.wav",
+          "hypothesis": "Có rất nhiều tác động chính trị và xã hội như việc sử dụng hệ thống số liệu, chuyển từ chế độ quân chủ chuyên chế sang Cộng Hòa, sự nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1524/4364473975206158506.wav",
+          "hypothesis": "Có rất nhiều tác động chính trị về xã hội như việc sử dụng hệ thống, số liệu, chuyển từ chế độ quân chủ, chuyên trái sang Cộng hòa, chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân, chứ không thuộc về một kẻ gái chạy nào đó."
+        },
+        {
+          "id": "1607/14220434451268738918.wav",
+          "hypothesis": "Nửa giờ để đi dạo đến ngôi làng thú vị này Thật xứng đáng"
+        },
+        {
+          "id": "1607/11956657419390051271.wav",
+          "hypothesis": "Nửa giờ để đi dạo đến ngôi làng Thú vị này thật xứng đáng"
+        },
+        {
+          "id": "1587/11709007378118641324.wav",
+          "hypothesis": "Những trường hợp mắc bệnh đầu tiên mùa này được cho là xuất hiện vào cuối tháng 7"
+        },
+        {
+          "id": "1561/5380420816515716433.wav",
+          "hypothesis": "Hầu hết các quận được phục vụ bởi loại xe buýt qua tơ nhỏ của Nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1561/11968837672136740842.wav",
+          "hypothesis": "Hầu hết các quận được phục vụ bởi loại xe beat coaster nhỏ của Nhật, vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1557/18322727376834662108.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đệ nhất thế chiến, các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai"
+        },
+        {
+          "id": "1557/14928886936425796029.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đệ nhất thế chiến, các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai"
+        },
+        {
+          "id": "1557/8764178281800662979.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đệ nhất thế chiến, các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai"
+        },
+        {
+          "id": "1652/4437545477949798224.wav",
+          "hypothesis": "Tôn giáo chính ở Moldova là chính thống giáo"
+        },
+        {
+          "id": "1652/16825699755172330111.wav",
+          "hypothesis": "Thông giáo chính ở Moldova là chính thông giáo"
+        },
+        {
+          "id": "1652/13054055761306097020.wav",
+          "hypothesis": "Trong giáo chính ở Moldova là chính thống giáo"
+        },
+        {
+          "id": "1650/8921894726060882087.wav",
+          "hypothesis": "Cá sấu nước mặn không hay sống ở biển, sinh nguyện chính của chúng là những cửa sông ở phía bắc gấp Campton."
+        },
+        {
+          "id": "1650/15530234383742555383.wav",
+          "hypothesis": "Cá sấu nước mặn không hay sống ở biển, sinh quyển chính của chúng là những cửa sông ở phía Bắc, Rockhampton."
+        },
+        {
+          "id": "1633/17576801065473714259.wav",
+          "hypothesis": "Trong hệ thống chuyên chở con thôi động lực, tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        },
+        {
+          "id": "1633/5622858423000138226.wav",
+          "hypothesis": "Trong hệ thống chuyên chở con thôi động lực, tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        }
+      ]
+    },
+    {
+      "model": "ct2:Systran/faster-whisper-medium",
+      "utterances": 120,
+      "audio_minutes": 24.5,
+      "wer": 0.1248,
+      "cer": 0.0743,
+      "number_recall": 1.0,
+      "numbers_in_reference": 18,
+      "median_utt_wer": 0.0923,
+      "wer_digits": 0.1221,
+      "cer_digits": 0.0717,
+      "number_recall_digits": 0.963,
+      "wer_by_gender": {
+        "MALE": 0.1248
+      },
+      "rtf": 0.2352,
+      "seconds": 345.3,
+      "vram_peak_mib": 1256,
+      "worst": [
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.515,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đẻ 130 b hood cho mắn đậu giáo 56 món ăn như đậu ngọt trái cây các lo hạt các món ăn đậu dâng linh thẳng linh đậu phục vụ cho ba ba siam"
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "wer": 0.39,
+          "reference": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để khoe mẽ các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng long non mẫu vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ",
+          "hypothesis": "cấu chúc của lông vũ gãy gần bộ lông này không dùng để bay mà để kiểm soát nhiều độ cơ thể hoặc để khoe mẻ các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng lông non mẫu vặt thể hiện một bộ lông trưởng thành chứ không phải là lông tơ hãy subscribe cho kênh ghiền mì gõ để không bỏ lỡ những video hấp dẫn"
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "wer": 0.386,
+          "reference": "với vai trò nsa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước trại david 1978 bình thường hóa quan hệ mỹ trung những năm cuối thập niên 1970 cách mạng iran dẫn tới khủng hoảng con tin iran 1979 và xô viết xâm lược afghanistan 1979",
+          "hypothesis": "với vai trò nsa ông hỗ trợ qatar xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước chạy david 1978 vình thường hóa quan hệ mỹ trung những năm cuối thập niên 1970 cách mạng iran dẫn tới khủng hoảng content iran 1979 và soviet xâm lược afghanistan 1979 hãy subscribe cho kênh ghiền mì gõ để không bỏ lỡ những video hấp dẫn"
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "wer": 0.368,
+          "reference": "thêm ba quả bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ",
+          "hypothesis": "thêm 3 bão bom nữa phát ngổ gần các tờ nhà chính phủ trong khoảng 2 tiếng năm hồn"
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.333,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "108 đĩa trà háp pênh và hốc trong quán độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dân lên thần linh được phụ dụ cho ba ba siam"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "1543/10959203197012192023.wav",
+          "hypothesis": "Người bệnh cũng đã từng tới Nigeria, nơi một số ca mắc bệnh nebola xây ra."
+        },
+        {
+          "id": "1543/4731254860765043074.wav",
+          "hypothesis": "Người bệnh cũng đã từng tới Nigeria, nơi một số ca mắc bệnh Ebola xảy ra."
+        },
+        {
+          "id": "1600/16525570830762756295.wav",
+          "hypothesis": "Các ví dụ về hoạt động tại chỗ bao gồm sân bắn, câu cá, chụp ảnh, ngắm chìm và tham quan công viên và nghiên cứu thông tin về hề sinh thái."
+        },
+        {
+          "id": "1600/8123673859785570169.wav",
+          "hypothesis": "Các ví dụ về hoạt động tại chỗ bao gồm săn bắn, câu cá, chụp ảnh, ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1517/10467396475561744099.wav",
+          "hypothesis": "Nghiên cứu chí tệ nhân tạo bao gồm tạo ra những cố mái từ động hóa, các tác dụ đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1517/13754775770768255557.wav",
+          "hypothesis": "Nghiên cứu chí tệ nhân tạo bao gồm tạo ra những cổ máy tự động hóa, các tác dụ đòi hành vi thông minh."
+        },
+        {
+          "id": "1642/15730294784062856962.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa, đế quốc Hoa Kỳ trong cuộc trinh phạt Philippines được chính những người dân Philippines chi trả."
+        },
+        {
+          "id": "1642/7565136047219100223.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa Đế quốc Hoa Kỳ trong cổ chinh phạt Philippines được chính những người dân Philippines chi trả."
+        },
+        {
+          "id": "1642/4120594822382949754.wav",
+          "hypothesis": "Chi phí chiến tranh của chủ nghĩa Đế quốc Hoa Kỳ trong cuộc chinh phạt Philippines được chính những người dân Philippines chi trả."
+        },
+        {
+          "id": "1659/12090846728876801190.wav",
+          "hypothesis": "Các nhà khoa học cho biết vụ vai chạm đã gây ra vụ nổ rất lớn."
+        },
+        {
+          "id": "1659/9443759897372819477.wav",
+          "hypothesis": "Các nhà pha học cho biết vụ va chạm đã gây gao, vụ ngổ rất lớn"
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "hypothesis": "Dạy đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân mã cầu ở Las Canitas."
+        },
+        {
+          "id": "1567/12176772846678576008.wav",
+          "hypothesis": "Giải đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân Mã Cầu ở Lac-Carnitac."
+        },
+        {
+          "id": "1567/16530155469086716256.wav",
+          "hypothesis": "Giải đấu lớn nhất trong năm diễn ra vào tháng 12 trên sân Lạc Cầu ở Lát Canítát."
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "hypothesis": "Với vai trò NSA, ông hỗ trợ Qatar xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước chạy David, 1978, vình thường hóa quan hệ Mỹ-Trung, những năm cuối thập niên 1970, cách mạng Iran dẫn tới khủng hoảng content Iran, 1979 và Soviet xâm lược Afghanistan, 1979. Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn"
+        },
+        {
+          "id": "1539/7080457166221655676.wav",
+          "hypothesis": "Các thành viên của một nhóm văn hóa thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang, cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/5269659892008038187.wav",
+          "hypothesis": "Các thành viên của 1 nhóm văn hóa thường thể hiện mối quan hệ thông qua về sử dụng phong cách mang tính, đặc trưng và biểu tượng như thể trang, cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/592822020933322380.wav",
+          "hypothesis": "Các thành viên của một nhóm văn hóa thường thể hiện mối quan hệ thông qua việc sử dụng phong cách men tính đặc trưng và biểu tượng như thời trang, các anh nói và tiếng lóng."
+        },
+        {
+          "id": "1526/6619325603971378631.wav",
+          "hypothesis": "Nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông, bạn sẽ được trải nghiệm dim vùng cực, nghĩa là mặt trời không nú lên khỏi chân trời."
+        },
+        {
+          "id": "1526/10398673072244472767.wav",
+          "hypothesis": "Nếu đến thăm vùng Bắc Cực hoặc Nam Cực vào mùa đông, bạn sẽ được trải nghiệm điêm vùng cực, nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1601/12354289598552290116.wav",
+          "hypothesis": "Các nhà khoa học nghĩ rằng mèo rừng Nam Mỹ theo dấu và tìm các loại động vật để ăn thịt, con mồi, bằng mùi, đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1601/155163866501153764.wav",
+          "hypothesis": "Các nhà khoa học nghĩ rằng, mèo rừng Nam Mỹ theo dấu mà tìm các loại động vật để ăn thịt, con mồi, bàn mồi, đến hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1588/6238389016614768363.wav",
+          "hypothesis": "Theo cảnh sát, người lái chiếc xe tông vào phóng viên, ảnh có thể không bị chi tố hình dự."
+        },
+        {
+          "id": "1588/13570834282701147205.wav",
+          "hypothesis": "Theo cánh sát, người lái chiếc xe tâm vào phóng viên ảnh có thể không bị chia tố hình sự."
+        },
+        {
+          "id": "1588/132407571318475132.wav",
+          "hypothesis": "Theo cảnh sát, người lái chiếc xe tông vào phấn viên ảnh có thể không bị chi tố hình sự."
+        },
+        {
+          "id": "1595/13268479210390696192.wav",
+          "hypothesis": "Phật giáo Tai Tạng dựa trên những lời giải của Đức Phật, nhưng được mở rộng bằng con đường Tử Bi của Phật giáo, Đại thờ và các nhiều kỹ thực vô gắn độ."
+        },
+        {
+          "id": "1595/12840552791233455752.wav",
+          "hypothesis": "Phật cháo Tây Tạng dựa trên những lời dạy của Đức Phật, nhưng được mở rộng bằng con đường từ bi của Phật cháo Đại Thừa và rất nhiều kỹ thực yoga Ấn Độ."
+        },
+        {
+          "id": "1595/12375302090960524617.wav",
+          "hypothesis": "Phật giáo Thay Tạng dựa trên những lời dạy của Đức Phật, nhưng được mở rộng bằng con đường từ bi của Phật giáo Đại thừa và rất nhiều kỹ thuật yoga Ấn Độ."
+        },
+        {
+          "id": "1555/9558180444501391590.wav",
+          "hypothesis": "Trong sang nhà thờ, có những tác phẩm điếu khác bằng đá, cẩm thạch, khá là độc đáo trên một số ngô mộ."
+        },
+        {
+          "id": "1555/11416600578316126877.wav",
+          "hypothesis": "Trong sân nhà thờ có những tá phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số người mộ."
+        },
+        {
+          "id": "1555/12081037594217867808.wav",
+          "hypothesis": "Trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1656/12887163887499710126.wav",
+          "hypothesis": "Cảnh sát cho biết thi thể nai nhân đã ở đó được khoảng 1 ngày."
+        },
+        {
+          "id": "1656/17757384667472487467.wav",
+          "hypothesis": "Cảnh sát cho biết, thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1572/11025013104549101811.wav",
+          "hypothesis": "Thêm 3 quả bơm tửa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng lầm hồ."
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "hypothesis": "Thêm 3 bão bom nữa phát ngổ gần các tờ nhà chính phủ trong khoảng 2 tiếng năm hồn."
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "hypothesis": "Tim 3 bỏ bom nửa phát nổ gần các tòa nhà chính phủ trong khoảng 2 tiếng đồng hồ."
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "hypothesis": "Công viên có diễn tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau, mỗi khu là nơi ở của một hệ động vật khoang dạ."
+        },
+        {
+          "id": "1643/57822069306015643.wav",
+          "hypothesis": "Công viên có diễn tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau. Mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "hypothesis": "Công viên có diễn tích trên 19.500 km2 và được chia thành 14 khu sinh thái khác nhau. Mỗi khu là nơi ở của một vài động vật hoang dã."
+        },
+        {
+          "id": "1649/6722230310396280157.wav",
+          "hypothesis": "Ở Nhật, những bữa tuyệt ngém Hoa Anh Đào đầu tiên được hoàn để tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực Chiều Đình."
+        },
+        {
+          "id": "1649/14783247390946343063.wav",
+          "hypothesis": "Ở Nhật, nhóm bữa tiệc nhóm hoa anh đạo đầu ti để hoàn đế tổ chức riêng cho mình và nhóm thành viên quý tộc quân khu dịch triều đình."
+        },
+        {
+          "id": "1649/5915526011302588851.wav",
+          "hypothesis": "Ở Nhật, những bữa tiệc ngắm hoa anh đào đầu tiên được hoàn đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực Chiều Đình."
+        },
+        {
+          "id": "1651/3719603297869202172.wav",
+          "hypothesis": "Một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1651/16875267973097515138.wav",
+          "hypothesis": "Một lựa chọn ngay càng phổ biến cho những người có kế hoạch nghĩ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1540/15401984597053465222.wav",
+          "hypothesis": "Về nguyên tắc, Phật giáo Thay Tạng rất đơn giản. Nó bao gồm Kundalini Yoga, Thiền Pháp và Con đường bao trầm tình yêu."
+        },
+        {
+          "id": "1540/4230520510342676079.wav",
+          "hypothesis": "Về nguyên thắc Phật giáo Tây Tạng rất đơn giản. Nó bao gồm Kundalini Yoga, Thiện Pháp và Con đường bao trầm tình yêu."
+        },
+        {
+          "id": "1540/10734584756155989470.wav",
+          "hypothesis": "Về miên tắc, Phật giáo Tây tại hình thức đơn giản, nó bao gồm Kundalini Yoga, Thiện Pháp và Con Đường Mau Trầm Tình Yêu."
+        },
+        {
+          "id": "1541/15583589234736745664.wav",
+          "hypothesis": "Các công ty chuyển phát được trả tiền để vận chỉ các vật phẩm một cách nhanh chóng, thông thường, thời gian rất quan trọng đối với các tài liệu kinh doanh, hàng hóa hoặc các phụ tục phục vụ cho việc xửa chữa kháng cấp."
+        },
+        {
+          "id": "1639/1665394027477463848.wav",
+          "hypothesis": "Học sinh thường là những nhà phay bình khó tính nhất nên tác dạp blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phay bình."
+        },
+        {
+          "id": "1639/9919202051882179979.wav",
+          "hypothesis": "Học sinh thường là những nhà phê bình khó tính, nhất nên tác giả bờ lốc bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1625/17343506464706503834.wav",
+          "hypothesis": "Các ca sĩ nổi tiếng trên khắp cả nước chừng bài Hazan hoặc các bài hét mộ đạo tại chân của series Sam."
+        },
+        {
+          "id": "1625/4767212356465567922.wav",
+          "hypothesis": "Các ca sĩ nổi chiến trên khắp cả nước chình bày hajan hoặc các bài hát mộ đạo tại chân cổ Siri Hyam."
+        },
+        {
+          "id": "1645/422363421073634118.wav",
+          "hypothesis": "Nguyên lực tròn diện của nó đã thắt động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/9410324112140689433.wav",
+          "hypothesis": "Nguyên lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/4094972119462061491.wav",
+          "hypothesis": "Quyền lực toàn diện của nó đã tác động đến mọi người, từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1648/2271496750613408044.wav",
+          "hypothesis": "Không có khu gừng lớn nào trong vùng Ca Na An nên ở đây gỗ rất đất đỏ."
+        },
+        {
+          "id": "1547/4193038624446861874.wav",
+          "hypothesis": "NHK cũng thông tin rằng nhà máy hạt nhân Kashiwazaki Kariwa tại quận Niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "hypothesis": "NHK cũng thông tin gần nhà máy hạt nhân Kashiwazaki Kariwa tại quận Niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1535/10629394448273158255.wav",
+          "hypothesis": "Nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất, cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/8880245916021909710.wav",
+          "hypothesis": "Nó sử dụng công nghệ vây tinh cơ sở trái ngược với công nghệ gada mặt đắt cơ sở cho phép kiểm soát viên không đu định vị máy bay với độ chính xác cao hơn và cho phép viên không những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/13087390736778565204.wav",
+          "hypothesis": "Nó sử dụng công nghệ vệ tinh cơ trở trái ngược với công nghệ radar mặt đất, cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1630/12496802784834699865.wav",
+          "hypothesis": "Early Velasquez của Mexico về thứ 15 trong giải trượt ngồi Subway G dành cho Nam Adam Holm đến từ New Zealand đã xếp thứ 9 trong bản xét hạng Subway G trượt đứng dành cho Nam."
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "hypothesis": "Ollivere, Las Vegas của Mexico về thứ 15 trong giải trụ ngồi Super G dành cho nam Adam Hare đến từ New Zealand đã xứ thứ 9 cho mẹ xếp hẹn Super G trượt đứng dành cho nam"
+        },
+        {
+          "id": "1630/14135486895615497173.wav",
+          "hypothesis": "Ali Velasquez của Mexico về thứ 15 trong giải trượt ngồi Super G dành cho Nam. Adam Hall đến từ New Zealand đã xếp thứ 9 trong án xếp hàng Super G trượt đứng dành cho Nam."
+        },
+        {
+          "id": "1538/10880870198356795831.wav",
+          "hypothesis": "Khoảng cách xa giữa Bonparion và Freymont tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ Buffalo, Bidber, thường xuyên đi qua những vùng gần đậm cô quảnh."
+        },
+        {
+          "id": "1538/9427648485582527577.wav",
+          "hypothesis": "Khoảng cách xa giữa Bonn Marion và Friar Monn tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ Buffalo Big Bird, thường xuyên đi qua những vùng rừng rậm cô quảnh."
+        },
+        {
+          "id": "1512/9523847873989791627.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/11588273444475915758.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ canh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng tích nghi khác để trở thành một đối thủ canh tranh hồng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/9295877030604668222.wav",
+          "hypothesis": "Môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác, vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1552/13852086126243292433.wav",
+          "hypothesis": "Kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1552/9611754808191357343.wav",
+          "hypothesis": "Kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng"
+        },
+        {
+          "id": "1644/16380958649268722082.wav",
+          "hypothesis": "Khi được yêu cầu mình mận, Miller cho biết, Mai nói rất nhiều trong buổi điều trần, tôi đang chuẩn bị, nên tôi không thật sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1644/8351071813159259518.wav",
+          "hypothesis": "Khi được yêu cầu bình luận, Mueller cho biết Mai nói rất nhiều trong buổi điều trần, tôi đang chuẩn bị nên tôi không thật sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "hypothesis": "108 đĩa trà háp pênh và hốc trong quán Độ Giáo 56 món ăn như đồ ngọt, trái cây, các loại hạt, các món ăn được dân lên thần linh, được phụ dụ cho Ba Ba Siam"
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "hypothesis": "108 đẻ, 130 b-hood cho mắn, đậu giáo, 56 món ăn như đậu ngọt trái cây, các lo hạt, các món ăn, đậu dâng linh, thẳng linh, đậu phục vụ cho ba ba siam."
+        },
+        {
+          "id": "1634/5533470844379665137.wav",
+          "hypothesis": "Với gần 7.000 đảo, lớn nhất là đảo Honshu, Nhật Bản trở thành hòn đảo lớn thứ 7 trên thế giới."
+        },
+        {
+          "id": "1634/14591500972909447387.wav",
+          "hypothesis": "Với gần 7.000 đảo, lớn nhất là đảo Honshu, Nhật Bản trở thành hòn đảo lớn thứ 7 trên thế giới."
+        },
+        {
+          "id": "1536/16996955127997669122.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo tư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/15035374286050916121.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo, cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tất cả thiết bị điều hòa, không khí và không uống nước máy từ vội nước."
+        },
+        {
+          "id": "1536/12506759633525739535.wav",
+          "hypothesis": "Các cơ quan tại địa phương đang cảnh báo cư dân ở dùng phụ cận của nhà máy nên ở trong nhà tắt cát thiết bị, điều hòa không ký và không uống nước máy từ dồi nước."
+        },
+        {
+          "id": "1631/9793757361398247147.wav",
+          "hypothesis": "Người Ây Cập cổ đại thời Tân Vương Quốc đã rất kinh ngạc trước những công trình cổ tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/297703781105006747.wav",
+          "hypothesis": "Người Á Chạp cổ đại thời Tân Vương Quốc đã rất kinh nghiệp trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/7829487342299494550.wav",
+          "hypothesis": "Người Agap cổ đại thời tăng vương quốc đã gắt kinh ngạc trước những công trình của tổ tiên mà đến ngày năm sau vẫn còn."
+        },
+        {
+          "id": "1613/11383083381372198060.wav",
+          "hypothesis": "Trước theo, một số yên ngựa, đặc biệt là yên ngựa của anh, có thanh chắn an toàn cho phép phần đai da gây xuống khỏi yên ngựa nếu người cư ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/12036288405168204198.wav",
+          "hypothesis": "Tiếp theo, một số yên ngựa, đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phòng đai da gây xuống khỏi yên ngựa nếu người cửa ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/2230979303912403628.wav",
+          "hypothesis": "Tiếp theo, một số y ngựa, đặc biệt là y ngựa của anh, có thanh chán an toàn cho phép phần đai da rơi xuống khỏi y ngựa nếu người cởi ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1602/4651283719339281268.wav",
+          "hypothesis": "Nền ẩm thực của Mai Xoc Ca cũng giống như những khu vực tương tự trong vùng địa Trung Hải, chủ yếu bao gồm bánh mì, rau củ và thịt, nhất là thịt heo và dầu oleo được sử dụng rong rãi."
+        },
+        {
+          "id": "1602/10668675586953055114.wav",
+          "hypothesis": "Nền ẩm thực của Mai Joka cũng giống như những khu vực tương tự trong vùng địa trưng hải, chủ yếu bao gồm bánh mì, rau củ và thịt, nhất là thịt heo và dầu oleo được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/382364229624885411.wav",
+          "hypothesis": "Nền ảm thực của Majorca cũng giống như những khu vực tương tự trong buồn địa trung hải, chủ yếu bao gồm bánh mì, gao củ và thịt, nhất là thịt heo, và dầu oleo được sử dụng gọn rãi."
+        },
+        {
+          "id": "1641/9288426586650771406.wav",
+          "hypothesis": "Không chỉ có đầm lầy và rừng nạp mặn, các khu rừng này còn bao gồm một số khu vực còn sát lại của những khu rừng hùng vĩ, từng bao phủ đồng bằng."
+        },
+        {
+          "id": "1641/473838346406749031.wav",
+          "hypothesis": "Không chỉ có đầm lầy rừng ngập mặn, các khu rừng này còn bao gồm một số khu vực còn sắp lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gian ghê tích."
+        },
+        {
+          "id": "1620/4996295396067242252.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo ẩm thực Java bao gồm một loạt các món ăn chế biến gia vị đơn giản, hương vị yêu thích hơn cả của người Java là đậu ớt, đường, đặc biệt là đường dừa Java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/8929602921504135773.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo, ẩm thực Java bao gồm một loài cát, món ăn chế biến gia vị đơn giản. Hương vị yếu tích hơn cả của người Java là đậu ớt đường, đặc biệt là đường dừa Java và nhiều gia vị dậy mùi, thơm khác nhau."
+        },
+        {
+          "id": "1620/2763948773294193642.wav",
+          "hypothesis": "Hiện đã có khắp nơi trên quần đảo, ẩm thực Java bao gồm một loạt các món ăn chế biến gia vị đơn giản, hương vị yêu thích hơn cả của người Java là đậu ớt đường, đặc biệt là đường dừa Java và nhiều gia vị dậy mùi thơm khác nhau"
+        },
+        {
+          "id": "1558/2229409451032120912.wav",
+          "hypothesis": "Trước khi một tổ chức có thể sáng tạo, ban lãnh đạo cần phải tạo ra văn hóa sáng tạo cũng như chia sẻ kiến thức và sự kiềm tồi của cả đặc thể."
+        },
+        {
+          "id": "1558/2646439179284829458.wav",
+          "hypothesis": "Trước khi một tổ chức có thể sáng tạo, bang lãnh đạo cần phải tạo ra văn hóa sáng tạo cũng như chia sẻ kiến thức và sự tìm tồi của cả tập thể."
+        },
+        {
+          "id": "1510/3423713313417871592.wav",
+          "hypothesis": "Li hợp quốc cũng hy vọng, thông qua một khoản ngân sách để hợp trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống trợ với tác động."
+        },
+        {
+          "id": "1510/1703310497318542579.wav",
+          "hypothesis": "Liên hiệp quốc cũng hy vọng tham quan một khoảng nhân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống trò với tác động."
+        },
+        {
+          "id": "1510/288972552359107972.wav",
+          "hypothesis": "Liên Hiệp Quốc cũng hy vọng thông qua một khoảng nâng sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống trội với tác động."
+        },
+        {
+          "id": "1537/17555495090009921752.wav",
+          "hypothesis": "Bạn có thể nhìn thấy các kim tử tháp trong bóng tối và bạn có thể ngắm nhìn chúng trong tỉnh lặng trước khi buổi trình diễn bắt đầu."
+        },
+        {
+          "id": "1546/7578764335098022430.wav",
+          "hypothesis": "Câu trúc của lông vũ gỡ ý rằng bộ lông này không dùng để bay mà để kiểm soát nguyệt độ cơ thể hoặc để khoa mẻ. Các nhà kiên cơ cho rằng mặc dù đây là đuôi của một con khủng lông non, bộ vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "hypothesis": "Cấu chúc của lông vũ gãy gần bộ lông này không dùng để bay mà để kiểm soát nhiều độ cơ thể hoặc để khoe mẻ. Các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng lông non, mẫu vặt thể hiện một bộ lông trưởng thành chứ không phải là lông tơ. Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn"
+        },
+        {
+          "id": "1605/17865182669535813706.wav",
+          "hypothesis": "Vì xa cách với lục địa nên các loài thú có vú không để đến được đây, khiến cho gồm biển khổng lồ trở thành loài động vật ân cỏ chính ở Galapagos."
+        },
+        {
+          "id": "1524/7862656875199214490.wav",
+          "hypothesis": "Có rất nhiều tác động chính trị và xã hội như việc sử dụng hệ thống số liệu, chuyển từ chế độ quân chủ chuyên chế sang cộng hòa, sự nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ ca trị nào đó."
+        },
+        {
+          "id": "1524/4364473975206158506.wav",
+          "hypothesis": "Có các nhiều tác động chính trị về xã hội như việc xử dụng hệ thống, số liệu, chuyển từ chế độ quân chủ, chiên trái, xem cộng hòa, chủ nghĩa dân tộc và niệm tính đất nước thuộc về người dân chứ không thuộc về một cái cái trạy nào đó."
+        },
+        {
+          "id": "1607/14220434451268738918.wav",
+          "hypothesis": "Nửa giờ để đi dạo đến ngôi làng thú vị này, thật xứng đáng!"
+        },
+        {
+          "id": "1607/11956657419390051271.wav",
+          "hypothesis": "Nửa giờ đã đi dạo đến ngôi làng, thú vị này thật xứng đáng"
+        },
+        {
+          "id": "1587/11709007378118641324.wav",
+          "hypothesis": "Những trường hợp mắc bệnh đầu tiên mùa này được cho là xuất hiện vào cuối tháng 7."
+        },
+        {
+          "id": "1561/5380420816515716433.wav",
+          "hypothesis": "Hầu hết các quận được phục vụ bởi lòi xe bit, qua tơ nhỏ của Nhật, vốn gắt thoải mái và chắc chắn."
+        },
+        {
+          "id": "1561/11968837672136740842.wav",
+          "hypothesis": "Hào hết các quận được phục vụ bởi lòi xe beach coaster nhỏ của Nhật, vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1557/18322727376834662108.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đại nhất thế chiến, các quốc gia đều mong muốn tránh tái diễn tình trạng nó trong tương lai."
+        },
+        {
+          "id": "1557/14928886936425796029.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đệ nhất thế chiến, các quốc gia đều mong muốn tránh tá diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/8764178281800662979.wav",
+          "hypothesis": "Sau khi chứng kiến sự tan thương và tàn bạo của chiến tranh qua đệ nhất thế chiến, các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1652/4437545477949798224.wav",
+          "hypothesis": "Tôn giáo chính ở Moldova là chính thống giáo."
+        },
+        {
+          "id": "1652/16825699755172330111.wav",
+          "hypothesis": "Công giáo chính ở Moldova là chính thống giáo."
+        },
+        {
+          "id": "1652/13054055761306097020.wav",
+          "hypothesis": "Tôn giáo chính ở Moldova là chính thống giáo."
+        },
+        {
+          "id": "1650/8921894726060882087.wav",
+          "hypothesis": "Cá sấu nước mặn không hay sóng ở biển, sinh nguyện chính của chúng là những cửa sông ở phía bắc gấp cam tôn."
+        },
+        {
+          "id": "1650/15530234383742555383.wav",
+          "hypothesis": "Cá sáu nước mặn, không hay sống ở biển, sinh nguyện chính của chúng là những cửa sông ở phía bắc Rockhampton."
+        },
+        {
+          "id": "1633/17576801065473714259.wav",
+          "hypothesis": "Trong hệ thống chuyên chở con thôi động lực, tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi duyên."
+        },
+        {
+          "id": "1633/5622858423000138226.wav",
+          "hypothesis": "Trong hệ thống chuyên chở con thôi động lực, tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi liên."
+        }
+      ]
+    },
+    {
+      "model": "hf:data/models/PhoWhisper-medium",
+      "utterances": 120,
+      "audio_minutes": 24.5,
+      "wer": 0.0937,
+      "cer": 0.0585,
+      "number_recall": 0.0,
+      "numbers_in_reference": 18,
+      "median_utt_wer": 0.0445,
+      "wer_digits": 0.0764,
+      "cer_digits": 0.0403,
+      "number_recall_digits": 0.8889,
+      "wer_by_gender": {
+        "MALE": 0.0937
+      },
+      "rtf": 0.6479,
+      "seconds": 951.1,
+      "vram_peak_mib": 2460,
+      "worst": [
+        {
+          "id": "1547/4193038624446861874.wav",
+          "wer": 0.737,
+          "reference": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki kariwa tại quận niigata đã hoạt động bình thường",
+          "hypothesis": "nhr hà ca cũng thông tin rằng nhà máy hạt nhân kha xi qua da ki ka ri goa tại quận ni ga ta đã hoạt động bình thường"
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "wer": 0.579,
+          "reference": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki kariwa tại quận niigata đã hoạt động bình thường",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kha si qua da ki ka ri goa tại quận ni da ta đã hoạt động bình thường"
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.576,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm linh tám đĩa champagne bia hút cho món đậu giáo năm mươi sáu món ăn như đậu ngọt trái cây các loại hạt các món ăn đều dâng lên thần linh được phục vụ cho papa si am"
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "wer": 0.491,
+          "reference": "với vai trò nsa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước trại david 1978 bình thường hóa quan hệ mỹ trung những năm cuối thập niên 1970 cách mạng iran dẫn tới khủng hoảng con tin iran 1979 và xô viết xâm lược afghanistan 1979",
+          "hypothesis": "với vai trò na ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước dạy david một ngàn chín trăm bảy tám bình thường hóa quan hệ mỹ trung những năm cuối thập niên một ngàn chín trăm bảy mươi cách mạng iran dẫn tới khủng hoảng con tin iran một ngàn chín trăm bảy mươi chín và xô viết xâm lược afghanistan một ngàn chín trăm bảy mươi chín"
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.485,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm lẻ tám đĩa cha pan poong trong bán độ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụng cho ba ba si am"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "1543/10959203197012192023.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh nebola xây ra."
+        },
+        {
+          "id": "1543/4731254860765043074.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh ebola xảy ra."
+        },
+        {
+          "id": "1600/16525570830762756295.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm sân bắn câu cá chụp ảnh nắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1600/8123673859785570169.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm săn bắn câu cá chụp ảnh ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1517/10467396475561744099.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hóa các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1517/13754775770768255557.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hóa các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1642/15730294784062856962.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/7565136047219100223.wav",
+          "hypothesis": "chỉ phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/4120594822382949754.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc xin phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1659/12090846728876801190.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ nổ rất lớn."
+        },
+        {
+          "id": "1659/9443759897372819477.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ ngổ rất lớn."
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las caninas."
+        },
+        {
+          "id": "1567/12176772846678576008.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las caninas."
+        },
+        {
+          "id": "1567/16530155469086716256.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las caninas."
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "hypothesis": "với vai trò na ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước dạy david một ngàn chín trăm bảy tám bình thường hóa quan hệ mỹ trung những năm cuối thập niên một ngàn chín trăm bảy mươi cách mạng iran dẫn tới khủng hoảng con tin iran một ngàn chín trăm bảy mươi chín và xô viết xâm lược afghanistan một ngàn chín trăm bảy mươi chín."
+        },
+        {
+          "id": "1539/7080457166221655676.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/5269659892008038187.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/592822020933322380.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1526/6619325603971378631.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1526/10398673072244472767.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1601/12354289598552290116.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu và tìm các loài động vật để ăn thịt con mồi bằng mùi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1601/155163866501153764.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu là tìm các loài động vật đã ăn thịt con mồi bằng mồi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1588/6238389016614768363.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1588/13570834282701147205.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tâm vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1588/132407571318475132.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1595/13268479210390696192.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật du gái ấn độ."
+        },
+        {
+          "id": "1595/12840552791233455752.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật do ra ấn độ."
+        },
+        {
+          "id": "1595/12375302090960524617.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật yoga ấn độ."
+        },
+        {
+          "id": "1555/9558180444501391590.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/11416600578316126877.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/12081037594217867808.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1656/12887163887499710126.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1656/17757384667472487467.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1572/11025013104549101811.wav",
+          "hypothesis": "thêm ba quả bom lửa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "hypothesis": "thêm ba quả bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "hypothesis": "thêm ba bỏ bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm ki lô mét vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/57822069306015643.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm ki lô mét vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một vài động vật hoang dã."
+        },
+        {
+          "id": "1649/6722230310396280157.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/14783247390946343063.wav",
+          "hypothesis": "ở nhật những bữa tiệc nhắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và nhóm thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/5915526011302588851.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1651/3719603297869202172.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1651/16875267973097515138.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1540/15401984597053465222.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kyn đa li ni dô ga thiền pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/4230520510342676079.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kun đa li ni dô ga thiện pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/10734584756155989470.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kun đa li li do ga thiện pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1541/15583589234736745664.wav",
+          "hypothesis": "các công ty triển phát được trả tiền để vận chuyển các vật phẩm một cách nhanh chóng thông thường thời gian rất quan trọng đối với các tài liệu kinh doanh hàng hóa hoặc các phụ tùng phục vụ cho việc sửa chữa kháng cấp."
+        },
+        {
+          "id": "1639/1665394027477463848.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1639/9919202051882179979.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1625/17343506464706503834.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân của sari sam."
+        },
+        {
+          "id": "1625/4767212356465567922.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân cổ syria."
+        },
+        {
+          "id": "1645/422363421073634118.wav",
+          "hypothesis": "quyền lực tròn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/9410324112140689433.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/4094972119462061491.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1648/2271496750613408044.wav",
+          "hypothesis": "không có khu rừng lớn nào trong vùng canaan nên ở đây gỗ rất đắt đỏ."
+        },
+        {
+          "id": "1547/4193038624446861874.wav",
+          "hypothesis": "nhr hà ca cũng thông tin rằng nhà máy hạt nhân kha xi qua da ki ka ri goa tại quận ni ga ta đã hoạt động bình thường."
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kha si qua da ki ka ri goa tại quận ni da ta đã hoạt động bình thường."
+        },
+        {
+          "id": "1535/10629394448273158255.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không luôn định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/8880245916021909710.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ ga đa mặt đất cơ sở cho phép kiểm soát viên không đu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/13087390736778565204.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1630/12496802784834699865.wav",
+          "hypothesis": "elly vegas west của mexico về thứ mười lăm trong giải trượt ngồi suarez dành cho nam adan hoan đến từ new zealand đã xếp thứ chín trong bảng xếp hạng suarez trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "hypothesis": "olivier las ve mexico về thứ mười lăm trong giải trượt ngồi súp gờ dành cho nam adam he đến từ new zealand để xếp thứ chín cho một súp hạng súp gờ trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/14135486895615497173.wav",
+          "hypothesis": "ali velasquez của mexico về thứ mười lăm trong giải trượt ngoài swansea dành cho nam adam hodg đến từ new zealand đã xếp thứ chín trong bảng xếp hạng swansea trượt đứng dành cho nam."
+        },
+        {
+          "id": "1538/10880870198356795831.wav",
+          "hypothesis": "khoảng cách xa giữa bon bayern và premier league tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffaloer bích bơ thường xuyên đi qua những vùng rừng đậm cô quạnh."
+        },
+        {
+          "id": "1538/9427648485582527577.wav",
+          "hypothesis": "khoảng cách xa giữa môn marion và flamon tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffaloer bích bật thường xuyên đi qua những vùng rừng rậm cô quạnh."
+        },
+        {
+          "id": "1512/9523847873989791627.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác về những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/11588273444475915758.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/9295877030604668222.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1552/13852086126243292433.wav",
+          "hypothesis": "kết quả phân tích đô thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1552/9611754808191357343.wav",
+          "hypothesis": "kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1644/16380958649268722082.wav",
+          "hypothesis": "khi được yêu cầu bình luận mueller cho biết mai nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1644/8351071813159259518.wav",
+          "hypothesis": "khi được yêu cầu bình luận miller cho biết mai nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "hypothesis": "một trăm lẻ tám đĩa cha pan poong trong bán độ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụng cho ba ba si am."
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "hypothesis": "một trăm linh tám đĩa champagne bia hút cho món đậu giáo năm mươi sáu món ăn như đậu ngọt trái cây các loại hạt các món ăn đều dâng lên thần linh được phục vụ cho papa si am."
+        },
+        {
+          "id": "1634/5533470844379665137.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hòn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1634/14591500972909447387.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hòn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1536/16996955127997669122.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/15035374286050916121.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tất cả thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/12506759633525739535.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1631/9793757361398247147.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/297703781105006747.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh nguyệt trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/7829487342299494550.wav",
+          "hypothesis": "người ai cập cổ đại thời tăng vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1613/11383083381372198060.wav",
+          "hypothesis": "tiếp theo một số uyên ngựa đặc biệt là uyên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi uyên ngựa nếu người cưới ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/12036288405168204198.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cử ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/2230979303912403628.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người gửi ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1602/4651283719339281268.wav",
+          "hypothesis": "nền ẩm thực của mai giocca cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/10668675586953055114.wav",
+          "hypothesis": "nền ẩm thực của mai gio ca cũng giống như những khu vực tương tự trong vùng địa châm hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu leo được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/382364229624885411.wav",
+          "hypothesis": "nền ẩm thực của manila cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1641/9288426586650771406.wav",
+          "hypothesis": "không chỉ có đầm lầy và rừng ngập mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gangnam."
+        },
+        {
+          "id": "1641/473838346406749031.wav",
+          "hypothesis": "không chỉ có đầm lầy rừng ngập mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng grand united."
+        },
+        {
+          "id": "1620/4996295396067242252.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/8929602921504135773.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loại các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/2763948773294193642.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực gia va bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người gia va là đậu ớt đường đặc biệt là đường dừa gia va và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1558/2229409451032120912.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hóa sáng tạo cũng như chia sẻ kiến thức và sự tiềm tài của cả đặc thể."
+        },
+        {
+          "id": "1558/2646439179284829458.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hoá sáng tạo cũng như chia sẻ kiến thức và sự tìm tòi của cả tập thể."
+        },
+        {
+          "id": "1510/3423713313417871592.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống trợ với tác động."
+        },
+        {
+          "id": "1510/1703310497318542579.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ cho các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/288972552359107972.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1537/17555495090009921752.wav",
+          "hypothesis": "bạn có thể nhìn thấy các kim tử tháp trong bóng tối và bạn có thể ngắm nhìn chúng trong tĩnh lặng trước khi buổi trình diễn bắt đầu."
+        },
+        {
+          "id": "1546/7578764335098022430.wav",
+          "hypothesis": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để khoe mẽ các nhà kiên cường cho rằng mặc dù đây là đuôi của một con khủng long non bộ vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "hypothesis": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiều độ cơ thể hoặc để khoe mẽ các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng lông non mẫu vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1605/17865182669535813706.wav",
+          "hypothesis": "vì xa cách với lục địa nên các loài thú có vú không để đến được đây khiến cho gùa biển khổng lồ trở thành loài động vật ăn cỏ chính ở ga láp ba gót."
+        },
+        {
+          "id": "1524/7862656875199214490.wav",
+          "hypothesis": "có rất nhiều tác động chính trị và xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên chế sang cộng hòa sự nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1524/4364473975206158506.wav",
+          "hypothesis": "có rất nhiều tác động chính trị về xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên trái sang cộng hòa chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ gây chảy nào đó."
+        },
+        {
+          "id": "1607/14220434451268738918.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1607/11956657419390051271.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1587/11709007378118641324.wav",
+          "hypothesis": "những trường hợp mắc bệnh đầu tiên mùa này được cho là xuất hiện vào cuối tháng bảy."
+        },
+        {
+          "id": "1561/5380420816515716433.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe bus qua tơ nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1561/11968837672136740842.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe buýt costa nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1557/18322727376834662108.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/14928886936425796029.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/8764178281800662979.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1652/4437545477949798224.wav",
+          "hypothesis": "tôn giáo chính ở môn đô va là chính thống giáo."
+        },
+        {
+          "id": "1652/16825699755172330111.wav",
+          "hypothesis": "tôn giáo chính ở môn đô va là chính thống giáo."
+        },
+        {
+          "id": "1652/13054055761306097020.wav",
+          "hypothesis": "tôn giáo chính ở môn đô va là chính thống giáo."
+        },
+        {
+          "id": "1650/8921894726060882087.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh viện chính của chúng là những cửa sông ở phía bắc gốc cam tôn."
+        },
+        {
+          "id": "1650/15530234383742555383.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh quyển chính của chúng là những cửa sông ở phía bắc rất ham tâm."
+        },
+        {
+          "id": "1633/17576801065473714259.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thôi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        },
+        {
+          "id": "1633/5622858423000138226.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thôi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        }
+      ]
+    },
+    {
+      "model": "hf:data/models/PhoWhisper-large",
+      "utterances": 120,
+      "audio_minutes": 24.5,
+      "wer": 0.0737,
+      "cer": 0.0512,
+      "number_recall": 0.0,
+      "numbers_in_reference": 18,
+      "median_utt_wer": 0.0294,
+      "wer_digits": 0.0552,
+      "cer_digits": 0.0319,
+      "number_recall_digits": 0.8889,
+      "wer_by_gender": {
+        "MALE": 0.0737
+      },
+      "rtf": 0.8213,
+      "seconds": 1205.6,
+      "vram_peak_mib": 4757,
+      "worst": [
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.576,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm lẻ tám đĩa chè hấp pân và hốc trong món đỗ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụ cho ba ba si am"
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.545,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm linh tám đẻ chăm ban pi hút trong ấn đạo giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phục vụ cho pa pa si am"
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "wer": 0.491,
+          "reference": "với vai trò nsa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước trại david 1978 bình thường hóa quan hệ mỹ trung những năm cuối thập niên 1970 cách mạng iran dẫn tới khủng hoảng con tin iran 1979 và xô viết xâm lược afghanistan 1979",
+          "hypothesis": "với vai trò nxa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước dạy david một ngàn chín trăm bảy tám bình thường hóa quan hệ mỹ trung những năm cuối thập niên một ngàn chín trăm bảy mươi cách mạng iran dẫn tới khủng hoảng con tin iran một ngàn chín trăm bảy mươi chín và xô viết xâm lược afghanistan một ngàn chín trăm bảy mươi chín"
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "wer": 0.421,
+          "reference": "arly velasquez của mexico về thứ mười lăm trong giải trượt ngồi super g dành cho nam adam hall đến từ new zealand đã xếp thứ chín trong bảng xếp hạng super g trượt đứng dành cho nam",
+          "hypothesis": "ali velasquez của mexico về thứ mười lăm trong giải chuột ngòi superg giành cho nam adam hill đến từ new zealand đã là số thứ chín cho sếp hãng superg trượt đứng giành cho nam"
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "wer": 0.333,
+          "reference": "công viên có diện tích trên 19500 km2 và được chia thành 14 khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hoài động vật hoang dã"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "1543/10959203197012192023.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh nepal xảy ra."
+        },
+        {
+          "id": "1543/4731254860765043074.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh ebola xảy ra."
+        },
+        {
+          "id": "1600/16525570830762756295.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm săn bắn con cá chụp ảnh ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1600/8123673859785570169.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm săn bắn câu cá chụp ảnh ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1517/10467396475561744099.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hóa các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1517/13754775770768255557.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hoá các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1642/15730294784062856962.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/7565136047219100223.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/4120594822382949754.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1659/12090846728876801190.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ nổ rất lớn."
+        },
+        {
+          "id": "1659/9443759897372819477.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ ngộ rất lớn."
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las canyas."
+        },
+        {
+          "id": "1567/12176772846678576008.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở la canada."
+        },
+        {
+          "id": "1567/16530155469086716256.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las caletas."
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "hypothesis": "với vai trò nxa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hòa ước dạy david một ngàn chín trăm bảy tám bình thường hóa quan hệ mỹ trung những năm cuối thập niên một ngàn chín trăm bảy mươi cách mạng iran dẫn tới khủng hoảng con tin iran một ngàn chín trăm bảy mươi chín và xô viết xâm lược afghanistan một ngàn chín trăm bảy mươi chín."
+        },
+        {
+          "id": "1539/7080457166221655676.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/5269659892008038187.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/592822020933322380.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang các anh nói và tiếng lóng."
+        },
+        {
+          "id": "1526/6619325603971378631.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1526/10398673072244472767.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1601/12354289598552290116.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu và tìm các loài động vật để ăn thịt con mồi bằng mùi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1601/155163866501153764.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu và tìm các loài động vật để ăn thịt con mồi bằng mồi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1588/6238389016614768363.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1588/13570834282701147205.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tâm là phóng viên ảnh có thể không bị chia tá hình sự."
+        },
+        {
+          "id": "1588/132407571318475132.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1595/13268479210390696192.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời giải của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật dối án độ."
+        },
+        {
+          "id": "1595/12840552791233455752.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật yoga ấn độ."
+        },
+        {
+          "id": "1595/12375302090960524617.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật yoga ấn độ."
+        },
+        {
+          "id": "1555/9558180444501391590.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/11416600578316126877.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/12081037594217867808.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1656/12887163887499710126.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1656/17757384667472487467.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1572/11025013104549101811.wav",
+          "hypothesis": "thêm ba quả bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "hypothesis": "thêm bao bộ bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "hypothesis": "thêm bao bó bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/57822069306015643.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hoài động vật hoang dã."
+        },
+        {
+          "id": "1649/6722230310396280157.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/14783247390946343063.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/5915526011302588851.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1651/3719603297869202172.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1651/16875267973097515138.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1540/15401984597053465222.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kundalini yoga thiền pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/4230520510342676079.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kundalini yoga thiện pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/10734584756155989470.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kinh đa lily yoga thiện pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1541/15583589234736745664.wav",
+          "hypothesis": "các công ty chuyển phát được trả tiền để vận chuyển các vật phẩm một cách nhanh chóng thông thường thời gian rất quan trọng đối với các tài liệu kinh doanh hàng hóa hoặc các phụ tùng phục vụ cho việc sửa chữa kháng chấp."
+        },
+        {
+          "id": "1639/1665394027477463848.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1639/9919202051882179979.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1625/17343506464706503834.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân của siri sam."
+        },
+        {
+          "id": "1625/4767212356465567922.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân cổ suhri hyem."
+        },
+        {
+          "id": "1645/422363421073634118.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/9410324112140689433.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/4094972119462061491.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1648/2271496750613408044.wav",
+          "hypothesis": "không có khu rừng lớn nào trong vùng canaan nên ở đây gỗ rất đắt đỏ."
+        },
+        {
+          "id": "1547/4193038624446861874.wav",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki karia tại quận niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki karia tại quận niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1535/10629394448273158255.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/8880245916021909710.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không đu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/13087390736778565204.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép thi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1630/12496802784834699865.wav",
+          "hypothesis": "elly velasquez của mexico về thứ 15 trong giải trượt ngòi subasil dành cho nam adam hoan đến từ new zealand đã xếp thứ chính trong bảng xếp hạng subasil trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "hypothesis": "ali velasquez của mexico về thứ mười lăm trong giải chuột ngòi superg giành cho nam adam hill đến từ new zealand đã là số thứ chín cho sếp hãng superg trượt đứng giành cho nam."
+        },
+        {
+          "id": "1630/14135486895615497173.wav",
+          "hypothesis": "ali velasquez của mexico về thứ 15 trong giải trượt ngòi super league dành cho nam adam hoan đến từ new zealand đã xếp thứ chính trong bảng xếp hạng super league trượt đứng dành cho nam."
+        },
+        {
+          "id": "1538/10880870198356795831.wav",
+          "hypothesis": "khoảng cách xa giữa bom bayern và federer tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffalo bidber thường xuyên đi qua những vùng rừng đậm cô quạnh."
+        },
+        {
+          "id": "1538/9427648485582527577.wav",
+          "hypothesis": "khoảng cách xa giữa bayern munich và premier league tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffalo bridge thường xuyên đi qua những vùng rừng rậm cô quạnh."
+        },
+        {
+          "id": "1512/9523847873989791627.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/11588273444475915758.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/9295877030604668222.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1552/13852086126243292433.wav",
+          "hypothesis": "kết quả phân tích bầu thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1552/9611754808191357343.wav",
+          "hypothesis": "kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1644/16380958649268722082.wav",
+          "hypothesis": "khi được yêu cầu bình luận miura cho biết mai nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1644/8351071813159259518.wav",
+          "hypothesis": "khi được yêu cầu bình luận miller cho biết mike nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "hypothesis": "một trăm lẻ tám đĩa chè hấp pân và hốc trong món đỗ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụ cho ba ba si am."
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "hypothesis": "một trăm linh tám đẻ chăm ban pi hút trong ấn đạo giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phục vụ cho pa pa si am."
+        },
+        {
+          "id": "1634/5533470844379665137.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hôn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1634/14591500972909447387.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hôn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1536/16996955127997669122.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/15035374286050916121.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tất cả thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/12506759633525739535.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ dồi nước."
+        },
+        {
+          "id": "1631/9793757361398247147.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/297703781105006747.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/7829487342299494550.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1613/11383083381372198060.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cứu ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/12036288405168204198.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phầm đai da rơi xuống khỏi yên ngựa nếu người cứa ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/2230979303912403628.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cởi yên ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1602/4651283719339281268.wav",
+          "hypothesis": "nền ẩm thực của malaysia cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/10668675586953055114.wav",
+          "hypothesis": "nền ẩm thực của mazaka cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/382364229624885411.wav",
+          "hypothesis": "nền ẩm thực của mazoka cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1641/9288426586650771406.wav",
+          "hypothesis": "không chỉ có đầm lầy và rừng nhập mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gangetic."
+        },
+        {
+          "id": "1641/473838346406749031.wav",
+          "hypothesis": "không chỉ có đầm lầy rừng gặp mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gangetic."
+        },
+        {
+          "id": "1620/4996295396067242252.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/8929602921504135773.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loại các món ăn chế biến gia vị đơn giản.hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/2763948773294193642.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1558/2229409451032120912.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hoá sáng tạo cũng như chia sẻ kiến thức và sự tìm tòi của cả tập thể."
+        },
+        {
+          "id": "1558/2646439179284829458.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hoá sáng tạo cũng như chia sẻ kiến thức và sự tìm tòi của cả tập thể."
+        },
+        {
+          "id": "1510/3423713313417871592.wav",
+          "hypothesis": "liên hợp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/1703310497318542579.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/288972552359107972.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1537/17555495090009921752.wav",
+          "hypothesis": "bạn có thể nhìn thấy các kim tử tháp trong bóng tối và bạn có thể ngắm nhìn chúng trong tĩnh lặng trước khi buổi trình diễn bắt đầu."
+        },
+        {
+          "id": "1546/7578764335098022430.wav",
+          "hypothesis": "cấu trúc của long vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để pha mẻ.các nhà kiên cơ cho rằng mặc dù đây là đuôi của một con khủng long non bổ vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "hypothesis": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để khoe mẽ.các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng lông non mẫu vật thể hiện một bộ lông đã trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1605/17865182669535813706.wav",
+          "hypothesis": "vì xa cách với lục địa nên các loài thú có vú không thể đến được đây khiến cho rùa biển khổng lồ trở thành loài động vật ăn cỏ chính ở galapagos."
+        },
+        {
+          "id": "1524/7862656875199214490.wav",
+          "hypothesis": "có rất nhiều tác động chính trị và xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên chế sang cộng hòa chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1524/4364473975206158506.wav",
+          "hypothesis": "có rất nhiều tác động chính trị về xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên trái sang cộng hòa chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1607/14220434451268738918.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1607/11956657419390051271.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1587/11709007378118641324.wav",
+          "hypothesis": "những trường hợp mắc bệnh đầu tiên mùa này được cho là xuất hiện vào cuối tháng bảy."
+        },
+        {
+          "id": "1561/5380420816515716433.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe buýt qatar nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1561/11968837672136740842.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe buýt costa nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1557/18322727376834662108.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/14928886936425796029.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/8764178281800662979.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1652/4437545477949798224.wav",
+          "hypothesis": "tôn giáo chính ở modova là chính thống giáo."
+        },
+        {
+          "id": "1652/16825699755172330111.wav",
+          "hypothesis": "tôn giáo chính ở modova là chính thống giáo."
+        },
+        {
+          "id": "1652/13054055761306097020.wav",
+          "hypothesis": "tôn giáo chính ở modova là chính thống giáo."
+        },
+        {
+          "id": "1650/8921894726060882087.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh uyển chính của chúng là những cửa sông ở phía bắc gốc cam tôn."
+        },
+        {
+          "id": "1650/15530234383742555383.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh uyển chính của chúng là những cửa sông ở phía bắc rất ham tành."
+        },
+        {
+          "id": "1633/17576801065473714259.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thoi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        },
+        {
+          "id": "1633/5622858423000138226.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thoi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        }
+      ]
+    },
+    {
+      "model": "ct2:data/models/PhoWhisper-large-ct2",
+      "utterances": 120,
+      "audio_minutes": 24.5,
+      "wer": 0.0673,
+      "cer": 0.0439,
+      "number_recall": 0.2222,
+      "numbers_in_reference": 18,
+      "median_utt_wer": 0.0326,
+      "wer_digits": 0.0555,
+      "cer_digits": 0.0319,
+      "number_recall_digits": 0.9259,
+      "wer_by_gender": {
+        "MALE": 0.0673
+      },
+      "rtf": 0.3331,
+      "seconds": 489.0,
+      "vram_peak_mib": 2499,
+      "worst": [
+        {
+          "id": "1532/12943089570068506915.wav",
+          "wer": 0.576,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm lẻ tám đĩa chè hấp pân và hốc trong món đỗ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụ cho ba ba si am"
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "wer": 0.485,
+          "reference": "108 đĩa chhappan bhog trong ấn độ giáo 56 món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ vụ cho baba shyam",
+          "hypothesis": "một trăm linh tám đẻ chambal bì hút trong ấn độ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phục vụ cho pa pa si am"
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "wer": 0.342,
+          "reference": "arly velasquez của mexico về thứ mười lăm trong giải trượt ngồi super g dành cho nam adam hall đến từ new zealand đã xếp thứ chín trong bảng xếp hạng super g trượt đứng dành cho nam",
+          "hypothesis": "ali velazquez của mexico về thứ mười lăm trong giải chuột ngòi superg giành cho nam adam hee đến từ new zealand đã là số thứ chín trong những xếp hạng superg trượt đứng dành cho nam"
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "wer": 0.333,
+          "reference": "công viên có diện tích trên 19500 km2 và được chia thành 14 khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hoài động vật hoang dã"
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "wer": 0.3,
+          "reference": "công viên có diện tích trên 19500 km2 và được chia thành 14 khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "1543/10959203197012192023.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh nepal xảy ra."
+        },
+        {
+          "id": "1543/4731254860765043074.wav",
+          "hypothesis": "người bệnh cũng đã từng tới nigeria nơi một số ca mắc bệnh ebola xảy ra."
+        },
+        {
+          "id": "1600/16525570830762756295.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm săn bắn con cá chụp ảnh nắm chèm và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1600/8123673859785570169.wav",
+          "hypothesis": "các ví dụ về hoạt động tại chỗ bao gồm săn bắn câu cá chụp ảnh ngắm chim và tham quan công viên và nghiên cứu thông tin về hệ sinh thái."
+        },
+        {
+          "id": "1517/10467396475561744099.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hóa các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1517/13754775770768255557.wav",
+          "hypothesis": "nghiên cứu trí tuệ nhân tạo bao gồm tạo ra những cỗ máy tự động hoá các tác dụng đòi hỏi hành vi thông minh."
+        },
+        {
+          "id": "1642/15730294784062856962.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/7565136047219100223.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1642/4120594822382949754.wav",
+          "hypothesis": "chi phí chiến tranh của chủ nghĩa đế quốc hoa kỳ trong cuộc chinh phạt philippines được chính những người dân philippines chi trả."
+        },
+        {
+          "id": "1659/12090846728876801190.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ nổ rất lớn."
+        },
+        {
+          "id": "1659/9443759897372819477.wav",
+          "hypothesis": "các nhà khoa học cho biết vụ va chạm đã gây ra vụ ngộ rất lớn."
+        },
+        {
+          "id": "1567/1658250308905379666.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las canyas."
+        },
+        {
+          "id": "1567/12176772846678576008.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở la canada."
+        },
+        {
+          "id": "1567/16530155469086716256.wav",
+          "hypothesis": "giải đấu lớn nhất trong năm diễn ra vào tháng mười hai trên sân mã cầu ở las caletas."
+        },
+        {
+          "id": "1604/5916437334499990161.wav",
+          "hypothesis": "với vai trò nxa ông hỗ trợ carter xử lý về mặt ngoại giao các sự kiện của thế giới như hoà ước dạy david 1978 bình thường hóa quan hệ mỹ trung những năm cuối thập niên 1970 cách mạng iran dẫn tới khủng hoảng con tin iran 1979 và xô viết xâm lược afghanistan 1979. cảm ơn và hẹn gặp lại anh chị ở video tiếp theo."
+        },
+        {
+          "id": "1539/7080457166221655676.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/5269659892008038187.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang cách ăn nói và tiếng lóng."
+        },
+        {
+          "id": "1539/592822020933322380.wav",
+          "hypothesis": "các thành viên của một nhóm văn hoá thường thể hiện mối quan hệ thông qua việc sử dụng phong cách mang tính đặc trưng và biểu tượng như thời trang các anh nói và tiếng lóng."
+        },
+        {
+          "id": "1526/6619325603971378631.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1526/10398673072244472767.wav",
+          "hypothesis": "nếu đến thăm vùng bắc cực hoặc nam cực vào mùa đông bạn sẽ được trải nghiệm đêm vùng cực nghĩa là mặt trời không nhú lên khỏi chân trời."
+        },
+        {
+          "id": "1601/12354289598552290116.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu và tìm các loài động vật để ăn thịt con mồi bằng mùi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1601/155163866501153764.wav",
+          "hypothesis": "các nhà khoa học nghĩ rằng mèo rừng nam mỹ theo dấu và tìm các loài động vật để ăn thịt con mồi bằng mồi đánh hơi từng chỗ mà con mồi đã đứng."
+        },
+        {
+          "id": "1588/6238389016614768363.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1588/13570834282701147205.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tâm là phóng viên ảnh có thể không bị chia tá hình sự."
+        },
+        {
+          "id": "1588/132407571318475132.wav",
+          "hypothesis": "theo cảnh sát người lái chiếc xe tông vào phóng viên ảnh có thể không bị truy tố hình sự."
+        },
+        {
+          "id": "1595/13268479210390696192.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật dối gá ấn độ."
+        },
+        {
+          "id": "1595/12840552791233455752.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật yoga ấn độ."
+        },
+        {
+          "id": "1595/12375302090960524617.wav",
+          "hypothesis": "phật giáo tây tạng dựa trên những lời dạy của đức phật nhưng được mở rộng bằng con đường từ bi của phật giáo đại thừa và rất nhiều kỹ thuật yoga ấn độ."
+        },
+        {
+          "id": "1555/9558180444501391590.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/11416600578316126877.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1555/12081037594217867808.wav",
+          "hypothesis": "trong sân nhà thờ có những tác phẩm điêu khắc bằng đá cẩm thạch khá là độc đáo trên một số ngôi mộ."
+        },
+        {
+          "id": "1656/12887163887499710126.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1656/17757384667472487467.wav",
+          "hypothesis": "cảnh sát cho biết thi thể nạn nhân đã ở đó được khoảng một ngày."
+        },
+        {
+          "id": "1572/11025013104549101811.wav",
+          "hypothesis": "thêm ba quả bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/14189667030678323734.wav",
+          "hypothesis": "thêm bao bộ bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1572/2694996626749147645.wav",
+          "hypothesis": "thêm ba bó bom nữa phát nổ gần các tòa nhà chính phủ trong khoảng hai tiếng đồng hồ."
+        },
+        {
+          "id": "1643/39175139941883407.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/57822069306015643.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hệ động vật hoang dã."
+        },
+        {
+          "id": "1643/11157776223844529887.wav",
+          "hypothesis": "công viên có diện tích trên mười chín ngàn năm trăm km vuông và được chia thành mười bốn khu sinh thái khác nhau mỗi khu là nơi ở của một hoài động vật hoang dã."
+        },
+        {
+          "id": "1649/6722230310396280157.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/14783247390946343063.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1649/5915526011302588851.wav",
+          "hypothesis": "ở nhật những bữa tiệc ngắm hoa anh đào đầu tiên được hoàng đế tổ chức riêng cho mình và những thành viên quý tộc quanh khu vực triều đình."
+        },
+        {
+          "id": "1651/3719603297869202172.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1651/16875267973097515138.wav",
+          "hypothesis": "một lựa chọn ngày càng phổ biến cho những người có kế hoạch nghỉ phép một năm là đi du lịch và học hỏi."
+        },
+        {
+          "id": "1540/15401984597053465222.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kundalini yoga thiền pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/4230520510342676079.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kundalini yoga thiền phát và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1540/10734584756155989470.wav",
+          "hypothesis": "về nguyên tắc phật giáo tây tạng rất đơn giản nó bao gồm kundalini yoga thiện pháp và con đường bao trùm tình yêu."
+        },
+        {
+          "id": "1541/15583589234736745664.wav",
+          "hypothesis": "các công ty chuyển phát được trả tiền để vận chuyển các vật phẩm một cách nhanh chóng thông thường thời gian rất quan trọng đối với các tài liệu kinh doanh hàng hóa hoặc các phụ tùng phục vụ cho việc sửa chữa kháng chấp."
+        },
+        {
+          "id": "1639/1665394027477463848.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1639/9919202051882179979.wav",
+          "hypothesis": "học sinh thường là những nhà phê bình khó tính nhất nên tác giả blog bắt đầu cố gắng cải thiện chất lượng bài viết để tránh bị phê bình."
+        },
+        {
+          "id": "1625/17343506464706503834.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân của siri sam."
+        },
+        {
+          "id": "1625/4767212356465567922.wav",
+          "hypothesis": "các ca sĩ nổi tiếng trên khắp cả nước trình bày hazard hoặc các bài hát mộ đạo tại chân cổ suhri hyem."
+        },
+        {
+          "id": "1645/422363421073634118.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/9410324112140689433.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1645/4094972119462061491.wav",
+          "hypothesis": "quyền lực toàn diện của nó đã tác động đến mọi người từ vua chúa đến thường dân."
+        },
+        {
+          "id": "1648/2271496750613408044.wav",
+          "hypothesis": "không có khu rừng lớn nào trong vùng cannes nên ở đây gỗ rất đắt đỏ."
+        },
+        {
+          "id": "1547/4193038624446861874.wav",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki karia tại quận niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1547/13773573858847692303.wav",
+          "hypothesis": "nhk cũng thông tin rằng nhà máy hạt nhân kashiwazaki kariawa tại quận niigata đã hoạt động bình thường."
+        },
+        {
+          "id": "1535/10629394448273158255.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/8880245916021909710.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không đu định vị máy bay với độ chính xác cao hơn và cho phép phi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1535/13087390736778565204.wav",
+          "hypothesis": "nó sử dụng công nghệ vệ tinh cơ sở trái ngược với công nghệ radar mặt đất cơ sở cho phép kiểm soát viên không lưu định vị máy bay với độ chính xác cao hơn và cho phép thi công những thông tin chính xác hơn."
+        },
+        {
+          "id": "1630/12496802784834699865.wav",
+          "hypothesis": "elly velasquez của mexico về thứ 15 trong giải trượt ngòi super g dành cho nam.adam hoan đến từ new zealand đã xếp thứ chính trong bảng xếp hạng super g trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/12613185066383956764.wav",
+          "hypothesis": "ali velazquez của mexico về thứ mười lăm trong giải chuột ngòi superg giành cho nam. adam hee đến từ new zealand đã là số thứ chín trong những xếp hạng superg trượt đứng dành cho nam."
+        },
+        {
+          "id": "1630/14135486895615497173.wav",
+          "hypothesis": "ali velasquez của mexico về thứ 15 trong giải trượt ngòi super league dành cho nam.adam hoan đến từ new zealand đã xếp thứ chính trong bảng xếp hạng super league trượt đứng dành cho nam."
+        },
+        {
+          "id": "1538/10880870198356795831.wav",
+          "hypothesis": "khoảng cách xa giữa bonbarion và federer tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffalo bidber thường xuyên đi qua những vùng rừng đậm cô quạnh."
+        },
+        {
+          "id": "1538/9427648485582527577.wav",
+          "hypothesis": "khoảng cách xa giữa bon marion và fireman tạo nên những điều kiện lái xe khó khăn nhất trên quốc lộ buffalo bridge thường xuyên đi qua những vùng rừng rậm cô quạnh."
+        },
+        {
+          "id": "1512/9523847873989791627.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/11588273444475915758.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1512/9295877030604668222.wav",
+          "hypothesis": "môi trường mới này có những nguồn lực khác và những đối thủ cạnh tranh khác vì thế dân số mới sẽ cần những đặc điểm hoặc khả năng thích nghi khác để trở thành một đối thủ cạnh tranh hùng mạnh hơn những gì họ vốn có trước kia."
+        },
+        {
+          "id": "1552/13852086126243292433.wav",
+          "hypothesis": "kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1552/9611754808191357343.wav",
+          "hypothesis": "kết quả phân tích đồ thị sẽ được đăng lên một trang web công cộng."
+        },
+        {
+          "id": "1644/16380958649268722082.wav",
+          "hypothesis": "khi được yêu cầu bình luận miura cho biết mai nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1644/8351071813159259518.wav",
+          "hypothesis": "khi được yêu cầu bình luận miller cho biết mike nói rất nhiều trong buổi điều trần tôi đang chuẩn bị nên tôi không thực sự nghe thấy anh ấy nói gì."
+        },
+        {
+          "id": "1532/12943089570068506915.wav",
+          "hypothesis": "một trăm lẻ tám đĩa chè hấp pân và hốc trong món đỗ giáo. năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phụ dụ cho ba ba si am."
+        },
+        {
+          "id": "1532/15112587708939797674.wav",
+          "hypothesis": "một trăm linh tám đẻ chambal bì hút trong ấn độ giáo năm mươi sáu món ăn như đồ ngọt trái cây các loại hạt các món ăn được dâng lên thần linh được phục vụ cho pa pa si am."
+        },
+        {
+          "id": "1634/5533470844379665137.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hôn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1634/14591500972909447387.wav",
+          "hypothesis": "với gần bảy ngàn đảo lớn nhất là đảo hôn su nhật bản trở thành hòn đảo lớn thứ bảy trên thế giới."
+        },
+        {
+          "id": "1536/16996955127997669122.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng cựu tận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/15035374286050916121.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tất cả thiết bị đều hoà không khí và không uống nước máy từ vòi nước."
+        },
+        {
+          "id": "1536/12506759633525739535.wav",
+          "hypothesis": "các cơ quan tại địa phương đang cảnh báo cư dân ở vùng phụ cận của nhà máy nên ở trong nhà tắt các thiết bị điều hòa không khí và không uống nước máy từ dồi nước."
+        },
+        {
+          "id": "1631/9793757361398247147.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/297703781105006747.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1631/7829487342299494550.wav",
+          "hypothesis": "người ai cập cổ đại thời tân vương quốc đã rất kinh ngạc trước những công trình của tổ tiên mà đến ngàn năm sau vẫn còn."
+        },
+        {
+          "id": "1613/11383083381372198060.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cứu ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/12036288405168204198.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phầm đai da rơi xuống khỏi yên ngựa nếu người cứa ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1613/2230979303912403628.wav",
+          "hypothesis": "tiếp theo một số yên ngựa đặc biệt là yên ngựa của anh có thanh chắn an toàn cho phép phần đai da rơi xuống khỏi yên ngựa nếu người cưỡi ngựa bị ngã kéo về phía sau."
+        },
+        {
+          "id": "1602/4651283719339281268.wav",
+          "hypothesis": "nền ẩm thực của malaysia cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/10668675586953055114.wav",
+          "hypothesis": "nền ẩm thực của mazaka cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1602/382364229624885411.wav",
+          "hypothesis": "nền ẩm thực của mazoka cũng giống như những khu vực tương tự trong vùng địa trung hải chủ yếu bao gồm bánh mì rau củ và thịt nhất là thịt heo và dầu ô liu được sử dụng rộng rãi."
+        },
+        {
+          "id": "1641/9288426586650771406.wav",
+          "hypothesis": "không chỉ có đầm lầy và rừng nhập mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gangetic."
+        },
+        {
+          "id": "1641/473838346406749031.wav",
+          "hypothesis": "không chỉ có đầm lầy rừng ngập mặn các khu rừng này còn bao gồm một số khu vực còn sót lại của những khu rừng hùng vĩ từng bao phủ đồng bằng gangetic."
+        },
+        {
+          "id": "1620/4996295396067242252.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/8929602921504135773.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loại các món ăn chế biến gia vị đơn giản. hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1620/2763948773294193642.wav",
+          "hypothesis": "hiện đã có khắp nơi trên quần đảo ẩm thực java bao gồm một loạt các món ăn chế biến gia vị đơn giản hương vị yêu thích hơn cả của người java là đậu ớt đường đặc biệt là đường dừa java và nhiều gia vị dậy mùi thơm khác nhau."
+        },
+        {
+          "id": "1558/2229409451032120912.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hoá sáng tạo cũng như chia sẻ kiến thức và sự truyền tài của cả tập thể."
+        },
+        {
+          "id": "1558/2646439179284829458.wav",
+          "hypothesis": "trước khi một tổ chức có thể sáng tạo ban lãnh đạo cần phải tạo ra văn hoá sáng tạo cũng như chia sẻ kiến thức và sự tìm tòi của cả tập thể."
+        },
+        {
+          "id": "1510/3423713313417871592.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/1703310497318542579.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1510/288972552359107972.wav",
+          "hypothesis": "liên hiệp quốc cũng hy vọng thông qua một khoản ngân sách để hỗ trợ các quốc gia đang chịu ảnh hưởng của sự nóng lên toàn cầu và chống chọi với tác động."
+        },
+        {
+          "id": "1537/17555495090009921752.wav",
+          "hypothesis": "bạn có thể nhìn thấy các kim tử tháp trong bóng tối và bạn có thể ngắm nhìn chúng trong tĩnh lặng trước khi buổi trình diễn bắt đầu."
+        },
+        {
+          "id": "1546/7578764335098022430.wav",
+          "hypothesis": "cấu trúc của long vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để pha mẻ. các nhà kiên cơ cho rằng mặc dù đây là đuôi của một con khủng long non bổ vật thể hiện một bộ lông trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1546/1139741953038979336.wav",
+          "hypothesis": "cấu trúc của lông vũ gợi ý rằng bộ lông này không dùng để bay mà để kiểm soát nhiệt độ cơ thể hoặc để khoe mẽ. các nhà nghiên cứu cho rằng mặc dù đây là đuôi của một con khủng long non mổ vật thể hiện một bộ lông đã trưởng thành chứ không phải là lông tơ."
+        },
+        {
+          "id": "1605/17865182669535813706.wav",
+          "hypothesis": "vì xa cách với lục địa nên các loài thú có vú không thể đến được đây khiến cho rùa biển khổng lồ trở thành loài động vật không có chính ở galapagos."
+        },
+        {
+          "id": "1524/7862656875199214490.wav",
+          "hypothesis": "có rất nhiều tác động chính trị và xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên chế sang cộng hòa chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1524/4364473975206158506.wav",
+          "hypothesis": "có rất nhiều tác động chính trị về xã hội như việc sử dụng hệ thống số liệu chuyển từ chế độ quân chủ chuyên trái sang cộng hòa chủ nghĩa dân tộc và niềm tin đất nước thuộc về người dân chứ không thuộc về một kẻ cai trị nào đó."
+        },
+        {
+          "id": "1607/14220434451268738918.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1607/11956657419390051271.wav",
+          "hypothesis": "nửa giờ để đi dạo đến ngôi làng thú vị này thật xứng đáng."
+        },
+        {
+          "id": "1587/11709007378118641324.wav",
+          "hypothesis": "những trường hợp mắc bệnh đầu tiên mùa này được cho là xuất hiện vào cuối tháng bảy."
+        },
+        {
+          "id": "1561/5380420816515716433.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe buýt qatar nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1561/11968837672136740842.wav",
+          "hypothesis": "hầu hết các quận được phục vụ bởi loại xe buýt costa nhỏ của nhật vốn rất thoải mái và chắc chắn."
+        },
+        {
+          "id": "1557/18322727376834662108.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/14928886936425796029.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1557/8764178281800662979.wav",
+          "hypothesis": "sau khi chứng kiến sự tang thương và tàn bạo của chiến tranh qua đệ nhất thế chiến các quốc gia đều mong muốn tránh tái diễn tình trạng đó trong tương lai."
+        },
+        {
+          "id": "1652/4437545477949798224.wav",
+          "hypothesis": "tôn giáo chính ở modova là chính thống giáo."
+        },
+        {
+          "id": "1652/16825699755172330111.wav",
+          "hypothesis": "tôn giáo chính ở monnova là chính thống giáo."
+        },
+        {
+          "id": "1652/13054055761306097020.wav",
+          "hypothesis": "tôn giáo chính ở modova là chính thống giáo."
+        },
+        {
+          "id": "1650/8921894726060882087.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh uyển chính của chúng là những cửa sông ở phía bắc góc cam  tôn."
+        },
+        {
+          "id": "1650/15530234383742555383.wav",
+          "hypothesis": "cá sấu nước mặn không hay sống ở biển sinh uyển chính của chúng là những cửa sông ở phía bắc rất ham tành."
+        },
+        {
+          "id": "1633/17576801065473714259.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thoi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        },
+        {
+          "id": "1633/5622858423000138226.wav",
+          "hypothesis": "trong hệ thống chuyên chở con thoi động lực tất cả mọi người đều kết nối với và hỗ trợ một hệ thống chuyên chở bằng xe hơi riêng."
+        }
+      ]
+    }
+  ]
+}

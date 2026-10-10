@@ -90,6 +90,33 @@ class Settings(BaseSettings):
     max_job_attempts: int = 3
     job_lease_seconds: int = 120
 
+    # --- Bài giảng / media (LECTURE_ARCHITECTURE.md mục 4, 8). Giá trị khởi đầu để profiling.
+    media_bucket: str = Field("media", alias="msks_media_bucket")
+    # Gói Supabase hiện tại giới hạn 50 MB/object → video được tải theo phần ≤ media_part_bytes.
+    media_part_bytes: int = Field(45 * 1024 * 1024, alias="msks_media_part_bytes")
+    max_media_bytes: int = Field(400 * 1024 * 1024, alias="msks_max_media_bytes")
+    max_media_seconds: int = Field(3600, alias="msks_max_media_seconds")
+    media_quota_bytes_per_workspace: int = Field(800 * 1024 * 1024, alias="msks_media_quota_bytes")
+    max_caption_bytes: int = 2 * 1024 * 1024
+    upload_session_ttl_seconds: int = 24 * 3600
+    original_grace_seconds: int = Field(24 * 3600, alias="msks_original_grace_seconds")
+    failed_media_ttl_seconds: int = 7 * 24 * 3600
+    audio_chunk_seconds: int = 600
+    frame_sample_seconds: float = Field(5.0, alias="msks_frame_sample_seconds")
+    frame_change_threshold: float = Field(0.002, alias="msks_frame_change_threshold")  # tỉ lệ điểm ảnh đổi rõ rệt
+    max_frames_per_hour: int = 1000
+    speech_window_seconds: int = 180
+    asr_model: str = Field("mobiuslabsgmbh/faster-whisper-large-v3-turbo", alias="msks_asr_model")
+    asr_model_vi: str | None = Field(None, alias="msks_asr_model_vi")   # vd. checkpoint PhoWhisper CT2 để so sánh
+    asr_compute_type: str = Field("int8_float16", alias="msks_asr_compute_type")
+    asr_glossary: str | None = Field(None, alias="msks_asr_glossary")
+    ocr_engine: Literal["easyocr", "rapidocr"] = Field("easyocr", alias="msks_ocr_engine")
+    review_low_confidence_ratio: float = 0.5
+    # Profile lecture_vi_v1: ngưỡng NLI tiếng Việt chưa hiệu chỉnh → dùng giá trị khởi đầu, nhãn thử nghiệm.
+    lecture_nli_support_threshold: float | None = Field(None, alias="msks_lecture_nli_support_threshold", ge=0, le=1)
+    lecture_nli_contradiction_threshold: float | None = Field(None, alias="msks_lecture_nli_contradiction_threshold", ge=0, le=1)
+    lecture_calibration_artifact: str | None = Field(None, alias="msks_lecture_calibration_artifact")
+
     # --- Chia đoạn (giữ nguyên v11)
     child_target_tokens: int = 220
     child_overlap_sentences: int = 1

@@ -186,6 +186,84 @@ def main() -> None:
             expect_error(conn, "select * from workspace", (), "anon không đọc được bảng nào", "42501")
             conn.execute("reset role")
 
+        print("Bài giảng / media (0007):")
+        video = conn.execute(
+            "insert into source (workspace_id, alias, kind, title, origin_group_id, status, language) "
+            "values (%s, 'S9', 'video', 'Bài giảng', 'gv', 'ready_limited', 'vi') returning id",
+            (ws_a,),
+        ).fetchone()[0]
+        check(video is not None, "source nhận kind 'video' và trạng thái 'ready_limited'")
+        conn.execute(
+            "insert into upload_session (workspace_id, owner_id, filename, mime, expected_bytes, part_bytes, part_count, "
+            "object_prefix, expires_at) values (%s, %s, 'a.mp4', 'video/mp4', 10, 10, 1, 'p/', now() + interval '1 hour')",
+            (ws_a, u1),
+        )
+        vrev = conn.execute(
+            "insert into document_revision (workspace_id, source_id, revision_no, mime, object_key, sha256, byte_size) "
+            "values (%s, %s, 1, 'video/mp4', 'k', repeat('b', 64), 10) returning id", (ws_a, video),
+        ).fetchone()[0]
+        ext = conn.execute(
+            "insert into extraction_revision (workspace_id, source_id, document_revision_id, profile, status) "
+            "values (%s, %s, %s, 'lecture_vi_v1', 'succeeded') returning id", (ws_a, video, vrev),
+        ).fetchone()[0]
+        audio = conn.execute(
+            "insert into media_asset (workspace_id, source_id, document_revision_id, kind, object_key) "
+            "values (%s, %s, %s, 'audio', 'k/a.flac') returning id", (ws_a, video, vrev),
+        ).fetchone()[0]
+        conn.execute(
+            "insert into transcript_segment (workspace_id, extraction_revision_id, track, ordinal, text, start_ms, end_ms, "
+            "origin, audio_asset_id) values (%s, %s, 'asr:x', 0, 'Lời giảng bí mật', 0, 1000, 'asr', %s)", (ws_a, ext, audio),
+        )
+        try:
+            with conn.transaction():
+                conn.execute("delete from media_asset where id = %s", (audio,))
+                conn.execute("set constraints all immediate")
+            check(False, "xóa riêng audio đang được segment tham chiếu — không bị chặn")
+        except psycopg.Error as error:
+            check(error.sqlstate == "23503", f"xóa riêng audio đang được tham chiếu bị chặn (sqlstate {error.sqlstate})")
+        with conn.transaction():
+            # Xóa cả workspace có dữ liệu media (cascade nhiều tầng) phải thành công; savepoint hoàn tác ngay.
+            ok = True
+            try:
+                with conn.transaction():
+                    conn.execute("delete from workspace where id = %s", (ws_a,))
+                    conn.execute("set constraints all immediate")
+                    raise RuntimeError("rollback")
+            except RuntimeError:
+                pass
+            except psycopg.Error as error:
+                ok = False
+                print("    ", error.sqlstate, str(error).splitlines()[0])
+            check(ok, "xóa workspace có transcript/media cascade được toàn bộ")
+        expect_error(
+            conn,
+            "insert into transcript_segment (workspace_id, extraction_revision_id, track, ordinal, text, start_ms, end_ms, origin) "
+            "values (%s, %s, 'asr:x', 1, 'x', 5000, 4000, 'asr')", (ws_a, ext),
+            "segment có end_ms ≤ start_ms bị từ chối", "23514",
+        )
+        expect_error(
+            conn,
+            "insert into extraction_revision (workspace_id, source_id, document_revision_id, profile) values (%s, %s, %s, 'x')",
+            (ws_b, video, vrev), "extraction của workspace B không trỏ được nguồn của A", "23503",
+        )
+        with conn.transaction():
+            as_user(conn, u1)
+            check(conn.execute("select count(*) from upload_session").fetchone()[0] == 1, "user 1 đọc được phiên upload của mình")
+            check(conn.execute("select count(*) from extraction_revision").fetchone()[0] == 1, "user 1 đọc metadata trích xuất")
+            expect_error(conn, "select * from transcript_segment", (), "bản chép chỉ đọc qua FastAPI", "42501")
+            expect_error(conn, "select * from frame_region", (), "vùng OCR chỉ đọc qua FastAPI", "42501")
+            expect_error(conn, "select * from media_asset", (), "object key media không lộ qua Data API", "42501")
+            expect_error(conn, "select * from source_map_span", (), "source map chỉ đọc qua FastAPI", "42501")
+            conn.execute("reset role")
+        with conn.transaction():
+            as_user(conn, u2)
+            check(conn.execute("select count(*) from upload_session").fetchone()[0] == 0, "user 2 không thấy phiên upload của A")
+            conn.execute("reset role")
+        check(
+            conn.execute("select public from storage.buckets where id = 'media'").fetchone() == (False,),
+            "bucket 'media' tồn tại và riêng tư",
+        )
+
         conn.execute("update source set status = 'deleting', deleted_at = now() where id = %s", (src,))
         with conn.transaction():
             as_user(conn, u1)

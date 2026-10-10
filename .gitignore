@@ -16,3 +16,10 @@ web/dist/
 # Khác
 *.log
 .DS_Store
+
+# Dữ liệu đánh giá tải về (không commit)
+data/eval/
+data/models/
+
+# kết quả đo dở (eval_asr_vi ghi sau mỗi model)
+analysis/*.partial.json

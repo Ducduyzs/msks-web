@@ -1,0 +1,86 @@
+{
+  "glossary": "Agreement Ranking, cross-encoder, SBERT, reciprocal rank fusion, RAPTOR, PeerQA, hằng số k.",
+  "reference": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion. Hằng số k trong công thức được đặt bằng 60. Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây. Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng. Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo. Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+  "results": {
+    "clean/no_glossary": {
+      "wer": 0.058,
+      "cer": 0.0449,
+      "number_recall": 1.0,
+      "dropped": 1,
+      "hypothesis": "Hôm nay chúng ta học về Argument Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của Cross Encoder với thứ hạng của SBRT bằng Reciport Run Fusion. Hằng số ca trong công thức được đặt bằng 60. Khác với Raptor, Argument Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3.097 giây Trên tập dữ liệu PETK, Agamem Ranking không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "wer_digits": 0.058
+    },
+    "clean/glossary": {
+      "wer": 0.0362,
+      "cer": 0.0318,
+      "number_recall": 1.0,
+      "dropped": 1,
+      "hypothesis": "Hôm nay chúng ta học về argument ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciproc rank fusion. Hằng số k trong công thức được đặt bằng 60. Khác với RAPTOR, argument ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3.097 giây Trên tập dữ liệu PETK, Agamem Ranking không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "wer_digits": 0.0362
+    },
+    "noisy/no_glossary": {
+      "wer": 0.0652,
+      "cer": 0.0449,
+      "number_recall": 1.0,
+      "dropped": 1,
+      "hypothesis": "Hôm nay chúng ta học về Argument Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của Cross Encoder với thứ hạng của SBRT bằng Resiport Rang Fusion. Hằng số ca trong công thức được đặt bằng 60. Khác với Raptor, Argument Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3097 giây Trên tập dữ liệu PETCA, Agamem Rankin không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "wer_digits": 0.0652
+    },
+    "noisy/glossary": {
+      "wer": 0.0435,
+      "cer": 0.0449,
+      "number_recall": 1.0,
+      "dropped": 1,
+      "hypothesis": "Hôm nay chúng ta học về Agamem Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp. Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng Resipot Rank fusion. Hằng số k trong công thức được đặt bằng 60. Khác với RAPTOR, Agamem Ranking không cần dựng cây tóm tắt. Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi Raptor mất khoảng 3097 giây Trên tập dữ liệu PETCA, Agamem Rankin không kém Raptor về độ chính xác của bằng chứng Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả",
+      "wer_digits": 0.0435
+    },
+    "clean/phowhisper_ct2/no_glossary": {
+      "wer": 0.1667,
+      "wer_digits": 0.0652,
+      "cer_digits": 0.0468,
+      "number_recall_digits": 1.0,
+      "segments": 2,
+      "start_offset_ms_p50": 14384.0,
+      "start_offset_ms_max": 23552.0,
+      "dropped": 0,
+      "seconds": 37.0,
+      "hypothesis": "hôm nay chúng ta học về argument ranking một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp phương pháp này kết hợp thứ hạng của cross encoder với thứ hạng của sbrt bằng recepot trăng fill dần hằng số k trong công thức được đặt bằng sáu mươi khác với raptor argument ranking không cần dựng cây tóm tắt với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây trong khi raptor mất khoảng ba nghìn không trăm chín mươi bảy giây. trên tập dữ liệu pesca argument ranking không kém raptor về độ chính xác của bằng chứng tuy nhiên phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo với bài giảng tiếng việt chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả."
+    },
+    "clean/phowhisper_ct2/glossary": {
+      "wer": 0.1522,
+      "wer_digits": 0.0507,
+      "cer_digits": 0.03,
+      "number_recall_digits": 1.0,
+      "segments": 2,
+      "start_offset_ms_p50": 6448.0,
+      "start_offset_ms_max": 14480.0,
+      "dropped": 0,
+      "seconds": 35.2,
+      "hypothesis": "hôm nay chúng ta học về argument ranking một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp phương pháp này kết hợp thứ hạng của cross encoder với thứ hạng của sbert bằng reciprocal rank fusion hằng số k trong công thức được đặt bằng sáu mươi khác với rap tho argument ranking không cần dựng cây tóm tắt với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây trong khi rapper mất khoảng ba nghìn không trăm chín mươi bảy giây. trên tập dữ liệu pesca argument ranking không kém raptor về độ chính xác của bằng chứng tuy nhiên phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo với bài giảng tiếng việt chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả."
+    },
+    "noisy/phowhisper_ct2/no_glossary": {
+      "wer": 0.1812,
+      "wer_digits": 0.0797,
+      "cer_digits": 0.0599,
+      "number_recall_digits": 1.0,
+      "segments": 2,
+      "start_offset_ms_p50": 14384.0,
+      "start_offset_ms_max": 23552.0,
+      "dropped": 0,
+      "seconds": 33.6,
+      "hypothesis": "hôm nay chúng ta học về argument ranking một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp phương pháp này kết hợp thứ hạng của cross encoder với thứ hạng của sbrt bằng recepot chăng tiêu dần hằng số ca trong công thức được đặt bằng sáu mươi khác với raptor argument ranking không cần dựng cây tóm tắt với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây trong khi raptor mất khoảng ba nghìn không trăm chín mươi bảy giây. giây trên tập dữ liệu pesca argument ranking không kém raptor về độ chính xác của bằng chứng tuy nhiên phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo với bài giảng tiếng việt chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả."
+    },
+    "noisy/phowhisper_ct2/glossary": {
+      "wer": 0.1594,
+      "wer_digits": 0.058,
+      "cer_digits": 0.0375,
+      "number_recall_digits": 1.0,
+      "segments": 2,
+      "start_offset_ms_p50": 6448.0,
+      "start_offset_ms_max": 6448.0,
+      "dropped": 0,
+      "seconds": 31.7,
+      "hypothesis": "hôm nay chúng ta học về argument ranking một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp phương pháp này kết hợp thứ hạng của cross encoder với thứ hạng của sbert bằng reciprocal rank fusion hằng số k trong công thức được đặt bằng sáu mươi khác với rap tho argument ranking không cần dựng cây tóm tắt với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây trong khi rapper mất khoảng ba nghìn không trăm chín mươi bảy giây. giây trên tập dữ liệu pesca argument ranking không kém raptor về độ chính xác của bằng chứng tuy nhiên phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo với bài giảng tiếng việt chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả."
+    }
+  }
+}

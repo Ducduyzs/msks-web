@@ -1,0 +1,1519 @@
+{
+  "meta": {
+    "pairs": 40,
+    "contradiction_threshold": 0.5,
+    "decision": "supported = entail >= s and contradiction < c"
+  },
+  "models": {
+    "lecture_vi_v1": {
+      "model": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "by_support_threshold": {
+        "0.25": {
+          "precision": 0.882,
+          "recall": 0.833,
+          "false_supported": 2,
+          "false_ids": [
+            "c06",
+            "x03"
+          ]
+        },
+        "0.5": {
+          "precision": 0.882,
+          "recall": 0.833,
+          "false_supported": 2,
+          "false_ids": [
+            "c06",
+            "x03"
+          ]
+        },
+        "0.7": {
+          "precision": 0.882,
+          "recall": 0.833,
+          "false_supported": 2,
+          "false_ids": [
+            "c06",
+            "x03"
+          ]
+        },
+        "0.8": {
+          "precision": 0.882,
+          "recall": 0.833,
+          "false_supported": 2,
+          "false_ids": [
+            "c06",
+            "x03"
+          ]
+        },
+        "0.9": {
+          "precision": 0.882,
+          "recall": 0.833,
+          "false_supported": 2,
+          "false_ids": [
+            "c06",
+            "x03"
+          ]
+        }
+      },
+      "per_category": {
+        "paraphrase": {
+          "n": 8,
+          "label": "entailment",
+          "mean_entail": 0.998,
+          "mean_contradiction": 0.0,
+          "supported_at_0.25": 8
+        },
+        "code_switch": {
+          "n": 2,
+          "label": "entailment",
+          "mean_entail": 0.998,
+          "mean_contradiction": 0.0,
+          "supported_at_0.25": 2
+        },
+        "number_match": {
+          "n": 5,
+          "label": "entailment",
+          "mean_entail": 0.836,
+          "mean_contradiction": 0.003,
+          "supported_at_0.25": 4
+        },
+        "number_mismatch": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.206,
+          "mean_contradiction": 0.669,
+          "supported_at_0.25": 1
+        },
+        "negation": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.001,
+          "mean_contradiction": 0.999,
+          "supported_at_0.25": 0
+        },
+        "extra_info": {
+          "n": 6,
+          "label": "neutral",
+          "mean_entail": 0.153,
+          "mean_contradiction": 0.009,
+          "supported_at_0.25": 1
+        },
+        "unrelated": {
+          "n": 3,
+          "label": "neutral",
+          "mean_entail": 0.032,
+          "mean_contradiction": 0.005,
+          "supported_at_0.25": 0
+        },
+        "asr_noise": {
+          "n": 4,
+          "label": "entailment",
+          "mean_entail": 0.271,
+          "mean_contradiction": 0.48,
+          "supported_at_0.25": 1
+        }
+      },
+      "rows": [
+        {
+          "id": "p01",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking là một phương pháp xếp hạng đoạn văn.",
+          "entail": 0.9987,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "p02",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Agreement Ranking dùng reciprocal rank fusion để kết hợp hai thứ hạng.",
+          "entail": 0.9975,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "p03",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking không dựng cây tóm tắt.",
+          "entail": 0.9966,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "p04",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, độ chính xác bằng chứng của Agreement Ranking không thấp hơn RAPTOR.",
+          "entail": 0.9987,
+          "contradiction": 0.0004,
+          "guard": null
+        },
+        {
+          "id": "p05",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Chưa có bằng chứng cho thấy phương pháp này tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.999,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "p06",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Mô hình kiểm chứng cần được đánh giá lại cho bài giảng tiếng Việt.",
+          "entail": 0.9989,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p07",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm thời gian phản hồi giảm xuống.",
+          "entail": 0.999,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p08",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Các đoạn lá liên tiếp chồng lấp nhau một câu.",
+          "entail": 0.9987,
+          "contradiction": 0.0003,
+          "guard": null
+        },
+        {
+          "id": "p09",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Mô hình cross-encoder cho điểm mỗi cặp câu hỏi – đoạn văn.",
+          "entail": 0.9972,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p10",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "BGE-M3 tạo cả vector dense lẫn sparse.",
+          "entail": 0.9984,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n01",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.9962,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "n02",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 32 giây.",
+          "entail": 0.1895,
+          "contradiction": 0.0111,
+          "guard": null
+        },
+        {
+          "id": "n03",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "RAPTOR cần khoảng 3097 giây để lập chỉ mục.",
+          "entail": 0.9986,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n04",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Điểm thi cuối kỳ chiếm 40% tổng điểm.",
+          "entail": 0.9989,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n05",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp có 20 sinh viên nữ.",
+          "entail": 0.9985,
+          "contradiction": 0.0006,
+          "guard": null
+        },
+        {
+          "id": "c01",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 6.",
+          "entail": 0.0005,
+          "contradiction": 0.9988,
+          "guard": null
+        },
+        {
+          "id": "c02",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 320 giây.",
+          "entail": 0.2274,
+          "contradiction": 0.0266,
+          "guard": null
+        },
+        {
+          "id": "c03",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Thời gian lập chỉ mục được đo trên 7 bài báo.",
+          "entail": 0.0043,
+          "contradiction": 0.9942,
+          "guard": null
+        },
+        {
+          "id": "c04",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Bài kiểm tra cuối kỳ chiếm 60% tổng điểm.",
+          "entail": 0.0003,
+          "contradiction": 0.999,
+          "guard": null
+        },
+        {
+          "id": "c05",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp học có 54 sinh viên.",
+          "entail": 0.003,
+          "contradiction": 0.9955,
+          "guard": null
+        },
+        {
+          "id": "c06",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Mỗi đoạn lá có khoảng 2200 token.",
+          "entail": 0.9987,
+          "contradiction": 0.0003,
+          "guard": null
+        },
+        {
+          "id": "g01",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking phải dựng cây tóm tắt.",
+          "entail": 0.0012,
+          "contradiction": 0.9977,
+          "guard": null
+        },
+        {
+          "id": "g02",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, Agreement Ranking kém RAPTOR về độ chính xác của bằng chứng.",
+          "entail": 0.0013,
+          "contradiction": 0.9975,
+          "guard": null
+        },
+        {
+          "id": "g03",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Phương pháp này đã được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.0003,
+          "contradiction": 0.9994,
+          "guard": null
+        },
+        {
+          "id": "g04",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm tăng thời gian phản hồi của hệ thống.",
+          "entail": 0.0003,
+          "contradiction": 0.9994,
+          "guard": null
+        },
+        {
+          "id": "g05",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Cross-encoder không chấm điểm cặp câu hỏi và đoạn văn.",
+          "entail": 0.0001,
+          "contradiction": 0.9997,
+          "guard": null
+        },
+        {
+          "id": "g06",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "Hệ thống không dùng BGE-M3.",
+          "entail": 0.0001,
+          "contradiction": 0.9997,
+          "guard": null
+        },
+        {
+          "id": "x01",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking được công bố năm 2025.",
+          "entail": 0.0002,
+          "contradiction": 0.0054,
+          "guard": null
+        },
+        {
+          "id": "x02",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking nhanh hơn RAPTOR mười lần khi trả lời câu hỏi.",
+          "entail": 0.0002,
+          "contradiction": 0.0004,
+          "guard": null
+        },
+        {
+          "id": "x03",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Agreement Ranking tốt hơn RAPTOR trên PeerQA.",
+          "entail": 0.9143,
+          "contradiction": 0.0458,
+          "guard": null
+        },
+        {
+          "id": "x04",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Giá trị k = 60 cho kết quả tốt nhất trong mọi thí nghiệm.",
+          "entail": 0.0003,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "x05",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Có 25 sinh viên nam đạt điểm giỏi.",
+          "entail": 0.0007,
+          "contradiction": 0.0007,
+          "guard": null
+        },
+        {
+          "id": "x06",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm giảm thời gian phản hồi xuống còn 10 mili giây.",
+          "entail": 0.0002,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "u01",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Hà Nội là thủ đô của Việt Nam.",
+          "entail": 0.0676,
+          "contradiction": 0.0098,
+          "guard": null
+        },
+        {
+          "id": "u02",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Thư viện mở cửa đến 9 giờ tối.",
+          "entail": 0.0003,
+          "contradiction": 0.0004,
+          "guard": null
+        },
+        {
+          "id": "u03",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Python là một ngôn ngữ lập trình.",
+          "entail": 0.0289,
+          "contradiction": 0.0059,
+          "guard": null
+        },
+        {
+          "id": "a01",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "phương pháp này kết hợp thứ hạng của cross en cô đơ với thứ hạng của ét bớt bằng re si pro cồ rank fusion",
+          "hypothesis": "Phương pháp này kết hợp thứ hạng của cross-encoder và SBERT.",
+          "entail": 0.0101,
+          "contradiction": 0.0072,
+          "guard": null
+        },
+        {
+          "id": "a02",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "khác với ráp tơ agreement ranking không cần dựng cây tóm tắt",
+          "hypothesis": "Agreement Ranking không cần dựng cây tóm tắt.",
+          "entail": 0.9964,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "a03",
+          "category": "asr_noise",
+          "label": "contradiction",
+          "premise": "hằng số k trong công thức được đặt bằng 16",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.0007,
+          "contradiction": 0.9985,
+          "guard": null
+        },
+        {
+          "id": "a04",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây",
+          "hypothesis": "Lập chỉ mục 70 bài báo mất 32 giây.",
+          "entail": 0.0752,
+          "contradiction": 0.9138,
+          "guard": null
+        }
+      ]
+    },
+    "lecture_vi_v1 + chuẩn hóa số + chốt": {
+      "model": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "by_support_threshold": {
+        "0.25": {
+          "precision": 1.0,
+          "recall": 0.889,
+          "false_supported": 0,
+          "false_ids": []
+        },
+        "0.5": {
+          "precision": 1.0,
+          "recall": 0.889,
+          "false_supported": 0,
+          "false_ids": []
+        },
+        "0.7": {
+          "precision": 1.0,
+          "recall": 0.889,
+          "false_supported": 0,
+          "false_ids": []
+        },
+        "0.8": {
+          "precision": 1.0,
+          "recall": 0.889,
+          "false_supported": 0,
+          "false_ids": []
+        },
+        "0.9": {
+          "precision": 1.0,
+          "recall": 0.889,
+          "false_supported": 0,
+          "false_ids": []
+        }
+      },
+      "per_category": {
+        "paraphrase": {
+          "n": 8,
+          "label": "entailment",
+          "mean_entail": 0.998,
+          "mean_contradiction": 0.0,
+          "supported_at_0.25": 8
+        },
+        "code_switch": {
+          "n": 2,
+          "label": "entailment",
+          "mean_entail": 0.998,
+          "mean_contradiction": 0.0,
+          "supported_at_0.25": 2
+        },
+        "number_match": {
+          "n": 5,
+          "label": "entailment",
+          "mean_entail": 0.836,
+          "mean_contradiction": 0.003,
+          "supported_at_0.25": 4
+        },
+        "number_mismatch": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.0,
+          "mean_contradiction": 0.834,
+          "supported_at_0.25": 0
+        },
+        "negation": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.001,
+          "mean_contradiction": 0.999,
+          "supported_at_0.25": 0
+        },
+        "extra_info": {
+          "n": 6,
+          "label": "neutral",
+          "mean_entail": 0.0,
+          "mean_contradiction": 0.009,
+          "supported_at_0.25": 0
+        },
+        "unrelated": {
+          "n": 3,
+          "label": "neutral",
+          "mean_entail": 0.032,
+          "mean_contradiction": 0.005,
+          "supported_at_0.25": 0
+        },
+        "asr_noise": {
+          "n": 4,
+          "label": "entailment",
+          "mean_entail": 0.501,
+          "mean_contradiction": 0.252,
+          "supported_at_0.25": 2
+        }
+      },
+      "rows": [
+        {
+          "id": "p01",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking là một phương pháp xếp hạng đoạn văn.",
+          "entail": 0.9987,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "p02",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Agreement Ranking dùng reciprocal rank fusion để kết hợp hai thứ hạng.",
+          "entail": 0.9975,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "p03",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking không dựng cây tóm tắt.",
+          "entail": 0.9966,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "p04",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, độ chính xác bằng chứng của Agreement Ranking không thấp hơn RAPTOR.",
+          "entail": 0.9987,
+          "contradiction": 0.0004,
+          "guard": null
+        },
+        {
+          "id": "p05",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Chưa có bằng chứng cho thấy phương pháp này tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.999,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "p06",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Mô hình kiểm chứng cần được đánh giá lại cho bài giảng tiếng Việt.",
+          "entail": 0.9989,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p07",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm thời gian phản hồi giảm xuống.",
+          "entail": 0.999,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p08",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Các đoạn lá liên tiếp chồng lấp nhau một câu.",
+          "entail": 0.9988,
+          "contradiction": 0.0003,
+          "guard": null
+        },
+        {
+          "id": "p09",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Mô hình cross-encoder cho điểm mỗi cặp câu hỏi – đoạn văn.",
+          "entail": 0.9972,
+          "contradiction": 0.0001,
+          "guard": null
+        },
+        {
+          "id": "p10",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "BGE-M3 tạo cả vector dense lẫn sparse.",
+          "entail": 0.9984,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n01",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.9962,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "n02",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 32 giây.",
+          "entail": 0.1895,
+          "contradiction": 0.0111,
+          "guard": null
+        },
+        {
+          "id": "n03",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "RAPTOR cần khoảng 3097 giây để lập chỉ mục.",
+          "entail": 0.9986,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n04",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Điểm thi cuối kỳ chiếm 40% tổng điểm.",
+          "entail": 0.9989,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "n05",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp có 20 sinh viên nữ.",
+          "entail": 0.9985,
+          "contradiction": 0.0006,
+          "guard": null
+        },
+        {
+          "id": "c01",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 6.",
+          "entail": 0.0,
+          "contradiction": 0.9988,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "c02",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 320 giây.",
+          "entail": 0.0,
+          "contradiction": 0.0266,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "c03",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Thời gian lập chỉ mục được đo trên 7 bài báo.",
+          "entail": 0.0,
+          "contradiction": 0.9942,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "c04",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Bài kiểm tra cuối kỳ chiếm 60% tổng điểm.",
+          "entail": 0.0,
+          "contradiction": 0.999,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "c05",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp học có 54 sinh viên.",
+          "entail": 0.0,
+          "contradiction": 0.9955,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "c06",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Mỗi đoạn lá có khoảng 2200 token.",
+          "entail": 0.0,
+          "contradiction": 0.9903,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "g01",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking phải dựng cây tóm tắt.",
+          "entail": 0.0012,
+          "contradiction": 0.9977,
+          "guard": null
+        },
+        {
+          "id": "g02",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, Agreement Ranking kém RAPTOR về độ chính xác của bằng chứng.",
+          "entail": 0.0013,
+          "contradiction": 0.9975,
+          "guard": null
+        },
+        {
+          "id": "g03",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Phương pháp này đã được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.0003,
+          "contradiction": 0.9994,
+          "guard": null
+        },
+        {
+          "id": "g04",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm tăng thời gian phản hồi của hệ thống.",
+          "entail": 0.0003,
+          "contradiction": 0.9994,
+          "guard": null
+        },
+        {
+          "id": "g05",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Cross-encoder không chấm điểm cặp câu hỏi và đoạn văn.",
+          "entail": 0.0001,
+          "contradiction": 0.9997,
+          "guard": null
+        },
+        {
+          "id": "g06",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "Hệ thống không dùng BGE-M3.",
+          "entail": 0.0001,
+          "contradiction": 0.9997,
+          "guard": null
+        },
+        {
+          "id": "x01",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking được công bố năm 2025.",
+          "entail": 0.0,
+          "contradiction": 0.0054,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "x02",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking nhanh hơn RAPTOR mười lần khi trả lời câu hỏi.",
+          "entail": 0.0,
+          "contradiction": 0.0005,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "x03",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Agreement Ranking tốt hơn RAPTOR trên PeerQA.",
+          "entail": 0.0,
+          "contradiction": 0.0458,
+          "guard": "non_inferiority_overclaimed"
+        },
+        {
+          "id": "x04",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Giá trị k = 60 cho kết quả tốt nhất trong mọi thí nghiệm.",
+          "entail": 0.0003,
+          "contradiction": 0.0002,
+          "guard": null
+        },
+        {
+          "id": "x05",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Có 25 sinh viên nam đạt điểm giỏi.",
+          "entail": 0.0,
+          "contradiction": 0.0007,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "x06",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm giảm thời gian phản hồi xuống còn 10 mili giây.",
+          "entail": 0.0,
+          "contradiction": 0.0005,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "u01",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Hà Nội là thủ đô của Việt Nam.",
+          "entail": 0.0676,
+          "contradiction": 0.0098,
+          "guard": null
+        },
+        {
+          "id": "u02",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Thư viện mở cửa đến 9 giờ tối.",
+          "entail": 0.0,
+          "contradiction": 0.0004,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "u03",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Python là một ngôn ngữ lập trình.",
+          "entail": 0.0289,
+          "contradiction": 0.0059,
+          "guard": null
+        },
+        {
+          "id": "a01",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "phương pháp này kết hợp thứ hạng của cross en cô đơ với thứ hạng của ét bớt bằng re si pro cồ rank fusion",
+          "hypothesis": "Phương pháp này kết hợp thứ hạng của cross-encoder và SBERT.",
+          "entail": 0.0101,
+          "contradiction": 0.0072,
+          "guard": null
+        },
+        {
+          "id": "a02",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "khác với ráp tơ agreement ranking không cần dựng cây tóm tắt",
+          "hypothesis": "Agreement Ranking không cần dựng cây tóm tắt.",
+          "entail": 0.9964,
+          "contradiction": 0.0005,
+          "guard": null
+        },
+        {
+          "id": "a03",
+          "category": "asr_noise",
+          "label": "contradiction",
+          "premise": "hằng số k trong công thức được đặt bằng 16",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.0,
+          "contradiction": 0.9985,
+          "guard": "number_not_in_evidence"
+        },
+        {
+          "id": "a04",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây",
+          "hypothesis": "Lập chỉ mục 70 bài báo mất 32 giây.",
+          "entail": 0.9988,
+          "contradiction": 0.0002,
+          "guard": null
+        }
+      ]
+    },
+    "product (EN)": {
+      "model": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+      "by_support_threshold": {
+        "0.25": {
+          "precision": 0.929,
+          "recall": 0.722,
+          "false_supported": 1,
+          "false_ids": [
+            "g04"
+          ]
+        },
+        "0.5": {
+          "precision": 0.923,
+          "recall": 0.667,
+          "false_supported": 1,
+          "false_ids": [
+            "g04"
+          ]
+        },
+        "0.7": {
+          "precision": 0.923,
+          "recall": 0.667,
+          "false_supported": 1,
+          "false_ids": [
+            "g04"
+          ]
+        },
+        "0.8": {
+          "precision": 0.917,
+          "recall": 0.611,
+          "false_supported": 1,
+          "false_ids": [
+            "g04"
+          ]
+        },
+        "0.9": {
+          "precision": 0.9,
+          "recall": 0.5,
+          "false_supported": 1,
+          "false_ids": [
+            "g04"
+          ]
+        }
+      },
+      "per_category": {
+        "paraphrase": {
+          "n": 8,
+          "label": "entailment",
+          "mean_entail": 0.83,
+          "mean_contradiction": 0.059,
+          "supported_at_0.25": 7
+        },
+        "code_switch": {
+          "n": 2,
+          "label": "entailment",
+          "mean_entail": 0.931,
+          "mean_contradiction": 0.011,
+          "supported_at_0.25": 2
+        },
+        "number_match": {
+          "n": 5,
+          "label": "entailment",
+          "mean_entail": 0.521,
+          "mean_contradiction": 0.205,
+          "supported_at_0.25": 3
+        },
+        "number_mismatch": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.001,
+          "mean_contradiction": 0.995,
+          "supported_at_0.25": 0
+        },
+        "negation": {
+          "n": 6,
+          "label": "contradiction",
+          "mean_entail": 0.166,
+          "mean_contradiction": 0.831,
+          "supported_at_0.25": 1
+        },
+        "extra_info": {
+          "n": 6,
+          "label": "neutral",
+          "mean_entail": 0.006,
+          "mean_contradiction": 0.36,
+          "supported_at_0.25": 0
+        },
+        "unrelated": {
+          "n": 3,
+          "label": "neutral",
+          "mean_entail": 0.102,
+          "mean_contradiction": 0.351,
+          "supported_at_0.25": 0
+        },
+        "asr_noise": {
+          "n": 4,
+          "label": "entailment",
+          "mean_entail": 0.286,
+          "mean_contradiction": 0.502,
+          "supported_at_0.25": 1
+        }
+      },
+      "rows": [
+        {
+          "id": "p01",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking là một phương pháp xếp hạng đoạn văn.",
+          "entail": 0.9924,
+          "contradiction": 0.0012,
+          "guard": null
+        },
+        {
+          "id": "p02",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Agreement Ranking dùng reciprocal rank fusion để kết hợp hai thứ hạng.",
+          "entail": 0.7796,
+          "contradiction": 0.021,
+          "guard": null
+        },
+        {
+          "id": "p03",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking không dựng cây tóm tắt.",
+          "entail": 0.9589,
+          "contradiction": 0.0072,
+          "guard": null
+        },
+        {
+          "id": "p04",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, độ chính xác bằng chứng của Agreement Ranking không thấp hơn RAPTOR.",
+          "entail": 0.9016,
+          "contradiction": 0.0627,
+          "guard": null
+        },
+        {
+          "id": "p05",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Chưa có bằng chứng cho thấy phương pháp này tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.9384,
+          "contradiction": 0.0255,
+          "guard": null
+        },
+        {
+          "id": "p06",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Mô hình kiểm chứng cần được đánh giá lại cho bài giảng tiếng Việt.",
+          "entail": 0.9961,
+          "contradiction": 0.0007,
+          "guard": null
+        },
+        {
+          "id": "p07",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm thời gian phản hồi giảm xuống.",
+          "entail": 0.1842,
+          "contradiction": 0.3297,
+          "guard": null
+        },
+        {
+          "id": "p08",
+          "category": "paraphrase",
+          "label": "entailment",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Các đoạn lá liên tiếp chồng lấp nhau một câu.",
+          "entail": 0.8866,
+          "contradiction": 0.0261,
+          "guard": null
+        },
+        {
+          "id": "p09",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Mô hình cross-encoder cho điểm mỗi cặp câu hỏi – đoạn văn.",
+          "entail": 0.9731,
+          "contradiction": 0.0031,
+          "guard": null
+        },
+        {
+          "id": "p10",
+          "category": "code_switch",
+          "label": "entailment",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "BGE-M3 tạo cả vector dense lẫn sparse.",
+          "entail": 0.8885,
+          "contradiction": 0.0198,
+          "guard": null
+        },
+        {
+          "id": "n01",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.9786,
+          "contradiction": 0.0043,
+          "guard": null
+        },
+        {
+          "id": "n02",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 32 giây.",
+          "entail": 0.3572,
+          "contradiction": 0.066,
+          "guard": null
+        },
+        {
+          "id": "n03",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "RAPTOR cần khoảng 3097 giây để lập chỉ mục.",
+          "entail": 0.0979,
+          "contradiction": 0.2208,
+          "guard": null
+        },
+        {
+          "id": "n04",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Điểm thi cuối kỳ chiếm 40% tổng điểm.",
+          "entail": 0.1951,
+          "contradiction": 0.7294,
+          "guard": null
+        },
+        {
+          "id": "n05",
+          "category": "number_match",
+          "label": "entailment",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp có 20 sinh viên nữ.",
+          "entail": 0.9764,
+          "contradiction": 0.0067,
+          "guard": null
+        },
+        {
+          "id": "c01",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Hằng số k bằng 6.",
+          "entail": 0.0017,
+          "contradiction": 0.9957,
+          "guard": null
+        },
+        {
+          "id": "c02",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Agreement Ranking lập chỉ mục 70 bài báo trong 320 giây.",
+          "entail": 0.0014,
+          "contradiction": 0.9952,
+          "guard": null
+        },
+        {
+          "id": "c03",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Với 70 bài báo, thời gian lập chỉ mục chỉ mất 32 giây, trong khi RAPTOR mất khoảng 3097 giây.",
+          "hypothesis": "Thời gian lập chỉ mục được đo trên 7 bài báo.",
+          "entail": 0.0011,
+          "contradiction": 0.9971,
+          "guard": null
+        },
+        {
+          "id": "c04",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Bài kiểm tra cuối kỳ chiếm 60% tổng điểm.",
+          "entail": 0.0002,
+          "contradiction": 0.9986,
+          "guard": null
+        },
+        {
+          "id": "c05",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Lớp học có 54 sinh viên.",
+          "entail": 0.0007,
+          "contradiction": 0.9982,
+          "guard": null
+        },
+        {
+          "id": "c06",
+          "category": "number_mismatch",
+          "label": "contradiction",
+          "premise": "Mỗi đoạn lá có khoảng hai trăm hai mươi token và chồng lấp một câu với đoạn kế tiếp.",
+          "hypothesis": "Mỗi đoạn lá có khoảng 2200 token.",
+          "entail": 0.0028,
+          "contradiction": 0.9838,
+          "guard": null
+        },
+        {
+          "id": "g01",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking phải dựng cây tóm tắt.",
+          "entail": 0.0005,
+          "contradiction": 0.9984,
+          "guard": null
+        },
+        {
+          "id": "g02",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Trên PeerQA, Agreement Ranking kém RAPTOR về độ chính xác của bằng chứng.",
+          "entail": 0.0044,
+          "contradiction": 0.993,
+          "guard": null
+        },
+        {
+          "id": "g03",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Tuy nhiên, phương pháp này chưa được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "hypothesis": "Phương pháp này đã được chứng minh là tốt hơn việc xếp hạng lại toàn bộ bài báo.",
+          "entail": 0.0006,
+          "contradiction": 0.9989,
+          "guard": null
+        },
+        {
+          "id": "g04",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm làm tăng thời gian phản hồi của hệ thống.",
+          "entail": 0.9912,
+          "contradiction": 0.0021,
+          "guard": null
+        },
+        {
+          "id": "g05",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Cross-encoder chấm điểm từng cặp câu hỏi và đoạn văn.",
+          "hypothesis": "Cross-encoder không chấm điểm cặp câu hỏi và đoạn văn.",
+          "entail": 0.0014,
+          "contradiction": 0.9964,
+          "guard": null
+        },
+        {
+          "id": "g06",
+          "category": "negation",
+          "label": "contradiction",
+          "premise": "Hệ thống dùng BGE-M3 để tạo vector dense và sparse cho mỗi đoạn.",
+          "hypothesis": "Hệ thống không dùng BGE-M3.",
+          "entail": 0.0002,
+          "contradiction": 0.9992,
+          "guard": null
+        },
+        {
+          "id": "x01",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hôm nay chúng ta học về Agreement Ranking, một phương pháp xếp hạng đoạn văn cho hệ thống hỏi đáp.",
+          "hypothesis": "Agreement Ranking được công bố năm 2025.",
+          "entail": 0.0008,
+          "contradiction": 0.0412,
+          "guard": null
+        },
+        {
+          "id": "x02",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Khác với RAPTOR, Agreement Ranking không cần dựng cây tóm tắt.",
+          "hypothesis": "Agreement Ranking nhanh hơn RAPTOR mười lần khi trả lời câu hỏi.",
+          "entail": 0.0102,
+          "contradiction": 0.9009,
+          "guard": null
+        },
+        {
+          "id": "x03",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Trên tập dữ liệu PeerQA, Agreement Ranking không kém RAPTOR về độ chính xác của bằng chứng.",
+          "hypothesis": "Agreement Ranking tốt hơn RAPTOR trên PeerQA.",
+          "entail": 0.0036,
+          "contradiction": 0.9913,
+          "guard": null
+        },
+        {
+          "id": "x04",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Hằng số k trong công thức được đặt bằng 60.",
+          "hypothesis": "Giá trị k = 60 cho kết quả tốt nhất trong mọi thí nghiệm.",
+          "entail": 0.0089,
+          "contradiction": 0.0013,
+          "guard": null
+        },
+        {
+          "id": "x05",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Lớp học có 45 sinh viên, trong đó 20 sinh viên nữ.",
+          "hypothesis": "Có 25 sinh viên nam đạt điểm giỏi.",
+          "entail": 0.0111,
+          "contradiction": 0.2172,
+          "guard": null
+        },
+        {
+          "id": "x06",
+          "category": "extra_info",
+          "label": "neutral",
+          "premise": "Giảng viên cho biết bộ nhớ đệm giúp giảm thời gian phản hồi của hệ thống.",
+          "hypothesis": "Bộ nhớ đệm giảm thời gian phản hồi xuống còn 10 mili giây.",
+          "entail": 0.0036,
+          "contradiction": 0.0067,
+          "guard": null
+        },
+        {
+          "id": "u01",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Phương pháp này kết hợp thứ hạng của cross-encoder với thứ hạng của SBERT bằng reciprocal rank fusion.",
+          "hypothesis": "Hà Nội là thủ đô của Việt Nam.",
+          "entail": 0.0355,
+          "contradiction": 0.0164,
+          "guard": null
+        },
+        {
+          "id": "u02",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Bài kiểm tra cuối kỳ chiếm 40% tổng điểm môn học.",
+          "hypothesis": "Thư viện mở cửa đến 9 giờ tối.",
+          "entail": 0.2084,
+          "contradiction": 0.6513,
+          "guard": null
+        },
+        {
+          "id": "u03",
+          "category": "unrelated",
+          "label": "neutral",
+          "premise": "Với bài giảng tiếng Việt, chúng ta cần đánh giá lại mô hình kiểm chứng trước khi tin vào kết quả.",
+          "hypothesis": "Python là một ngôn ngữ lập trình.",
+          "entail": 0.0616,
+          "contradiction": 0.3865,
+          "guard": null
+        },
+        {
+          "id": "a01",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "phương pháp này kết hợp thứ hạng của cross en cô đơ với thứ hạng của ét bớt bằng re si pro cồ rank fusion",
+          "hypothesis": "Phương pháp này kết hợp thứ hạng của cross-encoder và SBERT.",
+          "entail": 0.1443,
+          "contradiction": 0.0382,
+          "guard": null
+        },
+        {
+          "id": "a02",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "khác với ráp tơ agreement ranking không cần dựng cây tóm tắt",
+          "hypothesis": "Agreement Ranking không cần dựng cây tóm tắt.",
+          "entail": 0.9883,
+          "contradiction": 0.0014,
+          "guard": null
+        },
+        {
+          "id": "a03",
+          "category": "asr_noise",
+          "label": "contradiction",
+          "premise": "hằng số k trong công thức được đặt bằng 16",
+          "hypothesis": "Hằng số k bằng 60.",
+          "entail": 0.0016,
+          "contradiction": 0.9938,
+          "guard": null
+        },
+        {
+          "id": "a04",
+          "category": "asr_noise",
+          "label": "entailment",
+          "premise": "với bảy mươi bài báo thời gian lập chỉ mục chỉ mất ba mươi hai giây",
+          "hypothesis": "Lập chỉ mục 70 bài báo mất 32 giây.",
+          "entail": 0.0094,
+          "contradiction": 0.9734,
+          "guard": null
+        }
+      ]
+    }
+  }
+}

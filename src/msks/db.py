@@ -37,6 +37,10 @@ def open_pool(min_size: int = 1, max_size: int = 8) -> ConnectionPool:
             kwargs={"row_factory": dict_row, "prepare_threshold": None, "autocommit": False},
             open=True,
             timeout=20,
+            # Supabase/pgbouncer đóng kết nối nhàn rỗi (đo 10/10: worker chết qua đêm với "server closed the
+            # connection unexpectedly"). Kiểm tra trước khi cho mượn và thay kết nối cũ sau 10 phút nhàn rỗi.
+            check=ConnectionPool.check_connection,
+            max_idle=600,
         )
     return _pool
 

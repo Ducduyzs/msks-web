@@ -29,6 +29,10 @@ ml = [
   "FlagEmbedding>=1.2",
   "sentence-transformers>=3.0",
   "docling>=2.0",
+  # Bài giảng: ASR, OCR, xử lý khung hình (FFmpeg/ffprobe cài riêng trên máy worker)
+  "faster-whisper>=1.0",
+  "easyocr>=1.7",
+  "opencv-python-headless>=4.8",
 ]
 dev = ["pytest>=8"]
 

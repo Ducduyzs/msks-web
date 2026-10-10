@@ -131,3 +131,28 @@ def test_zero_threshold_is_not_silently_replaced():
 def test_threshold_outside_probability_range_is_rejected():
     with pytest.raises(ValueError):
         Settings(_env_file=None, msks_nli_support_threshold=1.1)
+
+
+def test_worker_survives_dropped_db_connection(monkeypatch):
+    """10/10: pooler đóng kết nối nhàn rỗi → claim_next ném OperationalError; worker phải chờ rồi thử lại, không thoát."""
+    import sys
+
+    import psycopg
+
+    from msks import worker
+
+    calls, sleeps = [], []
+
+    def claim_next():
+        calls.append(1)
+        if len(calls) <= 2:
+            raise psycopg.OperationalError("server closed the connection unexpectedly")
+        return None
+
+    monkeypatch.setattr(worker.db, "open_pool", lambda **_: None)
+    monkeypatch.setattr(worker.media_pipeline, "sweep", lambda: {})
+    monkeypatch.setattr(worker.jobs, "claim_next", claim_next)
+    monkeypatch.setattr(worker.time, "sleep", sleeps.append)
+    monkeypatch.setattr(sys, "argv", ["worker", "--once"])
+    worker.main()
+    assert len(calls) == 3 and sleeps == [1.0, 2.0]
