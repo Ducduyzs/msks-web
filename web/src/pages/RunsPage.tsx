@@ -4,6 +4,7 @@ import { AnswerStatusBadge, RunStatusBadge } from '../components/badges'
 import { EmptyState, ErrorBox, Loading, Pill, Spinner } from '../components/ui'
 import { useRuns } from '../hooks/queries'
 import { fmtDate } from '../lib/labels'
+import { t } from '../i18n'
 
 export function RunsPage() {
   const { workspaceId = '' } = useParams()
@@ -14,8 +15,8 @@ export function RunsPage() {
   const items = runs.data.pages.flatMap((p) => p.items)
   if (!items.length) {
     return (
-      <EmptyState icon={<History className="size-8" />} title="Chưa có lượt chạy nào">
-        Kết quả hỏi đáp và báo cáo tổng hợp được lưu ở đây, kèm cấu hình và phiên bản nguồn đã dùng.
+      <EmptyState icon={<History className="size-8" />} title={t('Chưa có lượt chạy nào')}>
+        {t('Kết quả hỏi đáp và báo cáo tổng hợp được lưu ở đây, kèm cấu hình và phiên bản nguồn đã dùng.')}
       </EmptyState>
     )
   }
@@ -26,18 +27,18 @@ export function RunsPage() {
           <li key={run.run_id}>
             <Link to={run.run_id} className="card flex flex-col gap-2 p-4 hover:shadow-md sm:flex-row sm:items-center">
               <div className="flex shrink-0 flex-wrap gap-1.5">
-                <Pill className="bg-surface-2 text-fg">{run.mode === 'qa' ? 'Hỏi đáp' : 'Tổng hợp'}</Pill>
+                <Pill className="bg-surface-2 text-fg">{run.mode === 'qa' ? t('Hỏi đáp') : t('Tổng hợp')}</Pill>
                 <RunStatusBadge status={run.status} />
                 {run.answer_status && <AnswerStatusBadge status={run.answer_status} />}
               </div>
               <p className="min-w-0 flex-1 truncate font-medium">{run.query}</p>
               <span className="flex shrink-0 flex-wrap items-center gap-x-2 text-sm text-muted">
-                <span>{run.accepted_count} claim</span>
+                <span>{run.accepted_count} {t('claim')}</span>
                 <span>·</span>
-                <span>{run.budget.context_tokens} token</span>
+                <span>{run.budget.context_tokens} {t('token')}</span>
                 <span>·</span>
                 <span>{fmtDate(run.created_at)}</span>
-                {run.rerun_of && <span>· chạy lại</span>}
+                {run.rerun_of && <span>{t('· chạy lại')}</span>}
               </span>
             </Link>
           </li>
@@ -45,7 +46,7 @@ export function RunsPage() {
       </ul>
       {runs.hasNextPage && (
         <button className="btn btn-outline" onClick={() => runs.fetchNextPage()} disabled={runs.isFetchingNextPage}>
-          {runs.isFetchingNextPage && <Spinner />} Tải thêm
+          {runs.isFetchingNextPage && <Spinner />} {t('Tải thêm')}
         </button>
       )}
     </div>

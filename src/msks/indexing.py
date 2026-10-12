@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from typing import Any, Callable
 
 from . import db, jobs
-from .errors import TransientError
+from .errors import PermanentError, TransientError
 from .ingest import Tree, sha256
 from .ml import get_models, sparse_literal, vector_literal
 from .profiles import get_profile
@@ -90,8 +90,10 @@ def check_leaf_quota(job: dict, workspace_id: str, new_leaves: int) -> None:
         existing = conn.execute(
             """select count(distinct e.node_id) as n from public.leaf_embedding e
                join public.index_generation g on g.id = e.index_generation_id
-               where g.workspace_id = %s and g.state = 'active'""",
-            (workspace_id,),
+               join public.parse_revision p on p.id = g.parse_revision_id
+               join public.document_revision d on d.id = p.document_revision_id
+               where g.workspace_id = %s and g.state = 'active' and d.source_id <> %s""",
+            (workspace_id, job["target_id"]),
         ).fetchone()["n"]
     if existing + new_leaves > settings.max_leaves_per_workspace:
         raise PermanentError("workspace_leaf_limit", f"Workspace vượt giới hạn {settings.max_leaves_per_workspace} đoạn lá.")
@@ -131,6 +133,8 @@ def embed_and_publish(
             )
 
     with jobs.guarded(job) as conn:
+        # Serialize quota decisions across workers; recheck after embedding.
+        conn.execute("select id from public.workspace where id = %s for update", (workspace_id,))
         written = conn.execute(
             "select count(*) as n from public.leaf_embedding where index_generation_id = %s", (generation_id,)
         ).fetchone()["n"]
@@ -140,6 +144,19 @@ def embed_and_publish(
         if not current or current["deleted_at"]:
             conn.execute("update public.index_generation set state = 'orphaned' where id = %s", (generation_id,))
             return None
+        total = conn.execute(
+            """select count(distinct node_id) as n from (
+                 select e.node_id from public.leaf_embedding e
+                 join public.index_generation g on g.id = e.index_generation_id
+                 join public.parse_revision p on p.id = g.parse_revision_id
+                 join public.document_revision d on d.id = p.document_revision_id
+                 where g.workspace_id = %s and g.state = 'active'
+                   and not (d.source_id = %s and g.model_profile = %s)
+                 union all select node_id from public.leaf_embedding where index_generation_id = %s
+               ) projected""", (workspace_id, source_id, profile.name, generation_id),
+        ).fetchone()["n"]
+        if total > settings.max_leaves_per_workspace:
+            raise PermanentError("workspace_leaf_limit", f"Workspace vượt giới hạn {settings.max_leaves_per_workspace} đoạn lá.")
         conn.execute(
             """update public.index_generation g set state = 'retired' from public.parse_revision p
                join public.document_revision d on d.id = p.document_revision_id

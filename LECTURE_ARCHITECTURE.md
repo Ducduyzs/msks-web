@@ -1,7 +1,7 @@
 # Kiến trúc bài giảng video và kiểm chứng tiếng Việt
 
 > **Phiên bản:** 0.2 — 2026-10-09.
-> **Trạng thái:** Backend L0–L1 đã triển khai, L2 một phần (YouTube với phụ đề do người dùng cung cấp), L3–L4 chưa. Frontend chưa có giao diện bài giảng. Profile tiếng Việt **chưa hiệu chỉnh** — kết quả là thử nghiệm. Xem [mục 13](#13-trạng-thái-triển-khai-09102026).
+> **Trạng thái:** Backend L0–L1 đã triển khai, L2 một phần (YouTube với phụ đề do người dùng cung cấp), L3–L4 chưa. Frontend có giao diện bài giảng (upload, trình xem, citation theo thời gian), đã chạy thật trên Chromium với backend. Profile tiếng Việt **chưa hiệu chỉnh** — kết quả là thử nghiệm. Xem [mục 13](#13-trạng-thái-triển-khai-09102026).
 > **Liên kết:** [Kiến trúc MSKS](ARCHITECTURE.md), [các vấn đề nền tảng cần xử lý](REVIEW_2026-10-08.md).
 
 ## 1. Quyết định kiến trúc
@@ -298,7 +298,8 @@ Chưa xác minh trong lần thiết kế: ffmpeg/model nào đã có trên máy,
   - Ngưỡng NLI tiếng Việt chưa hiệu chỉnh: cần tập held-out độc lập (≥ 200 cặp, người khác gán nhãn).
   - Chốt so sánh dựa trên danh sách cụm từ; “rưỡi” chỉ được đổi sau trăm/nghìn/triệu (“hai giờ rưỡi” giữ nguyên); câu hỏi “có tốt hơn không” đang abstain thay vì trả lời “không kém”.
 - **Đối chiếu media:** nhãn “Đã đối chiếu âm thanh/hình ảnh” hiện chỉ suy từ việc người dùng sửa đoạn đó (`manual_edit`), chưa có quy trình review riêng.
-- **Frontend:** chưa có màn hình upload video, player, timeline. Kiểu dữ liệu frontend chưa có trạng thái `ready_limited` / `review_required` và trường `locator`.
+- **Frontend (10/10):** có upload video theo phần (tiến độ, tạm dừng, tiếp tục khi chọn lại đúng file, hủy), YouTube kèm phụ đề, glossary workspace, trình xem bài giảng (ảnh bảng + khung OCR theo thời gian, âm thanh theo đoạn, bản chép chạy theo, sửa bản chép → revision mới), citation hiện mốc thời gian + nhãn “Được bản chép tự động hỗ trợ”, cảnh báo khi phạm vi trộn bài giảng với tài liệu. Kiểm thử: 15 test trên API mock (`web/src/lecture.test.tsx`, `mockLecture.test.ts`, `mediaUpload.test.ts`) và **chạy thật 10/10 trên Chromium headless với backend + Supabase: 17/17** — đăng nhập, glossary, upload 2 phần PUT thẳng vào URL ký Supabase (CORS đạt), xử lý 92 s, ảnh khung hình + khung OCR, phát FLAC, hỏi tiếng Việt, citation `S1 0:22` mở đúng đoạn được tô sáng. Chưa thử Safari/Firefox (FLAC trên Safari cũ).
+- **Phạm vi “tất cả nguồn”:** workspace có cả tài liệu và bài giảng thì phạm vi mặc định bị từ chối (`422 profile_index_missing`); giao diện cảnh báo trước. Nên tách workspace theo khóa học hoặc reindex tài liệu sang `lecture_vi_v1`.
 
 ### 13.4 Kiểm thử
 

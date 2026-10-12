@@ -20,3 +20,6 @@ export const UPLOAD_ACCEPT = features.remoteSources ? '.pdf,.md,.markdown,.txt,.
 
 /** Giới hạn vận hành ban đầu (mục 3.2); server vẫn là nơi kiểm tra chính thức. */
 export const MAX_UPLOAD_BYTES = 50 * 1024 * 1024
+
+/** Giới hạn video mặc định của backend (MSKS_MAX_MEDIA_BYTES); server kiểm tra lại. */
+export const MAX_MEDIA_BYTES = 400 * 1024 * 1024

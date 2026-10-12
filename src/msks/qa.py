@@ -343,9 +343,9 @@ def run_qa(state: RunState) -> None:
     emit_stage(state, "rank" if settings.ranker == "agreement" else "rank_ce")
     with timed(state, "rerank"):
         ids = sorted(leaves)
-        ce = dict(zip(ids, models.rerank(query, [leaves[i].text for i in ids])))
+        ce = dict(zip(ids, models.rerank(query, [leaves[i].text for i in ids]))) if ids else {}
         rerank = sorted(ce.items(), key=lambda item: (-item[1], item[0]))
-        q_sbert = models.sbert_encode([query], profile.sbert_model)[0]
+        q_sbert = models.sbert_encode([query], profile.sbert_model)[0] if ids else None
         similarity = {i: float(leaves[i].sbert @ q_sbert) for i in ids}
         ranking = agreement_ranking(rerank, similarity, k=settings.rrf_k) if settings.ranker == "agreement" else rerank
         ce_rank = {i: r for r, (i, _) in enumerate(rerank, 1)}

@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "i18n:extract": "node scripts/i18n-extract.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

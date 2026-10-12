@@ -52,15 +52,22 @@ class BlobStore:
     def list_keys(self, prefix: str) -> list[str]:
         """Liệt kê đệ quy mọi object dưới prefix (Storage trả từng cấp thư mục)."""
         keys: list[str] = []
-        response = httpx.post(f"{self.base}/object/list/{self.bucket}", headers=self.headers,
-                              json={"prefix": prefix, "limit": 1000}, timeout=30)
-        response.raise_for_status()
-        for item in response.json():
-            path = f"{prefix.rstrip('/')}/{item['name']}" if prefix else item["name"]
-            if item.get("id") is None:  # thư mục
-                keys.extend(self.list_keys(path))
-            else:
-                keys.append(path)
+        offset = 0
+        while True:
+            response = httpx.post(f"{self.base}/object/list/{self.bucket}", headers=self.headers,
+                                  json={"prefix": prefix, "limit": 1000, "offset": offset,
+                                        "sortBy": {"column": "name", "order": "asc"}}, timeout=30)
+            response.raise_for_status()
+            items = response.json()
+            for item in items:
+                path = f"{prefix.rstrip('/')}/{item['name']}" if prefix else item["name"]
+                if item.get("id") is None:
+                    keys.extend(self.list_keys(path))
+                else:
+                    keys.append(path)
+            if len(items) < 1000:
+                break
+            offset += len(items)
         return keys
 
     # ------------------------------------------------------------ media

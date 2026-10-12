@@ -4,6 +4,9 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { ApiError } from './api'
 import { AuthGate } from './auth/AuthGate'
+import { LanguageRoot } from './components/PreferencesMenu'
+import { initialLanguage, setLanguage } from './i18n'
+import { applyPreferences } from './lib/preferences'
 import { router } from './router'
 import './index.css'
 
@@ -23,12 +26,18 @@ const queryClient: QueryClient = new QueryClient({
   },
 })
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthGate>
-        <RouterProvider router={router} />
-      </AuthGate>
-    </QueryClientProvider>
-  </StrictMode>,
+// Áp chế độ sáng/tối + màu trước khi render (không chớp màu); nạp từ điển ngôn ngữ đã chọn rồi mới vẽ giao diện.
+applyPreferences()
+void setLanguage(initialLanguage()).finally(() =>
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <LanguageRoot>
+          <AuthGate>
+            <RouterProvider router={router} />
+          </AuthGate>
+        </LanguageRoot>
+      </QueryClientProvider>
+    </StrictMode>,
+  ),
 )

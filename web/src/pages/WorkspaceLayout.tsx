@@ -6,13 +6,14 @@ import { EmptyState, ErrorBox } from '../components/ui'
 import { ViewerProvider } from '../components/viewer'
 import { useSources, useWorkspace } from '../hooks/queries'
 import { features } from '../lib/features'
+import { t, msg, translated } from '../i18n'
 
-const TABS = [
-  { to: 'sources', label: 'Nguồn' },
-  { to: 'qa', label: 'Hỏi đáp' },
-  ...(features.synthesis ? [{ to: 'synthesis', label: 'Tổng hợp' }] : []),
-  { to: 'runs', label: 'Lịch sử' },
-]
+const TABS = translated([
+  { to: 'sources', label: msg('Nguồn') },
+  { to: 'qa', label: msg('Hỏi đáp') },
+  ...(features.synthesis ? [{ to: 'synthesis', label: msg('Tổng hợp') }] : []),
+  { to: 'runs', label: msg('Lịch sử') },
+])
 
 export function WorkspaceLayout() {
   const { workspaceId = '' } = useParams()
@@ -22,10 +23,10 @@ export function WorkspaceLayout() {
   if (workspace.error instanceof ApiError && [403, 404].includes(workspace.error.status)) {
     return (
       <div className="mx-auto max-w-xl px-4 py-16">
-        <EmptyState icon={null} title="Không tìm thấy workspace">
-          Workspace không tồn tại hoặc bạn không có quyền truy cập.{' '}
+        <EmptyState icon={null} title={t('Không tìm thấy workspace')}>
+          {t('Workspace không tồn tại hoặc bạn không có quyền truy cập.')}{' '}
           <NavLink to="/" className="text-accent hover:underline">
-            Về danh sách workspace
+            {t('Về danh sách workspace')}
           </NavLink>
         </EmptyState>
       </div>
@@ -37,10 +38,10 @@ export function WorkspaceLayout() {
       <div className="border-b border-line bg-surface">
         <div className="mx-auto max-w-6xl px-4 pt-4">
           <NavLink to="/" className="inline-flex items-center gap-1 text-sm text-muted hover:text-fg">
-            <ChevronLeft className="size-4" /> Workspace
+            <ChevronLeft className="size-4" /> {t('Workspace')}
           </NavLink>
           <h1 className="mt-1 min-h-7 truncate text-xl font-semibold">{workspace.data?.name}</h1>
-          <nav className="-mb-px mt-3 flex gap-1 overflow-x-auto" aria-label="Mục trong workspace">
+          <nav className="-mb-px mt-3 flex gap-1 overflow-x-auto" aria-label={t('Mục trong workspace')}>
             {TABS.map((tab) => (
               <NavLink
                 key={tab.to}

@@ -2,12 +2,13 @@ import clsx from 'clsx'
 import { AlertTriangle, Info, Loader2 } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { ApiError } from '../api'
+import { t } from '../i18n'
 
 export function Spinner({ className }: { className?: string }) {
   return <Loader2 className={clsx('size-4 animate-spin', className)} aria-hidden />
 }
 
-export function Loading({ label = 'Đang tải…' }: { label?: string }) {
+export function Loading({ label = t('Đang tải…') }: { label?: string }) {
   return (
     <div className="flex items-center gap-2 py-8 text-sm text-muted" role="status">
       <Spinner /> {label}
@@ -33,7 +34,7 @@ export function ErrorBox({ error, onRetry }: { error: unknown; onRetry?: () => v
       </div>
       {onRetry && (!api || api.retryable) && (
         <button className="shrink-0 text-xs font-medium underline" onClick={onRetry}>
-          Thử lại
+          {t('Thử lại')}
         </button>
       )}
     </div>
@@ -96,8 +97,8 @@ export function Pill({ children, className, title }: { children: ReactNode; clas
 
 export function ExperimentalTag() {
   return (
-    <Pill className="bg-contested-soft text-contested" title="Tính năng sau MVP, đang ở mức thử nghiệm">
-      Thử nghiệm
+    <Pill className="bg-contested-soft text-contested" title={t('Tính năng sau MVP, đang ở mức thử nghiệm')}>
+      {t('Thử nghiệm')}
     </Pill>
   )
 }

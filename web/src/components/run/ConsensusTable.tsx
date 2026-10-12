@@ -1,6 +1,7 @@
 import type { ClaimResult } from '../../api'
 import { ClaimStatusBadge } from '../badges'
 import { CitationChip } from '../ClaimCard'
+import { t } from '../../i18n'
 
 /** Bảng đồng thuận / mâu thuẫn giữa các nguồn (mục 7.3, 11) — chỉ trong phạm vi nguồn đã xét. */
 export function ConsensusTable({ claims }: { claims: ClaimResult[] }) {
@@ -9,17 +10,17 @@ export function ConsensusTable({ claims }: { claims: ClaimResult[] }) {
   return (
     <section className="card overflow-hidden">
       <div className="border-b border-line px-4 py-3">
-        <h3 className="font-semibold">Đồng thuận và mâu thuẫn giữa các nguồn</h3>
-        <p className="mt-0.5 text-xs text-muted">Chỉ trong phạm vi nguồn đã xét; không tìm thấy mâu thuẫn không có nghĩa là không tồn tại.</p>
+        <h3 className="font-semibold">{t('Đồng thuận và mâu thuẫn giữa các nguồn')}</h3>
+        <p className="mt-0.5 text-xs text-muted">{t('Chỉ trong phạm vi nguồn đã xét; không tìm thấy mâu thuẫn không có nghĩa là không tồn tại.')}</p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[560px] text-sm">
           <thead className="bg-surface-2 text-left text-muted">
             <tr>
-              <th className="px-4 py-2 font-medium">Claim</th>
-              <th className="px-4 py-2 font-medium">Trạng thái</th>
-              <th className="px-4 py-2 font-medium">Hỗ trợ</th>
-              <th className="px-4 py-2 font-medium">Mâu thuẫn</th>
+              <th className="px-4 py-2 font-medium">{t('Claim')}</th>
+              <th className="px-4 py-2 font-medium">{t('Trạng thái')}</th>
+              <th className="px-4 py-2 font-medium">{t('Hỗ trợ')}</th>
+              <th className="px-4 py-2 font-medium">{t('Mâu thuẫn')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-line">

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import type { ClaimResult, ContextBlock, Provenance, RejectedClaim } from '../../api'
 import { EVIDENCE_ROLE, num, pageLabel, rejectReason } from '../../lib/labels'
+import { t } from '../../i18n'
 
 type Tab = 'rejected' | 'verification' | 'context' | 'provenance'
 
@@ -19,13 +20,13 @@ export function AuditPanel({
 }) {
   const [tab, setTab] = useState<Tab>('rejected')
   const tabs: { key: Tab; label: string }[] = [
-    { key: 'rejected', label: `Claim bị loại (${rejected.length})` },
-    { key: 'verification', label: 'Tín hiệu kiểm chứng' },
+    { key: 'rejected', label: t('Claim bị loại ({0})', { 0: rejected.length }) },
+    { key: 'verification', label: t('Tín hiệu kiểm chứng') },
     { key: 'context', label: `Context (${context.length})` },
-    { key: 'provenance', label: 'Nguồn gốc lượt chạy' },
+    { key: 'provenance', label: t('Nguồn gốc lượt chạy') },
   ]
   return (
-    <section className="card" aria-label="Kiểm toán">
+    <section className="card" aria-label={t('Kiểm toán')}>
       <div className="flex gap-1 overflow-x-auto border-b border-line px-2" role="tablist">
         {tabs.map((t) => (
           <button
@@ -51,30 +52,30 @@ export function AuditPanel({
                   <p className="text-fg line-through decoration-rejected/60">{r.text}</p>
                   <p className="mt-1 text-xs text-rejected">
                     {rejectReason(r.reason)}
-                    {r.support != null && ` · tín hiệu hỗ trợ tốt nhất ${num(r.support)}`}
+                    {r.support != null && t(' · tín hiệu hỗ trợ tốt nhất {0}', { 0: num(r.support) })}
                   </p>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-muted">Không có claim nào bị loại.</p>
+            <p className="text-sm text-muted">{t('Không có claim nào bị loại.')}</p>
           ))}
 
         {tab === 'verification' && (
           <div className="space-y-3">
             <p className="text-xs text-muted">
-              Điểm NLI là tín hiệu của model, không phải xác suất đúng đã hiệu chuẩn. Độ tự tin của LLM là tự đánh giá, không dùng làm bảo đảm.
+              {t('Điểm NLI là tín hiệu của model, không phải xác suất đúng đã hiệu chuẩn. Độ tự tin của LLM là tự đánh giá, không dùng làm bảo đảm.')}
             </p>
             {claims.length ? (
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[560px] text-sm">
                   <thead className="text-left text-muted">
                     <tr>
-                      <th className="py-1.5 pr-3 font-medium">Claim</th>
-                      <th className="py-1.5 pr-3 font-medium">Evidence</th>
-                      <th className="py-1.5 pr-3 text-right font-medium">Entail</th>
-                      <th className="py-1.5 pr-3 text-right font-medium">Contra.</th>
-                      <th className="py-1.5 text-right font-medium">LLM tự đánh giá</th>
+                      <th className="py-1.5 pr-3 font-medium">{t('Claim')}</th>
+                      <th className="py-1.5 pr-3 font-medium">{t('Evidence')}</th>
+                      <th className="py-1.5 pr-3 text-right font-medium">{t('Entail')}</th>
+                      <th className="py-1.5 pr-3 text-right font-medium">{t('Contra.')}</th>
+                      <th className="py-1.5 text-right font-medium">{t('LLM tự đánh giá')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-line">
@@ -96,7 +97,7 @@ export function AuditPanel({
                 </table>
               </div>
             ) : (
-              <p className="text-sm text-muted">Chưa có claim nào qua kiểm chứng.</p>
+              <p className="text-sm text-muted">{t('Chưa có claim nào qua kiểm chứng.')}</p>
             )}
           </div>
         )}
@@ -107,38 +108,38 @@ export function AuditPanel({
               <li key={b.id} className="rounded-md bg-surface-2 p-3 text-sm">
                 <p className="label">
                   [{b.context_id}] {b.source_alias}
-                  {pageLabel(b.page_start, b.page_end) && `, ${pageLabel(b.page_start, b.page_end)}`} · hạng {b.rank} · {b.token_count} token
-                  {b.truncated && ' · đã cắt'}
+                  {pageLabel(b.page_start, b.page_end) && `, ${pageLabel(b.page_start, b.page_end)}`} {t('· hạng')} {b.rank} · {b.token_count} {t('token')}
+                  {b.truncated && t(' · đã cắt')}
                 </p>
                 {b.visible_text ? (
                   <p className="mt-1">{b.visible_text}</p>
                 ) : (
-                  <p className="mt-1 italic text-muted">Nội dung đã ẩn vì nguồn đã bị xóa.</p>
+                  <p className="mt-1 italic text-muted">{t('Nội dung đã ẩn vì nguồn đã bị xóa.')}</p>
                 )}
                 <p className="mt-2 font-mono text-xs text-muted">
-                  ce {num(b.trace.raw_ce_score, 3)} · sbert {num(b.trace.sbert_similarity, 3)} · rrf {num(b.trace.rrf_score, 4)} · utility{' '}
+                  {t('ce')} {num(b.trace.raw_ce_score, 3)} {t('· sbert')} {num(b.trace.sbert_similarity, 3)} {t('· rrf')} {num(b.trace.rrf_score, 4)} {t('· utility')}{' '}
                   {num(b.trace.packing_utility, 3)}
                 </p>
               </li>
             ))}
-            {!context.length && <p className="text-sm text-muted">Chưa có context.</p>}
+            {!context.length && <p className="text-sm text-muted">{t('Chưa có context.')}</p>}
           </ol>
         )}
 
         {tab === 'provenance' &&
           (provenance ? (
             <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
-              <Field label="Profile" value={provenance.profile} />
-              <Field label="Cấu hình" value={provenance.config_hash} />
-              <Field label="Mã nguồn" value={provenance.code_hash} />
-              <Field label="EDAHR commit" value={provenance.edahr_commit ?? 'chưa pin'} />
-              <Field label="Verifier" value={provenance.verifier_revision} />
-              <Field label="Calibration" value={provenance.calibration_artifact ?? 'chưa có (thử nghiệm)'} />
-              <Field label="Grouping" value={`v${provenance.grouping_version}`} />
+              <Field label={t('Profile')} value={provenance.profile} />
+              <Field label={t('Cấu hình')} value={provenance.config_hash} />
+              <Field label={t('Mã nguồn')} value={provenance.code_hash} />
+              <Field label={t('EDAHR commit')} value={provenance.edahr_commit ?? t('chưa pin')} />
+              <Field label={t('Verifier')} value={provenance.verifier_revision} />
+              <Field label={t('Calibration')} value={provenance.calibration_artifact ?? t('chưa có (thử nghiệm)')} />
+              <Field label={t('Grouping')} value={`v${provenance.grouping_version}`} />
               {Object.entries(provenance.models).map(([k, v]) => (
                 <Field key={k} label={k} value={v} />
               ))}
-              <dt className="text-muted">Snapshot nguồn</dt>
+              <dt className="text-muted">{t('Snapshot nguồn')}</dt>
               <dd>
                 <ul className="space-y-0.5 font-mono text-xs">
                   {provenance.source_snapshot.map((s) => (
@@ -150,7 +151,7 @@ export function AuditPanel({
               </dd>
             </dl>
           ) : (
-            <p className="text-sm text-muted">Có sau khi lượt chạy hoàn tất.</p>
+            <p className="text-sm text-muted">{t('Có sau khi lượt chạy hoàn tất.')}</p>
           ))}
       </div>
     </section>

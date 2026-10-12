@@ -36,7 +36,9 @@ Ba việc cần làm **trước khi mở cho người dùng thật** (mục 9):
 | Ràng buộc + RLS | 23/25 đạt. 2 mục chưa đạt cần `0006`: chặn đọc `run_event` thô, ẩn canonical text của nguồn đã xóa | `db/verify_schema.py` (luôn rollback) |
 | Backend FastAPI + worker | Chạy được với code hiện tại | `scripts/e2e_smoke.py --pdf` **30/30** trên Supabase + GPU + OpenAI thật |
 | Unit test backend | 26/26 (9 cơ bản + 17 hồi quy từ đợt rà soát) | `pytest -q`, không cần mạng/GPU |
-| Frontend React + Vite | 28/28 test (mock + jsdom); build và lint đạt; còn cảnh báo bundle ~647 KB | `cd web && npm test && npm run build` |
+| Frontend React + Vite | 63/63 test (mock + jsdom: bài giảng, bảo mật, đa ngôn ngữ, dịch); build và lint đạt; từ điển mỗi ngôn ngữ tách chunk ~40 KB, chỉ tải khi chọn |
+| Đa ngôn ngữ + chủ đề + dịch tài liệu | Giao diện 8 ngôn ngữ, sáng/tối, 6 màu nhấn; dịch tài liệu 15 ngôn ngữ (migration `0010_translation`). `scripts/e2e_translation.py` 27/27 (Anh, Đức, Trung, Nhật); Chromium trên bản build có CSP 11/11 |
+| Bảo mật (SECURITY.md) | `pytest` 108/108 (14 test bảo mật); `scripts/e2e_security.py` 21/21 trên hệ thống thật; migration `0009_security` đã áp dụng | `cd web && npm test && npm run build` |
 | Giao diện trên trình duyệt thật | **Chưa kiểm thử thủ công** | Luồng qua proxy Vite chỉ được kiểm bằng script |
 | Quản lý mã nguồn | **Chưa có Git**, chưa có CI | Thư mục không phải repository |
 

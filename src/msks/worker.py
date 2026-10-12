@@ -14,7 +14,7 @@ import traceback
 
 import psycopg
 
-from . import db, jobs
+from . import db, jobs, security, translation
 from .errors import PermanentError, TransientError
 from .ingest import build_tree, fingerprint_hex, jaccard_estimate, minhash, parse, sha256
 from .indexing import LeafRow, check_leaf_quota, embed_and_publish, persist_tree
@@ -123,6 +123,8 @@ def handle_delete(job: dict) -> None:
         )
         conn.execute("update public.index_generation set state = 'retired' where parse_revision_id = any(%s::uuid[])", (revisions,))
         conn.execute("update public.node set text = '', text_sha256 = '' where parse_revision_id = any(%s::uuid[])", (revisions,))
+        # Bản dịch cũng chứa nội dung tài liệu: xóa hẳn (segment cascade).
+        conn.execute("delete from public.source_translation where source_id = %s", (source_id,))
         conn.execute(
             "update public.parse_revision set canonical_text = null, status = 'superseded' where id = any(%s::uuid[])", (revisions,)
         )
@@ -193,7 +195,8 @@ def handle_run(job: dict) -> None:
         finish_cancelled(state)
 
 
-HANDLERS = {"ingest": handle_ingest, "delete": handle_delete, "run": handle_run, "reindex": handle_reindex}
+HANDLERS = {"ingest": handle_ingest, "delete": handle_delete, "run": handle_run, "reindex": handle_reindex,
+            "translate": translation.handle_translate}
 
 
 def process(job: dict) -> None:
@@ -231,6 +234,8 @@ def _on_failure(job: dict, code: str, message: str, retryable: bool) -> None:
     elif job["kind"] == "run":
         state = RunState(run={"id": job["target_id"]}, job_id=str(job["id"]), attempt=job["attempt_version"])
         finish_failed(state, code, message, retryable)
+    elif job["kind"] == "translate":
+        translation.mark_failed(job, error)
 
 
 def main() -> None:
@@ -242,6 +247,7 @@ def main() -> None:
     db.open_pool(min_size=1, max_size=3)
     log.info("worker sẵn sàng (device=%s, llm=%s)", get_settings().device, get_settings().llm_provider)
     last_sweep = 0.0
+    last_security_sweep = 0.0
     db_backoff = 0.0
     while True:
         if time.monotonic() - last_sweep > 60:
@@ -252,6 +258,14 @@ def main() -> None:
                     log.info("thu gom media: %s", swept)
             except Exception:  # thu gom lỗi không được chặn hàng đợi
                 log.warning("thu gom media lỗi: %s", traceback.format_exc())
+            if time.monotonic() - last_security_sweep > 3600:
+                last_security_sweep = time.monotonic()
+                try:
+                    swept = security.sweep()
+                    if any(swept.values()):
+                        log.info("dọn bộ đếm/nhật ký bảo mật: %s", swept)
+                except Exception:
+                    log.warning("dọn dữ liệu bảo mật lỗi: %s", traceback.format_exc())
         try:
             job = jobs.claim_next()
         except psycopg.OperationalError as exc:

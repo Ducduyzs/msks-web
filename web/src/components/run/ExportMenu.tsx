@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { api, type ExportFormat } from '../../api'
 import { features } from '../../lib/features'
 import { ErrorBox, Spinner } from '../ui'
+import { t } from '../../i18n'
 
 // MVP: Markdown/JSON; DOCX/PDF thuộc G4 (mục 1.4, 16).
 const FORMATS: { format: ExportFormat; label: string }[] = [
@@ -48,7 +49,7 @@ export function ExportMenu({ runId }: { runId: string }) {
           </button>
         ))}
       </div>
-      <p className="text-xs text-muted">Bản xuất dựng từ claim và evidence đã lưu, không gọi LLM viết lại.</p>
+      <p className="text-xs text-muted">{t('Bản xuất dựng từ claim và evidence đã lưu, không gọi LLM viết lại.')}</p>
       {error != null && <ErrorBox error={error} />}
     </div>
   )

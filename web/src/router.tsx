@@ -3,6 +3,7 @@ import { NotFound, RouteError, Shell } from './components/Shell'
 import { QaPage } from './pages/QaPage'
 import { RunDetailPage } from './pages/RunDetailPage'
 import { RunsPage } from './pages/RunsPage'
+import { SecurityPage } from './pages/SecurityPage'
 import { SourcesPage } from './pages/SourcesPage'
 import { SynthesisPage } from './pages/SynthesisPage'
 import { WorkspaceLayout } from './pages/WorkspaceLayout'
@@ -14,6 +15,7 @@ export const routes: RouteObject[] = [
     errorElement: <RouteError />,
     children: [
       { index: true, element: <WorkspacesPage /> },
+      { path: 'security', element: <SecurityPage /> },
       {
         path: 'w/:workspaceId',
         element: <WorkspaceLayout />,

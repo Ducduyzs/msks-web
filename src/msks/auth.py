@@ -14,6 +14,7 @@ import jwt
 from fastapi import Request
 
 from .errors import AppError, unauthorized
+from .security import enforce_session, record_event
 from .settings import get_settings
 
 SESSION_COOKIE = "msks_session"
@@ -21,11 +22,26 @@ CSRF_COOKIE = "csrf_token"
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 
 
+def check_origin(request: Request) -> None:
+    """Reject browser writes from origins outside the configured frontend."""
+    origin = request.headers.get("origin")
+    allowed = {o.strip().rstrip("/") for o in get_settings().cors_origins.split(",") if o.strip()}
+    allowed.add(str(request.base_url).rstrip("/"))
+    if origin is not None and origin.rstrip("/") not in allowed:
+        record_event("csrf_rejected", None, request, {"reason": "origin", "origin": origin[:200]})
+        raise AppError(403, "csrf_failed", "Origin không được phép.")
+    if origin is None and request.headers.get("sec-fetch-site") == "cross-site":
+        record_event("csrf_rejected", None, request, {"reason": "cross_site"})
+        raise AppError(403, "csrf_failed", "Yêu cầu khác origin không được phép.")
+
+
 @dataclass(frozen=True)
 class User:
     id: str
     email: str | None
     expires_at: int
+    session_id: str | None = None   # auth.sessions.id — dùng để chặn phiên đã đăng xuất
+    aal: str = "aal1"               # aal2 = đã qua xác thực hai lớp
 
 
 @lru_cache
@@ -53,20 +69,27 @@ def verify_token(token: str) -> User:
         raise unauthorized("Token không hợp lệ.") from exc
     if claims.get("role") != "authenticated":
         raise unauthorized("Token không thuộc người dùng đã đăng nhập.")
-    return User(id=str(claims["sub"]), email=claims.get("email"), expires_at=int(claims["exp"]))
+    return User(id=str(claims["sub"]), email=claims.get("email"), expires_at=int(claims["exp"]),
+                session_id=claims.get("session_id"), aal=str(claims.get("aal") or "aal1"))
 
 
 def current_user(request: Request) -> User:
     """Dependency FastAPI: lấy người dùng từ header Bearer hoặc cookie phiên."""
     header = request.headers.get("authorization", "")
     if header.lower().startswith("bearer "):
-        return verify_token(header[7:].strip())
+        user = verify_token(header[7:].strip())
+        enforce_session(user, request)
+        return user
     token = request.cookies.get(SESSION_COOKIE)
     if not token:
         raise unauthorized()
     if request.method not in SAFE_METHODS:
+        check_origin(request)
         expected = request.cookies.get(CSRF_COOKIE, "")
         sent = request.headers.get("x-csrf-token", "")
-        if not expected or not hmac.compare_digest(expected, sent):
+        if not expected or not hmac.compare_digest(expected.encode(), sent.encode()):
+            record_event("csrf_rejected", None, request, {"reason": "token"})
             raise AppError(403, "csrf_failed", "Thiếu hoặc sai CSRF token.")
-    return verify_token(token)
+    user = verify_token(token)
+    enforce_session(user, request)
+    return user

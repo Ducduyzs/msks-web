@@ -6,13 +6,22 @@ import uuid
 from datetime import datetime
 from typing import Annotated
 
-from fastapi import Depends
+from fastapi import Depends, Request
 
+from . import security
 from .auth import User, current_user
 from .dto import SOURCE_SELECT
 from .errors import AppError, not_found
 
 UserDep = Annotated[User, Depends(current_user)]
+
+
+def limit(name: str):
+    """Dependency giới hạn tần suất theo người dùng cho một route (security.RATE_LIMITS). FastAPI cache
+    current_user trong một request nên không xác thực hai lần."""
+    def dependency(request: Request, user: User = Depends(current_user)) -> None:
+        security.hit(name, f"user:{user.id}", request, user.id)
+    return Depends(dependency)
 
 
 def _uuid(value: str, what: str) -> str:
@@ -31,10 +40,10 @@ def require_workspace(conn, workspace_id: str, user: User) -> dict:
     return row
 
 
-def require_owned(conn, table: str, row_id: str, user: User, what: str) -> dict:
+def require_owned(conn, table: str, row_id: str, user: User, what: str, *, lock: bool = False) -> dict:
     row = conn.execute(
         f"""select t.* from public.{table} t join public.workspace w on w.id = t.workspace_id
-            where t.id = %s and w.owner_id = %s""",
+            where t.id = %s and w.owner_id = %s""" + (" for update of t" if lock else ""),
         (_uuid(row_id, what), user.id),
     ).fetchone()
     if not row:

@@ -1,6 +1,6 @@
 # MSKS — Tổng hợp kiến thức đa nguồn có kiểm chứng
 
-**Mới tiếp nhận dự án? Đọc [HANDOFF.md](HANDOFF.md) trước.** · Kiến trúc: [ARCHITECTURE.md](ARCHITECTURE.md) · Frontend: [web/README.md](web/README.md) · Database: [db/README.md](db/README.md)
+**Mới tiếp nhận dự án? Đọc [HANDOFF.md](HANDOFF.md) trước.** · Bảo mật: [SECURITY.md](SECURITY.md) · Kiến trúc: [ARCHITECTURE.md](ARCHITECTURE.md) · Frontend: [web/README.md](web/README.md) · Database: [db/README.md](db/README.md)
 
 ```text
 trình duyệt ──► Vite (5173, proxy /api) ──► FastAPI (8000) ──► Supabase Postgres + pgvector + Storage

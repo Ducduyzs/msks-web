@@ -1,12 +1,13 @@
 import { Check } from 'lucide-react'
 import type { RunStage } from '../../api'
 import { Spinner } from '../ui'
+import { t } from '../../i18n'
 
 export function StageProgress({ stages, running }: { stages: { stage: RunStage; label: string }[]; running: boolean }) {
   if (!stages.length) {
     return (
       <div className="flex items-center gap-2 text-sm text-muted" role="status">
-        <Spinner /> Đang kết nối…
+        <Spinner /> {t('Đang kết nối…')}
       </div>
     )
   }

@@ -19,7 +19,7 @@ from fastapi import APIRouter, File, Form, Header, UploadFile
 from pydantic import BaseModel, Field
 
 from . import db
-from .api_deps import UserDep, _uuid, require_owned, require_workspace, source_row
+from .api_deps import UserDep, _uuid, limit, require_owned, require_workspace, source_row
 from .dto import iso, job_dto, source_dto
 from .errors import AppError, not_found
 from .ingest import sha256
@@ -51,7 +51,7 @@ class GlossaryIn(BaseModel):
     terms: list[str] = Field(max_length=200)
 
 
-@router.put("/api/workspaces/{workspace_id}/asr-glossary")
+@router.put("/api/workspaces/{workspace_id}/asr-glossary", dependencies=[limit("settings_write")])
 def put_asr_glossary(workspace_id: str, body: GlossaryIn, user: UserDep):
     """Thuật ngữ đưa vào `initial_prompt` của ASR cho các video **tải lên sau đó** trong workspace (bài đã xử lý
     giữ bản chép cũ; extraction ghi `glossary_sha256`). Danh sách rỗng → dùng glossary toàn cục nếu có."""
@@ -102,6 +102,8 @@ def _uploaded_sizes(session: dict) -> dict[int, int]:
 
 
 def session_dto(session: dict, *, with_urls: bool) -> dict:
+    if session["status"] == "open" and session["expires_at"] <= datetime.now(timezone.utc):
+        session = {**session, "status": "expired"}
     uploaded = _uploaded_sizes(session) if session["status"] == "open" else {}
     store = _media()
     parts = []
@@ -134,8 +136,8 @@ def session_dto(session: dict, *, with_urls: bool) -> dict:
     }
 
 
-def _require_session(conn, session_id: str, user) -> dict:
-    session = require_owned(conn, "upload_session", session_id, user, "Phiên upload")
+def _require_session(conn, session_id: str, user, *, lock: bool = False) -> dict:
+    session = require_owned(conn, "upload_session", session_id, user, "Phiên upload", lock=lock)
     if str(session["owner_id"]) != user.id:
         raise not_found("Phiên upload")
     return session
@@ -150,7 +152,7 @@ def _media_usage(conn, workspace_id: str) -> int:
     ).fetchone()["used"])
 
 
-@router.post("/api/workspaces/{workspace_id}/media-upload-sessions", status_code=201)
+@router.post("/api/workspaces/{workspace_id}/media-upload-sessions", status_code=201, dependencies=[limit("media_session")])
 def create_media_session(workspace_id: str, body: MediaSessionIn, user: UserDep,
                          idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None):
     settings = get_settings()
@@ -172,6 +174,7 @@ def create_media_session(workspace_id: str, body: MediaSessionIn, user: UserDep,
                     raise AppError(409, "idempotency_conflict", "Idempotency-Key đã dùng cho một yêu cầu khác.")
                 return session_dto(existing, with_urls=True)
         # Giữ chỗ quota theo kích thước khai báo; complete kiểm lại kích thước thực (mục 4.1).
+        conn.execute("select id from public.workspace where id = %s for update", (workspace_id,))
         used = _media_usage(conn, workspace_id)
         if used + body.size_bytes > settings.media_quota_bytes_per_workspace:
             raise AppError(413, "media_quota_exceeded",
@@ -197,7 +200,7 @@ def get_media_session(session_id: str, user: UserDep):
     return session_dto(session, with_urls=True)
 
 
-@router.post("/api/media-upload-sessions/{session_id}/caption")
+@router.post("/api/media-upload-sessions/{session_id}/caption", dependencies=[limit("upload")])
 async def attach_caption(session_id: str, user: UserDep, file: UploadFile = File(...)):
     settings = get_settings()
     filename = _filename(file.filename, "caption.vtt")
@@ -209,8 +212,8 @@ async def attach_caption(session_id: str, user: UserDep, file: UploadFile = File
         raise AppError(413, "file_too_large", "File phụ đề vượt 2 MB.")
     parse_captions(data)  # từ chối sớm file không có cue hợp lệ
     with db.tx() as conn:
-        session = _require_session(conn, session_id, user)
-        if session["status"] != "open":
+        session = _require_session(conn, session_id, user, lock=True)
+        if session["status"] != "open" or session["expires_at"] <= datetime.now(timezone.utc):
             raise AppError(409, "session_closed", "Phiên upload đã đóng.")
         key = f"{session['object_prefix']}caption{extension}"
         store = _media()
@@ -227,9 +230,7 @@ def complete_media_session(session_id: str, user: UserDep):
     """Idempotent: phiên đã complete trả lại nguồn đã tạo."""
     settings = get_settings()
     with db.tx() as conn:
-        session = _require_session(conn, session_id, user)
-        conn.execute("select id from public.upload_session where id = %s for update", (session["id"],))
-        session = conn.execute("select * from public.upload_session where id = %s", (session["id"],)).fetchone()
+        session = _require_session(conn, session_id, user, lock=True)
         if session["status"] == "completed":
             return source_dto(source_row(conn, session["source_id"]))
         if session["status"] != "open" or session["expires_at"] < datetime.now(timezone.utc):
@@ -288,8 +289,8 @@ def complete_media_session(session_id: str, user: UserDep):
 @router.post("/api/media-upload-sessions/{session_id}/cancel")
 def cancel_media_session(session_id: str, user: UserDep):
     with db.tx() as conn:
-        session = _require_session(conn, session_id, user)
-        if session["status"] != "open":
+        session = _require_session(conn, session_id, user, lock=True)
+        if session["status"] not in ("open", "cancelled"):
             raise AppError(409, "session_closed", "Phiên upload đã đóng.")
         conn.execute("update public.upload_session set status = 'cancelled' where id = %s", (session["id"],))
     keys = [_part_key(session, i) for i in range(session["part_count"])]
@@ -319,7 +320,7 @@ def youtube_id(url: str) -> str:
     raise AppError(422, "invalid_youtube_url", "Link YouTube không hợp lệ.")
 
 
-@router.post("/api/workspaces/{workspace_id}/sources/youtube", status_code=202)
+@router.post("/api/workspaces/{workspace_id}/sources/youtube", status_code=202, dependencies=[limit("upload")])
 async def add_youtube(workspace_id: str, user: UserDep, url: Annotated[str, Form()],
                       language: Annotated[Literal["vi", "en", "auto"], Form()] = "auto",
                       title: Annotated[str | None, Form()] = None,
@@ -385,8 +386,8 @@ def add_drive(workspace_id: str, user: UserDep):
 # --------------------------------------------------------- timeline / media
 
 
-def _require_live_source(conn, source_id: str, user) -> dict:
-    source = require_owned(conn, "source", source_id, user, "Nguồn")
+def _require_live_source(conn, source_id: str, user, *, lock: bool = False) -> dict:
+    source = require_owned(conn, "source", source_id, user, "Nguồn", lock=lock)
     if source["deleted_at"]:
         raise AppError(410, "source_deleted", "Nguồn đã bị xóa; nội dung không còn được hiển thị.")
     return source
@@ -432,7 +433,7 @@ def source_timeline(source_id: str, user: UserDep, revision_id: str):
     }
 
 
-@router.get("/api/sources/{source_id}/media/{asset_id}")
+@router.get("/api/sources/{source_id}/media/{asset_id}", dependencies=[limit("media_url")])
 def media_url(source_id: str, asset_id: str, user: UserDep):
     """URL đọc hạn ngắn cho audio/frame/video gốc (nếu được giữ), cấp sau kiểm tra quyền + tombstone (mục 6)."""
     with db.tx() as conn:
@@ -462,13 +463,13 @@ class TranscriptRevisionIn(BaseModel):
     regions: list[TextEdit] = Field(default_factory=list, max_length=2000)
 
 
-@router.post("/api/sources/{source_id}/transcript-revisions", status_code=202)
+@router.post("/api/sources/{source_id}/transcript-revisions", status_code=202, dependencies=[limit("transcript_edit")])
 def create_transcript_revision(source_id: str, body: TranscriptRevisionIn, user: UserDep):
     """Sửa bản chép/OCR → revision trích xuất + parse revision + index mới; run cũ giữ revision cũ (mục 6, bất biến 4)."""
     if not body.segments and not body.regions:
         raise AppError(422, "empty_edit", "Không có thay đổi nào.")
     with db.tx() as conn:
-        source = _require_live_source(conn, source_id, user)
+        source = _require_live_source(conn, source_id, user, lock=True)
         extraction = conn.execute(
             "select * from public.extraction_revision where parse_revision_id = %s and source_id = %s",
             (_uuid(body.base_revision_id, "Phiên bản"), source["id"])).fetchone()
@@ -499,15 +500,20 @@ class ReindexIn(BaseModel):
     profile: Literal["product", "lecture_vi_v1"]
 
 
-@router.post("/api/sources/{source_id}/reindex", status_code=202)
+@router.post("/api/sources/{source_id}/reindex", status_code=202, dependencies=[limit("settings_write")])
 def reindex_source(source_id: str, body: ReindexIn, user: UserDep):
     """Thêm generation cho profile khác (vd. đưa PDF vào phạm vi hỏi cùng bài giảng); không đổi index đang dùng."""
     if body.profile not in PROFILE_NAMES:
         raise AppError(422, "unknown_profile", "Profile không tồn tại.")
     with db.tx() as conn:
-        source = _require_live_source(conn, source_id, user)
+        source = _require_live_source(conn, source_id, user, lock=True)
         if source["status"] not in ("ready", "ready_limited", "review_required"):
             raise AppError(409, "source_not_ready", "Nguồn chưa sẵn sàng để reindex.")
+        busy = conn.execute(
+            """select 1 from public.job where target_id = %s and kind in ('ingest', 'reindex')
+               and state in ('queued', 'running')""", (source["id"],)).fetchone()
+        if busy:
+            raise AppError(409, "source_busy", "Nguồn đang được xử lý; thử lại sau khi hoàn tất.")
         job = conn.execute(
             """insert into public.job (workspace_id, target_type, target_id, kind, payload_json, max_attempts)
                values (%s, 'source', %s, 'reindex', %s, %s) returning *""",

@@ -8,6 +8,7 @@ import { RunView } from '../components/run/RunView'
 import { ErrorBox, ExperimentalTag, Spinner } from '../components/ui'
 import { useSources } from '../hooks/queries'
 import { features } from '../lib/features'
+import { t } from '../i18n'
 
 const MAX_SECTIONS = 8
 const MAX_QUESTIONS = 3
@@ -22,7 +23,7 @@ export function SynthesisPage() {
     return (
       <div className="space-y-4">
         <button className="btn btn-outline" onClick={() => setParams({})}>
-          <FilePlus2 className="size-4" /> Báo cáo mới
+          <FilePlus2 className="size-4" /> {t('Báo cáo mới')}
         </button>
         <RunView key={runId} runId={runId} />
       </div>
@@ -65,25 +66,25 @@ function SynthesisWizard({ workspaceId, onStarted }: { workspaceId: string; onSt
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center gap-2">
-        <h2 className="font-semibold">Báo cáo tổng hợp</h2>
+        <h2 className="font-semibold">{t('Báo cáo tổng hợp')}</h2>
         <ExperimentalTag />
       </div>
       <form onSubmit={submitTopic} className="card space-y-4 p-4">
         <div>
           <label htmlFor="topic" className="label mb-1.5 block">
-            Bước 1 · Chủ đề tổng hợp
+            {t('Bước 1 · Chủ đề tổng hợp')}
           </label>
           <div className="flex flex-col gap-2 sm:flex-row">
             <input
               id="topic"
               className="input"
-              placeholder="Ví dụ: So sánh Agreement Ranking và RAPTOR cho QA trên bài báo dài"
+              placeholder={t('Ví dụ: So sánh Agreement Ranking và RAPTOR cho QA trên bài báo dài')}
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               maxLength={500}
             />
             <button className="btn btn-primary shrink-0" disabled={!topic.trim() || propose.isPending}>
-              {propose.isPending ? <Spinner /> : <ListTree className="size-4" />} Đề xuất dàn ý
+              {propose.isPending ? <Spinner /> : <ListTree className="size-4" />} {t('Đề xuất dàn ý')}
             </button>
           </div>
         </div>
@@ -98,18 +99,17 @@ function SynthesisWizard({ workspaceId, onStarted }: { workspaceId: string; onSt
       {outline && (
         <section className="card space-y-4 p-4">
           <div>
-            <p className="label">Bước 2 · Chỉnh dàn ý</p>
+            <p className="label">{t('Bước 2 · Chỉnh dàn ý')}</p>
             <p className="mt-1 text-sm text-muted">
-              LLM chỉ đề xuất cần hỏi gì. Mỗi câu hỏi con chạy pipeline QA có kiểm chứng; báo cáo ghép claim đã kiểm chứng bằng template,
-              không để LLM viết thêm câu sự kiện. Tối đa {MAX_SECTIONS} mục, mỗi mục {MAX_QUESTIONS} câu hỏi con, dùng chung một ngân sách.
+              {t('LLM chỉ đề xuất cần hỏi gì. Mỗi câu hỏi con chạy pipeline QA có kiểm chứng; báo cáo ghép claim đã kiểm chứng bằng template, không để LLM viết thêm câu sự kiện. Tối đa')} {MAX_SECTIONS} {t('mục, mỗi mục')} {MAX_QUESTIONS} {t('câu hỏi con, dùng chung một ngân sách.')}
             </p>
           </div>
           <OutlineEditor value={outline} onChange={setOutline} />
           <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
             <button className="btn btn-primary" disabled={!cleaned.length || start.isPending} onClick={() => start.mutate(cleaned)}>
-              {start.isPending ? <Spinner /> : <Sparkles className="size-4" />} Sinh báo cáo ({cleaned.length} mục)
+              {start.isPending ? <Spinner /> : <Sparkles className="size-4" />} {t('Sinh báo cáo (')}{cleaned.length} {t('mục)')}
             </button>
-            {!cleaned.length && <span className="text-sm text-contested">Cần ít nhất một mục có tiêu đề và câu hỏi.</span>}
+            {!cleaned.length && <span className="text-sm text-contested">{t('Cần ít nhất một mục có tiêu đề và câu hỏi.')}</span>}
           </div>
           {start.error && <ErrorBox error={start.error} onRetry={() => start.mutate(cleaned)} />}
         </section>
@@ -137,21 +137,21 @@ function OutlineEditor({ value, onChange }: { value: OutlineSection[]; onChange:
             <input
               className="input font-medium"
               value={section.title}
-              placeholder="Tiêu đề mục"
+              placeholder={t('Tiêu đề mục')}
               onChange={(e) => update(index, { title: e.target.value })}
-              aria-label={`Tiêu đề mục ${index + 1}`}
+              aria-label={t('Tiêu đề mục {0}', { 0: index + 1 })}
             />
-            <button type="button" className="btn btn-ghost p-2" disabled={index === 0} onClick={() => move(index, -1)} aria-label="Đưa lên">
+            <button type="button" className="btn btn-ghost p-2" disabled={index === 0} onClick={() => move(index, -1)} aria-label={t('Đưa lên')}>
               <ArrowUp className="size-4" />
             </button>
-            <button type="button" className="btn btn-ghost p-2" disabled={index === value.length - 1} onClick={() => move(index, 1)} aria-label="Đưa xuống">
+            <button type="button" className="btn btn-ghost p-2" disabled={index === value.length - 1} onClick={() => move(index, 1)} aria-label={t('Đưa xuống')}>
               <ArrowDown className="size-4" />
             </button>
             <button
               type="button"
               className="btn btn-ghost p-2 text-rejected"
               onClick={() => onChange(value.filter((_, i) => i !== index))}
-              aria-label={`Xóa mục ${index + 1}`}
+              aria-label={t('Xóa mục {0}', { 0: index + 1 })}
             >
               <Trash2 className="size-4" />
             </button>
@@ -162,15 +162,15 @@ function OutlineEditor({ value, onChange }: { value: OutlineSection[]; onChange:
                 <input
                   className="input py-1.5"
                   value={question}
-                  placeholder="Câu hỏi con"
-                  aria-label={`Câu hỏi con ${qi + 1} của mục ${index + 1}`}
+                  placeholder={t('Câu hỏi con')}
+                  aria-label={t('Câu hỏi con {0} của mục {1}', { 0: qi + 1, 1: index + 1 })}
                   onChange={(e) => update(index, { questions: section.questions.map((q, j) => (j === qi ? e.target.value : q)) })}
                 />
                 <button
                   type="button"
                   className="btn btn-ghost p-1.5"
                   onClick={() => update(index, { questions: section.questions.filter((_, j) => j !== qi) })}
-                  aria-label="Xóa câu hỏi con"
+                  aria-label={t('Xóa câu hỏi con')}
                 >
                   <X className="size-4" />
                 </button>
@@ -183,7 +183,7 @@ function OutlineEditor({ value, onChange }: { value: OutlineSection[]; onChange:
               className="btn btn-ghost ml-8 mt-1 px-2 py-1 text-xs text-accent"
               onClick={() => update(index, { questions: [...section.questions, ''] })}
             >
-              <Plus className="size-3.5" /> Thêm câu hỏi con
+              <Plus className="size-3.5" /> {t('Thêm câu hỏi con')}
             </button>
           )}
         </div>
@@ -194,7 +194,7 @@ function OutlineEditor({ value, onChange }: { value: OutlineSection[]; onChange:
           className="btn btn-outline"
           onClick={() => onChange([...value, { key: `custom_${crypto.randomUUID().slice(0, 8)}`, title: '', questions: [''] }])}
         >
-          <Plus className="size-4" /> Thêm mục
+          <Plus className="size-4" /> {t('Thêm mục')}
         </button>
       )}
     </div>

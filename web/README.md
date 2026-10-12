@@ -34,8 +34,38 @@ Tính năng sau MVP luôn có nhãn **Thử nghiệm** trên giao diện.
 | Câu hỏi chứa `[invalid]` / `[verifier-down]` / `[fail]` | `model_output_invalid` / `verification_unavailable` / run FAILED |
 | Tiêu đề mục dàn ý chứa `[fail]` | Báo cáo PARTIAL, mục đó để trống |
 | Tải file tên có `scan` | Nạp thất bại `pdf_no_text_layer` |
+| Workspace **Demo: Bài giảng tiếng Việt** | Bài giảng mẫu (bản chép thật từ pipeline, còn lỗi ASR) — hỏi “Lập chỉ mục 70 bài báo mất bao lâu?” để thấy citation theo thời gian; bấm “Sửa bản chép” để tạo phiên bản mới |
+| Tải video MP4/WebM bất kỳ | Mô phỏng tải theo phần + pipeline; mọi video nhận bản chép mẫu (mock không xử lý video thật) |
+| Thêm YouTube vào workspace tài liệu rồi hỏi “tất cả nguồn” | `422 profile_index_missing` — bài giảng và tài liệu khác model profile |
 | Bấm "Hủy lượt chạy" khi đang chạy | Run CANCELLED, không publish thêm |
 | Xóa S1 sau khi đã hỏi | Run cũ giữ tham chiếu nhưng ẩn nội dung, trình xem trả 410 |
+
+## Giao diện đa ngôn ngữ và chủ đề
+
+- **Ngôn ngữ giao diện:** Tiếng Việt (gốc), English, 简体中文, 日本語, 한국어, Français, Deutsch, Español — chọn ở nút
+  bảng màu trên thanh trên cùng hoặc trang đăng nhập; lưu trong trình duyệt, mặc định theo ngôn ngữ trình duyệt.
+- **Chủ đề:** Sáng / Tối / Theo hệ thống; 6 màu nhấn (đã kiểm tra tương phản cho cả hai nền); 3 cỡ chữ. Màu trạng
+  thái claim (hỗ trợ / đối chứng / mâu thuẫn) cố định để không đổi nghĩa.
+
+Chữ giao diện viết bằng tiếng Việt và bọc trong `t('…')` (biến: `t('Đã tạo nguồn {0}', { 0: alias })`); bảng nhãn ở
+mức module dùng `translated({ key: msg('…') })` để dịch lúc đọc. Khi thêm/sửa chữ:
+
+```bash
+npm run i18n:extract                       # cập nhật src/i18n/catalog.json (kèm file dùng mỗi câu làm ngữ cảnh)
+python ../scripts/translate_ui.py          # dịch câu mới sang 7 ngôn ngữ bằng LLM backend; giữ bản đã sửa tay
+npm run i18n:extract -- --check            # CI: báo lỗi nếu catalog lỗi thời hoặc ngôn ngữ nào thiếu câu
+```
+
+Tiếng Anh đã được rà và sửa tay (~110 câu sai nghĩa theo ngữ cảnh sản phẩm) và dùng làm tham chiếu nghĩa khi dịch các
+ngôn ngữ khác; các ngôn ngữ còn lại là bản máy — giao diện ghi rõ — nên nhờ người bản ngữ rà. Test
+`src/i18n/i18n.test.tsx` chặn từ điển thiếu câu hoặc làm hỏng biến `{0}`.
+
+## Dịch tài liệu
+
+Trình xem nguồn (tài liệu và bài giảng) có tab **Bản dịch**: chọn ngôn ngữ đích (15 ngôn ngữ, gồm Anh-Mỹ/Anh-Anh, Trung
+giản thể/phồn thể, Nhật, Hàn, Pháp, Đức…) → dịch theo từng đoạn lá ở backend → xem song song hoặc chỉ bản dịch, tải
+`.txt`. Bản dịch **chỉ để đọc**: trích dẫn và kiểm chứng luôn dựa trên bản gốc; đoạn có số liệu khác bản gốc được cảnh
+báo. Với bài giảng, mốc thời gian trong bản dịch tua được âm thanh/khung hình.
 
 ## Hợp đồng phía client
 
@@ -69,6 +99,7 @@ src/
 │   ├── client.ts        # interface Api + HttpApi (fetch, CSRF, idempotency, EventSource)
 │   ├── mock.ts          # MockApi: cùng interface, mô phỏng job, SSE seq, hủy, tombstone
 │   ├── mockData.ts      # nguồn và claim mẫu
+│   ├── mockLecture.ts   # bài giảng mẫu: bản chép, khung hình SVG, đọc SRT/VTT
 │   └── index.ts         # chọn mock/http
 ├── hooks/               # useSources, useRuns (cursor), useReadiness, useRunStream
 ├── lib/                 # codepoints, labels, features

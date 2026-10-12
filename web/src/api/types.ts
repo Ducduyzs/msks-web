@@ -39,11 +39,13 @@ export interface Workspace {
   created_at: string
   source_count: number
   run_count: number
+  /** Thuật ngữ đưa vào initial_prompt của ASR cho video tải lên sau đó (LECTURE mục 5.2). */
+  asr_glossary?: string[]
 }
 
 // ------------------------------------------------------------------ nguồn
 
-export type SourceKind = 'pdf' | 'docx' | 'html' | 'markdown' | 'txt' | 'doi'
+export type SourceKind = 'pdf' | 'docx' | 'html' | 'markdown' | 'txt' | 'doi' | 'video' | 'youtube' | 'drive'
 /** Loại nguồn — mô tả, không phải điểm tin cậy (mục 5.2). */
 export type SourceType = 'peer_reviewed' | 'preprint' | 'web' | 'user_note'
 /** Vòng đời document (mục 6.5) + trạng thái xóa (tombstone). */
@@ -54,6 +56,10 @@ export type SourceStatus =
   | 'embedding'
   | 'publishing'
   | 'ready'
+  /** Bài giảng thiếu nhánh tùy chọn (không có hình, chỉ có phụ đề…) — vẫn hỏi được (LECTURE mục 8). */
+  | 'ready_limited'
+  /** Bản chép có quá nhiều đoạn bị cảnh báo — nên xem lại trước khi tin (LECTURE mục 8). */
+  | 'review_required'
   | 'failed'
   | 'cancelled'
   | 'deleting'
@@ -90,6 +96,38 @@ export interface Source {
   revision?: SourceRevision
   deleted_at?: string
   created_at: string
+  // Bài giảng
+  language?: Language
+  duration_ms?: number
+  capabilities?: MediaCapabilities
+  coverage?: MediaCoverage
+}
+
+export type Language = 'vi' | 'en' | 'auto'
+
+export interface MediaCapabilities {
+  audio_available: boolean | null
+  visual_available: boolean | null
+  captions_available: boolean | null
+  /** 'kept' = giữ video gốc; 'audio_and_frames' = chỉ còn âm thanh + ảnh khung hình; 'external' = phát trên YouTube. */
+  original_playback_available: 'kept' | 'audio_and_frames' | 'external' | null
+}
+
+/** Độ phủ thực tế của lần trích xuất (LECTURE mục 8, media/timeline.coverage). */
+export interface MediaCoverage {
+  duration_ms?: number | null
+  speech_ratio?: number | null
+  segments?: number
+  segments_flagged?: number
+  flagged_ratio?: number | null
+  segments_dropped_as_non_speech?: number
+  frames_selected?: number
+  board_regions?: number
+  board_regions_low_confidence?: number
+  visual_incomplete_from_ms?: number | null
+  audio_read?: boolean
+  captions_used?: boolean
+  visual_read?: boolean
 }
 
 export interface PageSpan {
@@ -106,7 +144,7 @@ export interface SourceContent {
   pages: PageSpan[] | null
 }
 
-export type JobKind = 'ingest' | 'delete'
+export type JobKind = 'ingest' | 'delete' | 'reindex' | 'run'
 export type JobState = 'queued' | 'running' | 'succeeded' | 'failed' | 'cancelled'
 
 export interface Job {
@@ -122,7 +160,7 @@ export interface Job {
 // --------------------------------------------------------------------- run
 
 export type RunMode = 'qa' | 'synthesis'
-export type RunProfile = 'product' | 'v11_parity'
+export type RunProfile = 'product' | 'v11_parity' | 'lecture_vi_v1'
 export type RunStatus = 'queued' | 'running' | 'succeeded' | 'partial' | 'failed' | 'cancelled'
 export type AnswerStatus = 'answered' | 'insufficient_evidence' | 'model_output_invalid' | 'verification_unavailable'
 export type QueryType = 'factoid' | 'explanatory' | 'comparative_multi_hop' | 'global_synthesis'
@@ -158,6 +196,33 @@ export interface EvidenceRef {
   /** Có ánh xạ vị trí đáng tin vào canonical text hay không (mục 5.4). */
   position: 'exact' | 'approximate' | 'unmapped'
   source_deleted?: boolean
+  /** Bài giảng: evidence đến từ lời giảng, phụ đề hay bảng/slide. Tài liệu: 'text'. */
+  modality?: Modality
+  /** Vị trí trong media; null khi nguồn đã xóa hoặc evidence là văn bản. */
+  locator?: MediaLocator | null
+  transcription_state?: 'automatic' | 'reviewed' | 'not_applicable'
+}
+
+export type Modality = 'text' | 'speech' | 'caption' | 'board'
+
+export interface LocatorItem {
+  type: 'segment' | 'region'
+  id: string
+  start_ms: number
+  end_ms: number
+  asset_id: string | null
+  bbox: [number, number, number, number] | null
+  flags: string[]
+  reviewed: boolean
+}
+
+export interface MediaLocator {
+  modality: Modality
+  start_ms?: number
+  end_ms?: number
+  precision: 'segment' | 'region' | 'mixed' | 'none'
+  items: LocatorItem[]
+  extraction_revision_id?: string | null
 }
 
 export interface ClaimResult {
@@ -169,6 +234,8 @@ export interface ClaimResult {
   verification_method: string
   /** Tự đánh giá của LLM — không phải xác suất đúng. */
   generator_confidence: number
+  /** Nhãn trung thực: bản chép máy ≠ văn bản gốc ≠ bản đã đối chiếu (LECTURE mục 7). */
+  support_basis?: 'document' | 'automatic_transcript' | 'reviewed_transcript'
   evidence: EvidenceRef[]
 }
 
@@ -199,6 +266,9 @@ export interface ContextBlock {
     rrf_score: number
     packing_utility: number
   }
+  modality?: Modality
+  start_ms?: number | null
+  end_ms?: number | null
 }
 
 /** Chỉ số mục 8.4; `null` khi mẫu số bằng 0. */
@@ -337,3 +407,150 @@ export type RunEvent =
   | { seq: number; type: 'error'; error: ApiErrorBody }
 
 export type ExportFormat = 'md' | 'json' | 'docx' | 'pdf'
+
+// ---------------------------------------------------------------- bài giảng
+
+export type UploadSessionStatus = 'open' | 'completed' | 'cancelled' | 'expired'
+
+export interface UploadPart {
+  index: number
+  size: number
+  uploaded: boolean
+  /** URL ký sẵn (PUT) cho phần còn thiếu; hạn ~2 giờ — lấy lại bằng getMediaSession. */
+  upload_url?: string
+  method?: 'PUT'
+  /** Phần đã tải sai kích thước: không ghi đè được, phải hủy phiên. */
+  error?: 'size_mismatch'
+}
+
+export interface MediaUploadSession {
+  id: string
+  workspace_id: string
+  status: UploadSessionStatus
+  filename: string
+  mime: string
+  expected_bytes: number
+  part_bytes: number
+  part_count: number
+  language: Language
+  keep_original: boolean
+  caption: { filename: string } | null
+  parts: UploadPart[]
+}
+
+export interface MediaSessionRequest {
+  filename: string
+  size_bytes: number
+  mime: string
+  language: Language
+  keep_original: boolean
+}
+
+export interface TranscriptSegment {
+  id: string
+  start_ms: number
+  end_ms: number
+  text: string
+  origin: 'asr' | 'human_caption' | 'manual_edit' | string
+  flags: string[]
+  reviewed: boolean
+  audio_asset_id: string | null
+}
+
+export interface FrameRegion {
+  id: string
+  frame_asset_id: string
+  timestamp_ms: number
+  visible_from_ms: number
+  visible_to_ms: number
+  /** [x0, y0, x1, y1] theo pixel của frame gốc. */
+  bbox: [number, number, number, number]
+  text: string
+  method: string
+  confidence: number | null
+  included: boolean
+  flags: string[]
+  review_state: string
+}
+
+export interface MediaAssetRef {
+  id: string
+  kind: 'audio' | 'frame'
+  mime: string
+  meta: { start_ms?: number; end_ms?: number; chunk_index?: number; timestamp_ms?: number; width?: number; height?: number; scale?: number }
+}
+
+export interface Timeline {
+  source_id: string
+  parse_revision_id: string
+  extraction_revision_id: string
+  parent_extraction_revision_id: string | null
+  duration_ms: number | null
+  capabilities: MediaCapabilities | null
+  coverage: MediaCoverage | null
+  versions: { asr?: { model?: string; glossary_sha256?: string | null } | null; ocr?: { engine?: string } } & Record<string, unknown>
+  segments: TranscriptSegment[]
+  regions: FrameRegion[]
+  assets: MediaAssetRef[]
+}
+
+export interface MediaUrl {
+  asset_id: string
+  kind: string
+  mime: string
+  url: string
+  expires_in: number
+}
+
+export interface TranscriptEdit {
+  base_revision_id: string
+  segments: { id: string; text: string }[]
+  regions: { id: string; text: string }[]
+}
+
+// ------------------------------------------------------------- dịch tài liệu
+
+export interface TranslationLanguage {
+  code: string
+  name: string
+}
+
+export type TranslationStatus = 'queued' | 'running' | 'succeeded' | 'failed'
+
+/** Bản dịch máy của một parse revision — chỉ để đọc; trích dẫn và kiểm chứng luôn dựa trên bản gốc. */
+export interface SourceTranslation {
+  id: string
+  source_id: string
+  parse_revision_id: string
+  target_lang: string
+  status: TranslationStatus
+  progress: number
+  segment_count: number
+  char_count: number
+  /** Số đoạn có cảnh báo (vd. số liệu khác bản gốc). */
+  flagged_count: number
+  model: string | null
+  error: ApiErrorBody | null
+  created_at: string
+  finished_at: string | null
+}
+
+export interface TranslationSegment {
+  node_id: string
+  ordinal: number
+  original: string
+  text: string
+  /** 'numbers_changed' | 'empty' */
+  flags: string[]
+  char_start: number
+  char_end: number
+  page_start: number | null
+  page_end: number | null
+  modality: Modality
+  start_ms: number | null
+  end_ms: number | null
+}
+
+export interface TranslationDetail extends SourceTranslation {
+  segments: TranslationSegment[]
+}

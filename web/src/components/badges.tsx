@@ -1,6 +1,6 @@
 import { AlertTriangle, Ban, CheckCheck, CircleCheck, CircleSlash, Clock, XCircle } from 'lucide-react'
 import type { AnswerStatus, ClaimStatus, RunStatus, SourceStatus } from '../api'
-import { ANSWER_STATUS, CLAIM_STATUS, RUN_STATUS, SOURCE_STATUS, isIngesting } from '../lib/labels'
+import { ANSWER_STATUS, CLAIM_STATUS, RUN_STATUS, SOURCE_STATUS, SOURCE_STATUS_HINT, isIngesting } from '../lib/labels'
 import { Pill, Spinner } from './ui'
 
 const CLAIM_STYLE: Record<ClaimStatus, string> = {
@@ -32,6 +32,8 @@ const SOURCE_STYLE: Record<SourceStatus, string> = {
   embedding: 'bg-accent-soft text-accent',
   publishing: 'bg-accent-soft text-accent',
   ready: 'bg-corroborated-soft text-corroborated',
+  ready_limited: 'bg-corroborated-soft text-corroborated',
+  review_required: 'bg-contested-soft text-contested',
   failed: 'bg-rejected-soft text-rejected',
   cancelled: 'bg-surface-2 text-muted',
   deleting: 'bg-surface-2 text-muted',
@@ -39,7 +41,7 @@ const SOURCE_STYLE: Record<SourceStatus, string> = {
 
 export function SourceStatusBadge({ status }: { status: SourceStatus }) {
   return (
-    <Pill className={SOURCE_STYLE[status]}>
+    <Pill className={SOURCE_STYLE[status]} title={SOURCE_STATUS_HINT[status]}>
       {(isIngesting(status) || status === 'deleting') && <Spinner className="size-3" />}
       {SOURCE_STATUS[status]}
     </Pill>

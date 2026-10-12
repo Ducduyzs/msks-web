@@ -3,6 +3,10 @@ import type {
   ApiErrorBody,
   ExportFormat,
   Job,
+  Language,
+  MediaSessionRequest,
+  MediaUploadSession,
+  MediaUrl,
   OutlineRequest,
   OutlineSection,
   Page,
@@ -15,8 +19,15 @@ import type {
   Source,
   SourceContent,
   SynthesisRequest,
+  SourceTranslation,
+  Timeline,
+  TranscriptEdit,
+  TranslationDetail,
+  TranslationLanguage,
   Workspace,
 } from './types'
+import { notifyUnauthorized } from '../lib/security'
+import { t } from '../i18n'
 
 export interface StreamHandle {
   close(): void
@@ -50,6 +61,26 @@ export interface Api {
    */
   streamRun(runId: string, onEvent: (event: RunEvent) => void, onConnection?: (state: 'open' | 'reconnecting') => void): StreamHandle
   exportRun(runId: string, format: ExportFormat): Promise<Blob>
+
+  // ------------------------------------------------ bài giảng (LECTURE_ARCHITECTURE.md mục 3, 4, 9)
+  setAsrGlossary(workspaceId: string, terms: string[]): Promise<{ terms: string[]; applies_to: 'new_uploads' }>
+  createMediaSession(workspaceId: string, request: MediaSessionRequest, idempotencyKey: string): Promise<MediaUploadSession>
+  getMediaSession(sessionId: string): Promise<MediaUploadSession>
+  /** PUT bytes của một phần thẳng vào URL ký sẵn (không qua API). */
+  uploadPart(url: string, blob: Blob, onProgress: (loaded: number) => void, signal?: AbortSignal): Promise<void>
+  attachCaption(sessionId: string, file: File): Promise<MediaUploadSession>
+  completeMediaSession(sessionId: string): Promise<Source>
+  cancelMediaSession(sessionId: string): Promise<void>
+  addYoutube(workspaceId: string, input: { url: string; language: Language; title?: string; caption: File }): Promise<Source>
+  getTimeline(sourceId: string, parseRevisionId: string): Promise<Timeline>
+  /** URL đọc hạn ngắn (300 s) cho audio/frame, cấp sau kiểm tra quyền. */
+  getMediaUrl(sourceId: string, assetId: string): Promise<MediaUrl>
+  createTranscriptRevision(sourceId: string, edit: TranscriptEdit): Promise<Job>
+
+  // ------------------------------------------------ dịch tài liệu (chỉ để đọc)
+  listTranslationLanguages(): Promise<TranslationLanguage[]>
+  requestTranslation(sourceId: string, targetLang: string): Promise<SourceTranslation>
+  getTranslation(sourceId: string, parseRevisionId: string, targetLang: string): Promise<TranslationDetail>
 }
 
 export class ApiError extends Error {
@@ -97,7 +128,7 @@ export class HttpApi implements Api {
     try {
       response = await fetch(`${this.base}${path}`, { ...init, headers, credentials: 'same-origin' })
     } catch {
-      throw new ApiError(0, { code: 'network_error', message: 'Không kết nối được máy chủ.', retryable: true })
+      throw new ApiError(0, { code: 'network_error', message: t('Không kết nối được máy chủ.'), retryable: true })
     }
     if (!response.ok) {
       let body: ApiErrorBody
@@ -105,8 +136,10 @@ export class HttpApi implements Api {
         body = (await response.json()) as ApiErrorBody
         if (!body.message) throw new Error()
       } catch {
-        body = { code: `http_${response.status}`, message: response.statusText || 'Lỗi máy chủ.', retryable: response.status >= 500 }
+        body = { code: `http_${response.status}`, message: response.statusText || t('Lỗi máy chủ.'), retryable: response.status >= 500 }
       }
+      // Phiên hết hạn / bị thu hồi / cần 2FA: AuthGate đưa về màn hình đăng nhập kèm lý do.
+      if (response.status === 401) notifyUnauthorized(body.code)
       throw new ApiError(response.status, body)
     }
     return response
@@ -221,7 +254,7 @@ export class HttpApi implements Api {
       onEvent({
         seq: Number.MAX_SAFE_INTEGER,
         type: 'error',
-        error: { code: 'stream_closed', message: 'Luồng sự kiện bị đóng. Tải lại trang để xem trạng thái mới nhất.', retryable: true },
+        error: { code: 'stream_closed', message: t('Luồng sự kiện bị đóng. Tải lại trang để xem trạng thái mới nhất.'), retryable: true },
       })
     }
     return { close: () => source.close() }
@@ -230,5 +263,91 @@ export class HttpApi implements Api {
   async exportRun(runId: string, format: ExportFormat) {
     const response = await this.send(`/runs/${encodeURIComponent(runId)}/export?format=${format}`)
     return response.blob()
+  }
+
+  setAsrGlossary(workspaceId: string, terms: string[]) {
+    return this.json<{ terms: string[]; applies_to: 'new_uploads' }>(`/workspaces/${encodeURIComponent(workspaceId)}/asr-glossary`, 'PUT', { terms })
+  }
+
+  createMediaSession(workspaceId: string, request: MediaSessionRequest, idempotencyKey: string) {
+    return this.json<MediaUploadSession>(`/workspaces/${encodeURIComponent(workspaceId)}/media-upload-sessions`, 'POST', request, idempotencyKey)
+  }
+
+  getMediaSession(sessionId: string) {
+    return this.request<MediaUploadSession>(`/media-upload-sessions/${encodeURIComponent(sessionId)}`)
+  }
+
+  uploadPart(url: string, blob: Blob, onProgress: (loaded: number) => void, signal?: AbortSignal) {
+    // XHR thay vì fetch: cần tiến độ gửi. URL ký sẵn trỏ thẳng vào Storage, không gửi cookie/CSRF.
+    return new Promise<void>((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('PUT', url)
+      xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+      xhr.upload.onprogress = (event) => onProgress(event.loaded)
+      xhr.onload = () =>
+        xhr.status >= 200 && xhr.status < 300
+          ? resolve()
+          : reject(
+              new ApiError(xhr.status, {
+                code: `part_upload_${xhr.status}`,
+                message: t('Tải một phần video thất bại.'),
+                // 400/403 thường là URL ký đã hết hạn → lấy URL mới rồi thử lại.
+                retryable: xhr.status >= 500 || xhr.status === 400 || xhr.status === 403,
+              }),
+            )
+      xhr.onerror = () => reject(new ApiError(0, { code: 'network_error', message: t('Mất kết nối khi tải video.'), retryable: true }))
+      xhr.onabort = () => reject(new DOMException(t('Đã dừng tải lên.'), 'AbortError'))
+      signal?.addEventListener('abort', () => xhr.abort(), { once: true })
+      xhr.send(blob)
+    })
+  }
+
+  attachCaption(sessionId: string, file: File) {
+    const form = new FormData()
+    form.append('file', file)
+    return this.request<MediaUploadSession>(`/media-upload-sessions/${encodeURIComponent(sessionId)}/caption`, { method: 'POST', body: form })
+  }
+
+  completeMediaSession(sessionId: string) {
+    return this.request<Source>(`/media-upload-sessions/${encodeURIComponent(sessionId)}/complete`, { method: 'POST' })
+  }
+
+  async cancelMediaSession(sessionId: string) {
+    await this.request<unknown>(`/media-upload-sessions/${encodeURIComponent(sessionId)}/cancel`, { method: 'POST' })
+  }
+
+  addYoutube(workspaceId: string, input: { url: string; language: Language; title?: string; caption: File }) {
+    const form = new FormData()
+    form.append('url', input.url)
+    form.append('language', input.language)
+    if (input.title) form.append('title', input.title)
+    form.append('caption', input.caption)
+    return this.request<Source>(`/workspaces/${encodeURIComponent(workspaceId)}/sources/youtube`, { method: 'POST', body: form })
+  }
+
+  getTimeline(sourceId: string, parseRevisionId: string) {
+    return this.request<Timeline>(`/sources/${encodeURIComponent(sourceId)}/timeline?revision_id=${encodeURIComponent(parseRevisionId)}`)
+  }
+
+  getMediaUrl(sourceId: string, assetId: string) {
+    return this.request<MediaUrl>(`/sources/${encodeURIComponent(sourceId)}/media/${encodeURIComponent(assetId)}`)
+  }
+
+  createTranscriptRevision(sourceId: string, edit: TranscriptEdit) {
+    return this.json<Job>(`/sources/${encodeURIComponent(sourceId)}/transcript-revisions`, 'POST', edit)
+  }
+
+  listTranslationLanguages() {
+    return this.request<TranslationLanguage[]>('/translation-languages')
+  }
+
+  requestTranslation(sourceId: string, targetLang: string) {
+    return this.json<SourceTranslation>(`/sources/${encodeURIComponent(sourceId)}/translations`, 'POST', { target_lang: targetLang })
+  }
+
+  getTranslation(sourceId: string, parseRevisionId: string, targetLang: string) {
+    return this.request<TranslationDetail>(
+      `/sources/${encodeURIComponent(sourceId)}/translations/${encodeURIComponent(targetLang)}?revision_id=${encodeURIComponent(parseRevisionId)}`,
+    )
   }
 }

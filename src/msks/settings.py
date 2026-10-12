@@ -37,6 +37,16 @@ class Settings(BaseSettings):
     cookie_secure: bool = Field(False, alias="msks_cookie_secure")
     cors_origins: str = Field("http://localhost:5173", alias="msks_cors_origins")
 
+    # --- Bảo mật (security.py)
+    # Số proxy tin cậy đứng trước API (0 = không tin X-Forwarded-For). Sai số này cho phép né giới hạn theo IP.
+    trusted_proxy_hops: int = Field(0, alias="msks_trusted_proxy_hops", ge=0, le=5)
+    rate_limit_enabled: bool = Field(True, alias="msks_rate_limit_enabled")
+    rate_limit_scale: float = Field(1.0, alias="msks_rate_limit_scale", gt=0)   # nhân mọi giới hạn (vd. 0.1 khi thử)
+    # Chặn phiên đã đăng xuất + bắt buộc 2FA (đọc auth.sessions / auth.mfa_factors, cache 15 s).
+    session_checks_enabled: bool = Field(True, alias="msks_session_checks_enabled")
+    security_event_retention_days: int = Field(180, alias="msks_security_event_retention_days", ge=1)
+    max_json_bytes: int = Field(1024 * 1024, alias="msks_max_json_bytes")       # thân JSON tối đa (chống DoS bộ nhớ)
+
     # --- Tính năng sau MVP (mục 1.4, 16)
     enable_synthesis: bool = Field(False, alias="msks_enable_synthesis")
     enable_remote_sources: bool = Field(False, alias="msks_enable_remote_sources")
@@ -110,6 +120,9 @@ class Settings(BaseSettings):
     asr_model_vi: str | None = Field(None, alias="msks_asr_model_vi")   # vd. checkpoint PhoWhisper CT2 để so sánh
     asr_compute_type: str = Field("int8_float16", alias="msks_asr_compute_type")
     asr_glossary: str | None = Field(None, alias="msks_asr_glossary")
+    # --- Dịch tài liệu (translation.py): chỉ để đọc, không vào index/QA
+    translation_model: str | None = Field(None, alias="msks_translation_model")   # mặc định = llm_model
+    max_translation_chars: int = Field(300_000, alias="msks_max_translation_chars")
     ocr_engine: Literal["easyocr", "rapidocr"] = Field("easyocr", alias="msks_ocr_engine")
     review_low_confidence_ratio: float = 0.5
     # Profile lecture_vi_v1: ngưỡng NLI tiếng Việt chưa hiệu chỉnh → dùng giá trị khởi đầu, nhãn thử nghiệm.
@@ -143,11 +156,20 @@ class Settings(BaseSettings):
     def public_config(self) -> dict:
         """Cấu hình đã resolve, không có bí mật — dùng cho config_hash và provenance."""
         secret = {"database_url", "direct_url", "supabase_secret_key", "openai_api_key", "supabase_publishable_key"}
-        return {k: v for k, v in self.model_dump().items() if k not in secret}
+        return {k: v for k, v in self.model_dump().items() if k not in secret and k not in OPERATIONAL}
 
     def config_hash(self) -> str:
         payload = json.dumps(self.public_config(), sort_keys=True, default=str)
         return hashlib.sha256(payload.encode()).hexdigest()[:16]
+
+
+# Thiết lập vận hành/bảo mật không đổi kết quả hỏi đáp → không đưa vào config_hash. Trước 10/10 chúng nằm trong hash,
+# nên API và worker khác nhau chỉ ở kích thước phần upload đã làm run bị từ chối ("cấu hình worker khác").
+OPERATIONAL = {
+    "cookie_secure", "cors_origins", "trusted_proxy_hops", "rate_limit_enabled", "rate_limit_scale",
+    "session_checks_enabled", "security_event_retention_days", "max_json_bytes", "media_part_bytes",
+    "upload_session_ttl_seconds",
+}
 
 
 @lru_cache

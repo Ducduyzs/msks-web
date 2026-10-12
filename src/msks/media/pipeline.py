@@ -535,19 +535,24 @@ def sweep() -> dict:
     store = BlobStore(settings.media_bucket)
     with db.tx() as conn:
         sessions = conn.execute(
-            """update public.upload_session set status = 'expired' where status = 'open' and expires_at < now()
-               returning object_prefix, part_count, caption_object_key""").fetchall()
+            """select id, object_prefix, part_count, caption_object_key from public.upload_session
+               where status = 'open' and expires_at < now() limit 100 for update skip locked""").fetchall()
         assets = conn.execute(
-            """update public.media_asset a set status = 'deleted' where a.status = 'ready' and (
+            """select a.id, a.object_key from public.media_asset a where a.status = 'ready' and (
                    (a.retain_until is not null and a.retain_until < now())
                 or (a.kind = 'original_part' and a.created_at < now() - make_interval(secs => %s)
                     and exists (select 1 from public.source s where s.id = a.source_id and s.status = 'failed')))
-               returning object_key""", (settings.failed_media_ttl_seconds,)).fetchall()
-    keys = [a["object_key"] for a in assets]
-    for session in sessions:
-        keys += [f"{session['object_prefix']}part-{i:04d}" for i in range(session["part_count"])]
-        if session["caption_object_key"]:
-            keys.append(session["caption_object_key"])
-    for start in range(0, len(keys), 100):
-        store.delete(keys[start:start + 100])
+               limit 100 for update of a skip locked""", (settings.failed_media_ttl_seconds,)).fetchall()
+        keys = [a["object_key"] for a in assets]
+        for session in sessions:
+            keys += [f"{session['object_prefix']}part-{i:04d}" for i in range(session["part_count"])]
+            if session["caption_object_key"]:
+                keys.append(session["caption_object_key"])
+        # Keep rows eligible for retry if Storage fails. Deletion is idempotent.
+        for start in range(0, len(keys), 100):
+            store.delete(keys[start:start + 100])
+        conn.execute("update public.upload_session set status = 'expired' where id = any(%s::uuid[])",
+                     ([s["id"] for s in sessions],))
+        conn.execute("update public.media_asset set status = 'deleted' where id = any(%s::uuid[])",
+                     ([a["id"] for a in assets],))
     return {"sessions_expired": len(sessions), "assets_deleted": len(assets)}

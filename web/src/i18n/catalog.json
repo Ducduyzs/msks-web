@@ -1,0 +1,2005 @@
+{
+  "source": "vi",
+  "messages": [
+    " · đã cắt",
+    " · đã tạm dừng",
+    " · độ tin thấp, không dùng làm bằng chứng",
+    " · ký tự {0}–{1}",
+    " · tiếp tục phiên trước",
+    " · tín hiệu hỗ trợ tốt nhất {0}",
+    " tại {0}",
+    " và trang gần nhất ({0})",
+    "— không tính là đối chứng của nhau",
+    "— nên mở và sửa các đoạn bị cảnh báo (",
+    "; giữ danh sách ngắn — thuật ngữ thừa có thể bị chèn vào đoạn im lặng.",
+    "; không tô sáng vị trí đoán.",
+    ". Không chia sẻ mã này.",
+    "· chạy lại",
+    "· cùng nhóm với",
+    "· đã xóa",
+    "· độc lập:",
+    "· hạng",
+    "· phần",
+    "· rrf",
+    "· sbert",
+    "· tối đa 50 MB, 300 trang",
+    "· từ",
+    "· utility",
+    "). Kéo thanh thời gian hoặc bấm vào câu để xem bảng tại thời điểm đó.",
+    "{0} chỗ sửa",
+    "{0} đoạn có số liệu khác bản gốc — đã đánh dấu.",
+    "{0} khung hình, {1} vùng chữ",
+    "{0} thuật ngữ",
+    "{0}: chỉ nhận video MP4/WebM.",
+    "{0}: định dạng chưa hỗ trợ",
+    "{0}: vượt 50 MB",
+    "{0}: vượt giới hạn {1}.",
+    "{0}{1} — bấm để xem đoạn gốc",
+    "{0}/{1} đoạn bị cảnh báo",
+    "1. Quét mã QR bằng ứng dụng xác thực:",
+    "10.18653/v1/… hoặc 2401.18059",
+    "2. Nhập mã 6 số đang hiển thị:",
+    "accepted / generated. Luôn đọc cùng số đếm ở trên.",
+    "Agreement Ranking so với RAPTOR thế nào trên tài liệu dài?",
+    "API giả lập trong trình duyệt (VITE_API_MODE=mock)",
+    "Bài đã bình duyệt",
+    "bài giảng",
+    "Bài giảng {0}",
+    "Bản chép đã có phiên bản mới hơn.",
+    "Bản chép đã được sửa/đối chiếu",
+    "Bản chép lời",
+    "Bản dịch",
+    "Bản dịch giao diện do máy tạo, có thể chưa chuẩn.",
+    "Bản dịch máy ({0}), chỉ để đọc. Trích dẫn và kiểm chứng luôn dựa trên bản gốc.",
+    "Bản gốc",
+    "Bản xuất dựng từ claim và evidence đã lưu, không gọi LLM viết lại.",
+    "Bảng / slide",
+    "Báo cáo mới",
+    "Báo cáo tổng hợp",
+    "Bảo mật tài khoản",
+    "Bằng chứng",
+    "Bằng chứng chỉ nói “không kém”, claim lại nói “tốt hơn”",
+    "Bằng chứng chính",
+    "Bằng chứng là bản chép lời/OCR do máy tạo, chưa được người đối chiếu với âm thanh/hình ảnh. Bản chép có thể sai từ hoặc số.",
+    "Bật xác thực hai lớp",
+    "Bật xác thực hai lớp, kiểm tra đăng nhập gần đây và thu hồi phiên trên mọi thiết bị.",
+    "Bỏ",
+    "Bỏ chọn {0}",
+    "Bỏ qua tới nội dung",
+    "Bước 1 · Chủ đề tổng hợp",
+    "Bước 2 · Chỉnh dàn ý",
+    "Các claim đã kiểm chứng trước khi hủy vẫn được giữ; kết quả trả về sau khi hủy không được publish.",
+    "Cách hiển thị",
+    "Calibration",
+    "Cảnh báo trích xuất:",
+    "Cần ít nhất một mục có tiêu đề và câu hỏi.",
+    "Cần xem lại bản chép",
+    "Cần: {0}.",
+    "Cấu hình",
+    "Câu hỏi",
+    "Câu hỏi con",
+    "Câu hỏi con {0} của mục {1}",
+    "câu hỏi con, dùng chung một ngân sách.",
+    "Câu hỏi và các đoạn trích liên quan sẽ được gửi tới nhà cung cấp LLM: {0}.",
+    "ce",
+    "Chàm",
+    "Chạy lại câu hỏi",
+    "chạy lại từ lượt trước",
+    "Chặn vì quá nhiều yêu cầu",
+    "Chặn yêu cầu giả mạo (CSRF)",
+    "Chặn: dùng lại phiên đã đăng xuất",
+    "Chặn: thiếu xác thực hai lớp",
+    "chép lời tự động",
+    "chép tự động",
+    "Chế độ",
+    "Chế độ mock không có tài khoản, xác thực hai lớp hay phiên đăng nhập.",
+    "Chế độ mock: không có dữ liệu nào được gửi ra ngoài trình duyệt.",
+    "Chỉ bản dịch",
+    "Chỉ có khi chạy với backend thật",
+    "Chỉ nhận video MP4/WebM.",
+    "Chi phí dựng index của hai phương pháp ra sao?",
+    "Chỉ số kiểm chứng",
+    "Chỉ trong phạm vi nguồn đã xét; không tìm thấy mâu thuẫn không có nghĩa là không tồn tại.",
+    "Chọn file",
+    "Chữ đọc được trên khung hình",
+    "Chưa bật",
+    "Chưa chọn",
+    "chưa có",
+    "chưa có (thử nghiệm)",
+    "Chưa có bản dịch sang ngôn ngữ này. Nội dung nguồn sẽ được gửi tới nhà cung cấp LLM để dịch.",
+    "Chưa có claim nào qua kiểm chứng.",
+    "Chưa có context.",
+    "chưa có đoạn âm thanh",
+    "Chưa có lượt chạy nào",
+    "Chưa có nguồn nào",
+    "Chưa có nguồn nào sẵn sàng. Thêm nguồn ở tab “Nguồn”.",
+    "Chưa có sự kiện.",
+    "Chưa có tài khoản? Tạo tài khoản",
+    "Chưa có workspace nào",
+    "chưa đọc hình từ {0}",
+    "Chưa đối chứng chéo",
+    "Chưa kết nối YouTube API, nên hệ thống không tự tải video hay phụ đề. Hãy kèm file phụ đề SRT/VTT bạn được phép dùng; nguồn sẽ chỉ có lời (không có hình bảng) và được đánh dấu “Sẵn sàng (giới hạn)”.",
+    "chưa pin",
+    "chưa xác định",
+    "claim",
+    "Claim",
+    "Claim bị loại ({0})",
+    "Claim chỉ xuất hiện ở đây sau khi đã qua kiểm chứng…",
+    "Claim có con số không có trong bằng chứng",
+    "Claim đã kiểm tra đủ ngân sách tìm kiếm / accepted. Phân biệt \"chưa kiểm tra\" với \"không tìm thấy\".",
+    "Claim giữ lại / sinh ra",
+    "Claim không đạt",
+    "Claim không đạt policy / claim sinh hợp lệ — không bị che bởi bước lọc.",
+    "claim không qua kiểm chứng nên không hiển thị ở trên — xem tab “Claim bị loại”.",
+    "Có bằng chứng mâu thuẫn",
+    "Có câu ASR hay bịa",
+    "Có đối chứng độc lập",
+    "Có ít nhất một claim qua kiểm chứng.",
+    "Có mâu thuẫn",
+    "Có sau khi lượt chạy hoàn tất.",
+    "Có thể bị lặp",
+    "Có thể không phải lời nói",
+    "CONTESTED / accepted, chỉ trong phạm vi nguồn được xét.",
+    "Contra.",
+    "CORROBORATED / accepted, chỉ trong phạm vi nguồn được xét.",
+    "Cỡ chữ",
+    "Dịch lại",
+    "Dịch sang",
+    "Dịch tài liệu",
+    "Dịch vụ kiểm chứng lỗi hoặc quá hạn; claim không được mặc định là đạt.",
+    "DOI hoặc arXiv ID",
+    "Dùng cùng tập nguồn, với phiên bản nguồn và cấu hình máy chủ hiện tại. Kết quả có thể khác.",
+    "Dữ liệu mẫu",
+    "Đã ẩn · đang xóa dữ liệu",
+    "Đã ẩn khỏi truy xuất; job nền đang xóa vector, file và snapshot.",
+    "Đã có lỗi xảy ra",
+    "Đã có tài khoản? Đăng nhập",
+    "Đã dừng tải lên.",
+    "đã đánh giá",
+    "Đã đăng xuất khỏi mọi thiết bị.",
+    "Đã đọc:",
+    "Đã đối chứng trong phạm vi nguồn đã chọn",
+    "Đã đối chứng: không tìm thấy nguồn khác trong phạm vi đã xét. Điều này không có nghĩa là không tồn tại.",
+    "Đã hủy",
+    "đã sửa",
+    "Đã tải lên",
+    "Đã tạo nguồn {0}",
+    "Đã tạo tài khoản. Kiểm tra email để xác nhận rồi đăng nhập.",
+    "Đã trả lời",
+    "Đã tự đăng xuất vì không hoạt động. Hãy đăng nhập lại.",
+    "Đã yêu cầu hủy",
+    "Đang bật",
+    "Đang chạy",
+    "Đang chép lời và đọc bảng; bài giảng dài có thể mất vài phút. Theo dõi tiến độ trong danh sách nguồn bên dưới.",
+    "Đang chia đoạn",
+    "Đang chờ",
+    "Đang công bố chỉ mục",
+    "Đang dịch {0}/{1} đoạn…",
+    "Đang kết nối…",
+    "Đang kiểm tra phiên đăng nhập…",
+    "Đang lập chỉ mục lại",
+    "Đang mã hóa",
+    "Đang phân tích",
+    "Đang soạn mục tiếp theo…",
+    "Đang tải…",
+    "Đang xem phiên bản cũ",
+    "Đăng nhập",
+    "Đăng nhập bằng tài khoản khác",
+    "Đăng nhập vào ứng dụng",
+    "Đăng xuất",
+    "Đăng xuất khỏi mọi thiết bị",
+    "Đăng xuất khỏi mọi thiết bị, kể cả thiết bị này?",
+    "Đặt câu hỏi về các nguồn trong workspace… (Enter để gửi, Shift+Enter xuống dòng)",
+    "Đặt VITE_SUPABASE_URL và VITE_SUPABASE_PUBLISHABLE_KEY trong web/.env.local rồi khởi động lại Vite.",
+    "Đầu ra của LLM vi phạm hợp đồng JSON/citation; lượt này không có claim.",
+    "Đề xuất dàn ý",
+    "Đếm bằng bộ đếm của provider.",
+    "Điểm NLI là tín hiệu của model, không phải xác suất đúng đã hiệu chuẩn. Độ tự tin của LLM là tự đánh giá, không dùng làm bảo đảm.",
+    "đoạn",
+    "Đoạn bằng chứng đã được người dùng sửa hoặc xác nhận.",
+    "đoạn đã kiểm chứng",
+    "đoạn lá",
+    "Đóng",
+    "Đóng trình xem",
+    "Độ tin thấp",
+    "Độ trễ",
+    "Đối chứng chưa hoàn tất (hết ngân sách tìm kiếm)",
+    "Đối chứng hoàn tất",
+    "Đồng thuận và mâu thuẫn giữa các nguồn",
+    "Đưa lên",
+    "Đưa xuống",
+    "Được bản chép tự động hỗ trợ",
+    "Được bằng chứng hỗ trợ",
+    "EDAHR commit",
+    "Email",
+    "Email hoặc mật khẩu không đúng.",
+    "Entail",
+    "Evidence",
+    "Evidence chính đạt policy kiểm chứng của profile. Không đồng nghĩa sự thật đã được chứng minh.",
+    "Evidence được trích mâu thuẫn với claim",
+    "Evidence không đạt ngưỡng hỗ trợ",
+    "Ghi chú người dùng",
+    "Giải thích",
+    "Giao diện và ngôn ngữ",
+    "giây",
+    "Giữ video gốc",
+    "Grouping",
+    "Hiển thị đoạn trích đã kiểm chứng",
+    "Hoàn tất",
+    "Hoàn tất một phần",
+    "Hoạt động bảo mật gần đây",
+    "Hỏi",
+    "Hỏi đáp",
+    "Hỏi được, nhưng thiếu một nhánh: không có hình ảnh (chỉ phụ đề), không có âm thanh, hoặc chưa đọc hết khung hình.",
+    "Hỗ trợ",
+    "Hồng",
+    "https://www.youtube.com/watch?v=…",
+    "Hủy",
+    "Hủy lượt chạy",
+    "Hủy và xóa phần đã tải",
+    "ít nhất {0} ký tự",
+    "Ít nhất {0} ký tự, kết hợp chữ hoa, chữ thường, số hoặc ký tự đặc biệt.",
+    "Kéo thả tài liệu vào đây",
+    "kết hợp ít nhất 3 loại: chữ thường, chữ hoa, số, ký tự đặc biệt",
+    "Kết quả hỏi đáp và báo cáo tổng hợp được lưu ở đây, kèm cấu hình và phiên bản nguồn đã dùng.",
+    "Kết quả thử nghiệm",
+    "Khi bật, đăng nhập cần thêm mã 6 số từ ứng dụng xác thực (Google Authenticator, Microsoft Authenticator, 1Password…). Lộ mật khẩu không đủ để vào tài khoản; máy chủ từ chối mọi phiên chưa qua bước này.",
+    "Không ánh xạ được về đoạn/vùng cụ thể; hiển thị đoạn trích đã kiểm chứng.",
+    "Không ánh xạ được vị trí chính xác",
+    "không chứa tên email",
+    "Không claim nào qua kiểm chứng trong phạm vi nguồn đã chọn. Hệ thống không trả lời thay vì đoán.",
+    "Không có âm thanh để phát (",
+    "Không có claim nào bị loại.",
+    "Không có đoạn lá nào trong khối được trích",
+    "không có hình",
+    "Không có hình",
+    "Không có hình bảng/slide cho nguồn này.",
+    "Không có hoạt động — tự đăng xuất sau",
+    "không có lời",
+    "Không có lời",
+    "Không có lời nào được chép.",
+    "Không có trích dẫn hợp lệ",
+    "Không dịch được đoạn này",
+    "không dùng chuỗi dễ đoán (1234, abcd, password…)",
+    "Không đăng xuất được các thiết bị khác.",
+    "Không đủ bằng chứng",
+    "Không gian làm việc",
+    "Không hoàn tất",
+    "Không kết nối được máy chủ.",
+    "Không kiểm chứng được",
+    "Không kiểm chứng được (dịch vụ lỗi)",
+    "Không kiểm tra được phiên ({0}).",
+    "Không kiểm tra được trạng thái máy chủ",
+    "không phân trang, ",
+    "Không quét được? Nhập khóa thủ công:",
+    "Không tìm thấy trang",
+    "Không tìm thấy ứng dụng xác thực đã đăng ký cho tài khoản này.",
+    "Không tìm thấy workspace",
+    "Khung",
+    "Khung hình lúc {0}",
+    "Khung sau",
+    "Khung trước",
+    "Kiểm toán",
+    "ký tự",
+    "Lịch sử",
+    "Link YouTube",
+    "LLM chỉ đề xuất cần hỏi gì. Mỗi câu hỏi con chạy pipeline QA có kiểm chứng; báo cáo ghép claim đã kiểm chứng bằng template, không để LLM viết thêm câu sự kiện. Tối đa",
+    "LLM tự đánh giá",
+    "Loại bài giảng",
+    "Lỗi",
+    "Lỗi JSON của mô hình",
+    "Lỗi máy chủ.",
+    "Lời giảng",
+    "Lời: chép tự động{0}",
+    "Lời: phụ đề người dùng cung cấp",
+    "Lớn",
+    "Luồng sự kiện bị đóng. Tải lại trang để xem trạng thái mới nhất.",
+    "lượt chạy · tạo",
+    "Lượt chạy chốt phiên bản nguồn lúc bắt đầu; nguồn nạp sau không chen vào lượt đang chạy.",
+    "Lượt chạy đã bị hủy",
+    "Lượt chạy thất bại.",
+    "Lượt chạy vẫn tiếp tục trên máy chủ; các sự kiện sẽ được phát lại.",
+    "Lượt hỏi này dùng bản chép tại thời điểm chạy; bản chép đã được sửa sau đó.",
+    "Lưu",
+    "Lưu tạo phiên bản bản chép mới và lập chỉ mục lại; các lượt hỏi cũ vẫn trỏ về phiên bản cũ. Đoạn đã sửa được tính là đã đối chiếu.",
+    "Lưu thuật ngữ",
+    "Lý do nhóm:",
+    "Mã 6 số từ ứng dụng xác thực",
+    "Mã không đúng hoặc đã hết hạn. Kiểm tra đồng hồ điện thoại rồi thử lại.",
+    "Mã nguồn",
+    "Mã QR đăng ký ứng dụng xác thực",
+    "Mã xác thực 6 số",
+    "Mã xác thực không đúng hoặc đã hết hạn.",
+    "Màu nhấn",
+    "Máy chủ chưa sẵn sàng",
+    "Máy chủ từ chối phiên đăng nhập.",
+    "Mặc định chỉ giữ âm thanh và ảnh bảng/slide làm bằng chứng; video gốc bị xóa sau khi xử lý.",
+    "Mất kết nối khi tải video.",
+    "Mất kết nối, đang kết nối lại…",
+    "Mật khẩu",
+    "Mật khẩu cần: {0}.",
+    "Mật khẩu đạt yêu cầu.",
+    "Mâu thuẫn",
+    "Mô hình trả về sai định dạng",
+    "Mô hình trả về sai định dạng JSON",
+    "Mỗi workspace là một tập nguồn. Câu hỏi và báo cáo tổng hợp chỉ dùng nguồn trong workspace đó.",
+    "Một nguồn khác cùng bối cảnh có đoạn mâu thuẫn. Xem cả hai phía trước khi dùng.",
+    "Một nhóm nguồn khác — đã được đánh giá là độc lập — cũng hỗ trợ, và không tìm thấy mâu thuẫn trong phạm vi đã xét.",
+    "Một phần đã tải lên sai kích thước và không ghi đè được. Hãy hủy phiên rồi tải lại từ đầu.",
+    "Một số dịch vụ chậm",
+    "Một số phần không hoàn tất.",
+    "Mở bản gốc",
+    "Mở phiên bản mới nhất",
+    "MP4/WebM, tối đa {0}. Tải theo từng phần — mất mạng thì chọn lại đúng file để tải tiếp.",
+    "ms",
+    "Mục trong workspace",
+    "mục, mỗi mục",
+    "mục)",
+    "Ngân sách",
+    "Ngân sách context (token)",
+    "Nghi ngờ lộ mật khẩu hoặc quên đăng xuất ở máy khác? Thu hồi mọi phiên: các thiết bị khác bị đăng xuất trong vòng 15 giây, kể cả khi token cũ chưa hết hạn. Nên đổi mật khẩu sau đó.",
+    "Ngôn ngữ giao diện",
+    "Ngôn ngữ lời giảng",
+    "Nguồn",
+    "nguồn ·",
+    "Nguồn {0}",
+    "nguồn chỉ có phụ đề",
+    "Nguồn đã bị xóa",
+    "Nguồn đã bị xóa — nội dung đã ẩn.",
+    "Nguồn đã bị xóa; nội dung đã ẩn",
+    "Nguồn gốc lượt chạy",
+    "Nguồn khác cũng hỗ trợ ({0}), nhưng chưa xác định là độc lập.",
+    "Nguồn khác hỗ trợ",
+    "Nguồn khác mâu thuẫn",
+    "Nguồn trong workspace",
+    "Ngưỡng kiểm chứng chưa có calibration artifact cho model/miền này. \"Được bằng chứng hỗ trợ\" là tín hiệu của verifier, không phải bảo đảm sự thật.",
+    "Nhiều đoạn bản chép bị cảnh báo (độ tin thấp, lặp, lệch thời gian). Hỏi được, nhưng claim có số liệu trên các đoạn đó bị loại cho đến khi bạn sửa bản chép.",
+    "Nhỏ",
+    "Nhóm nguồn được trích",
+    "Nhóm nguồn gốc",
+    "Nội dung đã ẩn vì nguồn đã bị xóa.",
+    "PDF có lớp văn bản, Markdown, TXT",
+    "PDF có lớp văn bản, Markdown, TXT, DOCX, HTML",
+    "Phạm vi nguồn",
+    "Phạm vi trộn bài giảng và tài liệu: hai loại dùng bộ mô hình khác nhau (tiếng Việt đa ngôn ngữ / tiếng Anh) nên chưa hỏi chung được. Hãy chọn riêng bài giảng hoặc riêng tài liệu.",
+    "Phát",
+    "phần còn lại của đoạn lá",
+    "Phần video tải lên bị lỗi kích thước; hãy hủy và tải lại.",
+    "Phiên bản mới sẽ thay thế khi xử lý xong; đóng và mở lại nguồn để xem.",
+    "Phiên đăng nhập",
+    "Phiên đăng nhập đã hết hạn. Hãy đăng nhập lại.",
+    "Phiên hiện tại đã qua xác thực hai lớp.",
+    "Phiên này đã bị đăng xuất (có thể từ thiết bị khác). Hãy đăng nhập lại.",
+    "phủ {0}% thời lượng",
+    "phụ đề",
+    "Phụ đề",
+    "Phụ đề (bắt buộc)",
+    "Phụ đề (tùy chọn)",
+    "Phụ đề chồng lấn",
+    "Phụ đề lỗi",
+    "primary_attribution_risk_accepted: chỉ tính trên claim được giữ lại.",
+    "primary_attribution_risk_generated: tín hiệu verifier trên evidence chính, không phải xác suất sai.",
+    "Profile",
+    "RAPTOR xây dựng chỉ mục như thế nào?",
+    "revision",
+    "Rủi ro quy kết (sau lọc)",
+    "Rủi ro quy kết (trước lọc)",
+    "s",
+    "Sáng",
+    "sau khi lưu",
+    "sẵn sàng",
+    "Sẵn sàng",
+    "Sẵn sàng (giới hạn)",
+    "Sắp tự đăng xuất",
+    "Sinh báo cáo (",
+    "Snapshot nguồn",
+    "So sánh",
+    "Song song",
+    "Số claim qua kiểm chứng trên số claim sinh hợp lệ.",
+    "Số liệu dựa trên đoạn bản chép bị cảnh báo — cần sửa bản chép trước",
+    "Số liệu khác bản gốc — kiểm tra lại",
+    "Số lượt đầu ra sai hợp đồng.",
+    "Số nhóm nguồn gốc — không tự gọi là số nguồn độc lập.",
+    "SRT/VTT bạn có quyền dùng. Có phụ đề thì bỏ qua bước chép lời tự động.",
+    "Sự kiện",
+    "Sửa bản chép",
+    "Sửa chữ trên bảng: {0}",
+    "Sửa đoạn lúc {0}",
+    "Tải bản dịch (.txt)",
+    "Tài khoản đã bật xác thực hai lớp: đăng nhập lại và nhập mã xác thực.",
+    "Tải lên PDF có lớp văn bản, Markdown hoặc TXT, hoặc thêm một video bài giảng để bắt đầu.",
+    "Tải lên và xử lý",
+    "Tải một phần video thất bại.",
+    "Tải thêm",
+    "Tạm dừng",
+    "Tạo một workspace rồi thêm tài liệu để bắt đầu.",
+    "Tạo tài khoản",
+    "Tạo workspace",
+    "Tắt xác thực hai lớp",
+    "Tắt xác thực hai lớp? Từ giờ chỉ cần mật khẩu là đăng nhập được.",
+    "Tập trung nguồn",
+    "Tất cả nguồn sẵn sàng (",
+    "Tên riêng, thuật ngữ tiếng Anh hay bị chép sai (vd. “SBERT”, “RAPTOR”). Đo trên bài giảng mẫu: lỗi chép giảm từ 5,8 % xuống 3,6 %. Chỉ áp dụng cho video tải lên",
+    "Tên workspace mới, ví dụ: Tổng quan RAG cho tài liệu khoa học",
+    "Tham chiếu vẫn được giữ trong lịch sử, nhưng âm thanh, khung hình và bản chép đã bị xóa và không mở lại được.",
+    "Tham chiếu vẫn được giữ trong lịch sử, nhưng nội dung đã bị ẩn và không được mở lại qua trình xem, kiểm toán hay xuất.",
+    "Thất bại",
+    "Thấy đăng nhập lạ? Đăng xuất khỏi mọi thiết bị, đổi mật khẩu và bật xác thực hai lớp.",
+    "Theo hệ thống",
+    "Thêm bài giảng",
+    "Thêm bài giảng YouTube",
+    "Thêm câu hỏi con",
+    "Thêm mục",
+    "Thêm nguồn",
+    "Thêm từ web hoặc DOI",
+    "Thiếu cấu hình Supabase",
+    "Thiếu URL tải lên.",
+    "Thời gian chưa chắc",
+    "thuật ngữ ·",
+    "Thuật ngữ cho chép lời tự động",
+    "Thuật ngữ, mỗi dòng một mục",
+    "Thử lại",
+    "Thử nghiệm",
+    "Tỉ lệ claim lớn nhất có evidence chính ở một nhóm nguồn.",
+    "Tỉ lệ sống sót",
+    "Tiến độ dịch",
+    "Tiến độ nạp {0}",
+    "Tiến độ tải video",
+    "Tiến trình",
+    "Tiếng Anh",
+    "Tiếng Việt",
+    "Tiếp tục làm việc",
+    "Tiếp tục tải",
+    "Tiêu đề (tùy chọn)",
+    "Tiêu đề mục",
+    "Tiêu đề mục {0}",
+    "Tím",
+    "Tín hiệu kiểm chứng",
+    "Tính năng sau MVP, đang ở mức thử nghiệm",
+    "token",
+    "Tối",
+    "Tổng hợp",
+    "Tổng hợp kiến thức đa nguồn có kiểm chứng",
+    "Tổng quan",
+    "Trang",
+    "Trang {0}",
+    "Trạng thái",
+    "Trang web được lưu snapshot đã làm sạch; nội dung nguồn được coi là dữ liệu không tin cậy.",
+    "Tự đánh giá của mô hình dưới ngưỡng",
+    "Tự nhận diện",
+    "useViewer cần nằm trong ViewerProvider",
+    "Văn bản",
+    "Verifier",
+    "Về danh sách workspace",
+    "Về trang chính",
+    "Ví dụ: So sánh Agreement Ranking và RAPTOR cho QA trên bài báo dài",
+    "Vị trí trong bài giảng",
+    "Video bài giảng",
+    "Video tải lên",
+    "Vừa",
+    "Vượt quá cuối video",
+    "Workspace",
+    "Workspace không tồn tại hoặc bạn không có quyền truy cập.",
+    "Xác nhận",
+    "Xác nhận và bật",
+    "Xác thực hai lớp",
+    "Xác thực hai lớp (TOTP)",
+    "Xám",
+    "Xanh dương",
+    "Xanh ngọc",
+    "Xem nguồn {0}",
+    "Xóa câu hỏi con",
+    "Xóa mục {0}",
+    "Xóa nguồn {0}",
+    "Xóa nguồn {0} — “{1}”?\n\nNguồn bị ẩn ngay khỏi truy xuất; dữ liệu được xóa bởi job nền. Các lượt chạy cũ giữ tham chiếu nhưng ẩn nội dung.",
+    "Xuất kết quả"
+  ],
+  "where": {
+    " · đã cắt": [
+      "components/run/AuditPanel.tsx"
+    ],
+    " · đã tạm dừng": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    " · độ tin thấp, không dùng làm bằng chứng": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    " · ký tự {0}–{1}": [
+      "components/viewer.tsx"
+    ],
+    " · tiếp tục phiên trước": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    " · tín hiệu hỗ trợ tốt nhất {0}": [
+      "components/run/AuditPanel.tsx"
+    ],
+    " tại {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    " và trang gần nhất ({0})": [
+      "components/viewer.tsx"
+    ],
+    "— không tính là đối chứng của nhau": [
+      "pages/SourcesPage.tsx"
+    ],
+    "— nên mở và sửa các đoạn bị cảnh báo (": [
+      "pages/SourcesPage.tsx"
+    ],
+    "; giữ danh sách ngắn — thuật ngữ thừa có thể bị chèn vào đoạn im lặng.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "; không tô sáng vị trí đoán.": [
+      "components/viewer.tsx"
+    ],
+    ". Không chia sẻ mã này.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "· chạy lại": [
+      "pages/RunsPage.tsx"
+    ],
+    "· cùng nhóm với": [
+      "pages/SourcesPage.tsx"
+    ],
+    "· đã xóa": [
+      "components/ClaimCard.tsx"
+    ],
+    "· độc lập:": [
+      "pages/SourcesPage.tsx"
+    ],
+    "· hạng": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "· phần": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "· rrf": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "· sbert": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "· tối đa 50 MB, 300 trang": [
+      "pages/SourcesPage.tsx"
+    ],
+    "· từ": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "· utility": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "). Kéo thanh thời gian hoặc bấm vào câu để xem bảng tại thời điểm đó.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "{0} chỗ sửa": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "{0} đoạn có số liệu khác bản gốc — đã đánh dấu.": [
+      "components/TranslationPanel.tsx"
+    ],
+    "{0} khung hình, {1} vùng chữ": [
+      "components/lecture/LectureViewer.tsx",
+      "pages/SourcesPage.tsx"
+    ],
+    "{0} thuật ngữ": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "{0}: chỉ nhận video MP4/WebM.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "{0}: định dạng chưa hỗ trợ": [
+      "pages/SourcesPage.tsx"
+    ],
+    "{0}: vượt 50 MB": [
+      "pages/SourcesPage.tsx"
+    ],
+    "{0}: vượt giới hạn {1}.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "{0}{1} — bấm để xem đoạn gốc": [
+      "components/ClaimCard.tsx"
+    ],
+    "{0}/{1} đoạn bị cảnh báo": [
+      "components/lecture/LectureViewer.tsx",
+      "pages/SourcesPage.tsx"
+    ],
+    "1. Quét mã QR bằng ứng dụng xác thực:": [
+      "pages/SecurityPage.tsx"
+    ],
+    "10.18653/v1/… hoặc 2401.18059": [
+      "pages/SourcesPage.tsx"
+    ],
+    "2. Nhập mã 6 số đang hiển thị:": [
+      "pages/SecurityPage.tsx"
+    ],
+    "accepted / generated. Luôn đọc cùng số đếm ở trên.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Agreement Ranking so với RAPTOR thế nào trên tài liệu dài?": [
+      "pages/QaPage.tsx"
+    ],
+    "API giả lập trong trình duyệt (VITE_API_MODE=mock)": [
+      "components/Shell.tsx"
+    ],
+    "Bài đã bình duyệt": [
+      "lib/labels.ts"
+    ],
+    "bài giảng": [
+      "components/RunOptions.tsx"
+    ],
+    "Bài giảng {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Bản chép đã có phiên bản mới hơn.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Bản chép đã được sửa/đối chiếu": [
+      "lib/labels.ts"
+    ],
+    "Bản chép lời": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Bản dịch": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx"
+    ],
+    "Bản dịch giao diện do máy tạo, có thể chưa chuẩn.": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Bản dịch máy ({0}), chỉ để đọc. Trích dẫn và kiểm chứng luôn dựa trên bản gốc.": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Bản gốc": [
+      "components/viewer.tsx"
+    ],
+    "Bản xuất dựng từ claim và evidence đã lưu, không gọi LLM viết lại.": [
+      "components/run/ExportMenu.tsx"
+    ],
+    "Bảng / slide": [
+      "lib/labels.ts"
+    ],
+    "Báo cáo mới": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Báo cáo tổng hợp": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Bảo mật tài khoản": [
+      "components/Shell.tsx",
+      "pages/SecurityPage.tsx"
+    ],
+    "Bằng chứng": [
+      "components/ClaimCard.tsx"
+    ],
+    "Bằng chứng chỉ nói “không kém”, claim lại nói “tốt hơn”": [
+      "lib/labels.ts"
+    ],
+    "Bằng chứng chính": [
+      "lib/labels.ts"
+    ],
+    "Bằng chứng là bản chép lời/OCR do máy tạo, chưa được người đối chiếu với âm thanh/hình ảnh. Bản chép có thể sai từ hoặc số.": [
+      "lib/labels.ts"
+    ],
+    "Bật xác thực hai lớp": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Bật xác thực hai lớp, kiểm tra đăng nhập gần đây và thu hồi phiên trên mọi thiết bị.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Bỏ": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Bỏ chọn {0}": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Bỏ qua tới nội dung": [
+      "components/Shell.tsx"
+    ],
+    "Bước 1 · Chủ đề tổng hợp": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Bước 2 · Chỉnh dàn ý": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Các claim đã kiểm chứng trước khi hủy vẫn được giữ; kết quả trả về sau khi hủy không được publish.": [
+      "components/run/RunView.tsx"
+    ],
+    "Cách hiển thị": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Calibration": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Cảnh báo trích xuất:": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Cần ít nhất một mục có tiêu đề và câu hỏi.": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Cần xem lại bản chép": [
+      "lib/labels.ts"
+    ],
+    "Cần: {0}.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Cấu hình": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Câu hỏi": [
+      "pages/QaPage.tsx"
+    ],
+    "Câu hỏi con": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Câu hỏi con {0} của mục {1}": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "câu hỏi con, dùng chung một ngân sách.": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Câu hỏi và các đoạn trích liên quan sẽ được gửi tới nhà cung cấp LLM: {0}.": [
+      "components/RunOptions.tsx"
+    ],
+    "ce": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Chàm": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Chạy lại câu hỏi": [
+      "components/run/RunView.tsx"
+    ],
+    "chạy lại từ lượt trước": [
+      "components/run/RunView.tsx"
+    ],
+    "Chặn vì quá nhiều yêu cầu": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chặn yêu cầu giả mạo (CSRF)": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chặn: dùng lại phiên đã đăng xuất": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chặn: thiếu xác thực hai lớp": [
+      "pages/SecurityPage.tsx"
+    ],
+    "chép lời tự động": [
+      "pages/SourcesPage.tsx"
+    ],
+    "chép tự động": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Chế độ": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Chế độ mock không có tài khoản, xác thực hai lớp hay phiên đăng nhập.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chế độ mock: không có dữ liệu nào được gửi ra ngoài trình duyệt.": [
+      "components/RunOptions.tsx"
+    ],
+    "Chỉ bản dịch": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Chỉ có khi chạy với backend thật": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chỉ nhận video MP4/WebM.": [
+      "lib/mediaUpload.ts"
+    ],
+    "Chi phí dựng index của hai phương pháp ra sao?": [
+      "pages/QaPage.tsx"
+    ],
+    "Chỉ số kiểm chứng": [
+      "components/run/RunView.tsx"
+    ],
+    "Chỉ trong phạm vi nguồn đã xét; không tìm thấy mâu thuẫn không có nghĩa là không tồn tại.": [
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Chọn file": [
+      "components/lecture/LectureUpload.tsx",
+      "pages/SourcesPage.tsx"
+    ],
+    "Chữ đọc được trên khung hình": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Chưa bật": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chưa chọn": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "chưa có": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "chưa có (thử nghiệm)": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Chưa có bản dịch sang ngôn ngữ này. Nội dung nguồn sẽ được gửi tới nhà cung cấp LLM để dịch.": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Chưa có claim nào qua kiểm chứng.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Chưa có context.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "chưa có đoạn âm thanh": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Chưa có lượt chạy nào": [
+      "pages/RunsPage.tsx"
+    ],
+    "Chưa có nguồn nào": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Chưa có nguồn nào sẵn sàng. Thêm nguồn ở tab “Nguồn”.": [
+      "pages/QaPage.tsx"
+    ],
+    "Chưa có sự kiện.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Chưa có tài khoản? Tạo tài khoản": [
+      "auth/AuthGate.tsx"
+    ],
+    "Chưa có workspace nào": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "chưa đọc hình từ {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Chưa đối chứng chéo": [
+      "lib/labels.ts"
+    ],
+    "Chưa kết nối YouTube API, nên hệ thống không tự tải video hay phụ đề. Hãy kèm file phụ đề SRT/VTT bạn được phép dùng; nguồn sẽ chỉ có lời (không có hình bảng) và được đánh dấu “Sẵn sàng (giới hạn)”.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "chưa pin": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "chưa xác định": [
+      "pages/SourcesPage.tsx"
+    ],
+    "claim": [
+      "pages/RunsPage.tsx"
+    ],
+    "Claim": [
+      "components/run/AuditPanel.tsx",
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Claim bị loại ({0})": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Claim chỉ xuất hiện ở đây sau khi đã qua kiểm chứng…": [
+      "components/run/RunView.tsx"
+    ],
+    "Claim có con số không có trong bằng chứng": [
+      "lib/labels.ts"
+    ],
+    "Claim đã kiểm tra đủ ngân sách tìm kiếm / accepted. Phân biệt \"chưa kiểm tra\" với \"không tìm thấy\".": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Claim giữ lại / sinh ra": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Claim không đạt": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Claim không đạt policy / claim sinh hợp lệ — không bị che bởi bước lọc.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "claim không qua kiểm chứng nên không hiển thị ở trên — xem tab “Claim bị loại”.": [
+      "components/run/RunView.tsx"
+    ],
+    "Có bằng chứng mâu thuẫn": [
+      "lib/labels.ts"
+    ],
+    "Có câu ASR hay bịa": [
+      "lib/labels.ts"
+    ],
+    "Có đối chứng độc lập": [
+      "components/run/MetricsPanel.tsx",
+      "lib/labels.ts"
+    ],
+    "Có ít nhất một claim qua kiểm chứng.": [
+      "lib/labels.ts"
+    ],
+    "Có mâu thuẫn": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Có sau khi lượt chạy hoàn tất.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Có thể bị lặp": [
+      "lib/labels.ts"
+    ],
+    "Có thể không phải lời nói": [
+      "lib/labels.ts"
+    ],
+    "CONTESTED / accepted, chỉ trong phạm vi nguồn được xét.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Contra.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "CORROBORATED / accepted, chỉ trong phạm vi nguồn được xét.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Cỡ chữ": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Dịch lại": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Dịch sang": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Dịch tài liệu": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Dịch vụ kiểm chứng lỗi hoặc quá hạn; claim không được mặc định là đạt.": [
+      "lib/labels.ts"
+    ],
+    "DOI hoặc arXiv ID": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Dùng cùng tập nguồn, với phiên bản nguồn và cấu hình máy chủ hiện tại. Kết quả có thể khác.": [
+      "components/run/RunView.tsx"
+    ],
+    "Dữ liệu mẫu": [
+      "components/Shell.tsx"
+    ],
+    "Đã ẩn · đang xóa dữ liệu": [
+      "lib/labels.ts"
+    ],
+    "Đã ẩn khỏi truy xuất; job nền đang xóa vector, file và snapshot.": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Đã có lỗi xảy ra": [
+      "components/Shell.tsx"
+    ],
+    "Đã có tài khoản? Đăng nhập": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đã dừng tải lên.": [
+      "api/client.ts"
+    ],
+    "đã đánh giá": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Đã đăng xuất khỏi mọi thiết bị.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Đã đọc:": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Đã đối chứng trong phạm vi nguồn đã chọn": [
+      "lib/labels.ts"
+    ],
+    "Đã đối chứng: không tìm thấy nguồn khác trong phạm vi đã xét. Điều này không có nghĩa là không tồn tại.": [
+      "components/ClaimCard.tsx"
+    ],
+    "Đã hủy": [
+      "lib/labels.ts"
+    ],
+    "đã sửa": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Đã tải lên": [
+      "lib/labels.ts"
+    ],
+    "Đã tạo nguồn {0}": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Đã tạo tài khoản. Kiểm tra email để xác nhận rồi đăng nhập.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đã trả lời": [
+      "lib/labels.ts"
+    ],
+    "Đã tự đăng xuất vì không hoạt động. Hãy đăng nhập lại.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đã yêu cầu hủy": [
+      "components/run/RunView.tsx"
+    ],
+    "Đang bật": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Đang chạy": [
+      "lib/labels.ts"
+    ],
+    "Đang chép lời và đọc bảng; bài giảng dài có thể mất vài phút. Theo dõi tiến độ trong danh sách nguồn bên dưới.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Đang chia đoạn": [
+      "lib/labels.ts"
+    ],
+    "Đang chờ": [
+      "lib/labels.ts"
+    ],
+    "Đang công bố chỉ mục": [
+      "lib/labels.ts"
+    ],
+    "Đang dịch {0}/{1} đoạn…": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Đang kết nối…": [
+      "components/run/StageProgress.tsx"
+    ],
+    "Đang kiểm tra phiên đăng nhập…": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đang lập chỉ mục lại": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Đang mã hóa": [
+      "lib/labels.ts"
+    ],
+    "Đang phân tích": [
+      "lib/labels.ts"
+    ],
+    "Đang soạn mục tiếp theo…": [
+      "components/run/RunView.tsx"
+    ],
+    "Đang tải…": [
+      "components/ui.tsx"
+    ],
+    "Đang xem phiên bản cũ": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Đăng nhập": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đăng nhập bằng tài khoản khác": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đăng nhập vào ứng dụng": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Đăng xuất": [
+      "components/Shell.tsx",
+      "pages/SecurityPage.tsx"
+    ],
+    "Đăng xuất khỏi mọi thiết bị": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Đăng xuất khỏi mọi thiết bị, kể cả thiết bị này?": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Đặt câu hỏi về các nguồn trong workspace… (Enter để gửi, Shift+Enter xuống dòng)": [
+      "pages/QaPage.tsx"
+    ],
+    "Đặt VITE_SUPABASE_URL và VITE_SUPABASE_PUBLISHABLE_KEY trong web/.env.local rồi khởi động lại Vite.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Đầu ra của LLM vi phạm hợp đồng JSON/citation; lượt này không có claim.": [
+      "lib/labels.ts"
+    ],
+    "Đề xuất dàn ý": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Đếm bằng bộ đếm của provider.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Điểm NLI là tín hiệu của model, không phải xác suất đúng đã hiệu chuẩn. Độ tự tin của LLM là tự đánh giá, không dùng làm bảo đảm.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "đoạn": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Đoạn bằng chứng đã được người dùng sửa hoặc xác nhận.": [
+      "lib/labels.ts"
+    ],
+    "đoạn đã kiểm chứng": [
+      "components/viewer.tsx"
+    ],
+    "đoạn lá": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Đóng": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx"
+    ],
+    "Đóng trình xem": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx"
+    ],
+    "Độ tin thấp": [
+      "lib/labels.ts"
+    ],
+    "Độ trễ": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Đối chứng chưa hoàn tất (hết ngân sách tìm kiếm)": [
+      "lib/labels.ts"
+    ],
+    "Đối chứng hoàn tất": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Đồng thuận và mâu thuẫn giữa các nguồn": [
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Đưa lên": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Đưa xuống": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Được bản chép tự động hỗ trợ": [
+      "lib/labels.ts"
+    ],
+    "Được bằng chứng hỗ trợ": [
+      "lib/labels.ts"
+    ],
+    "EDAHR commit": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Email": [
+      "auth/AuthGate.tsx"
+    ],
+    "Email hoặc mật khẩu không đúng.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Entail": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Evidence": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Evidence chính đạt policy kiểm chứng của profile. Không đồng nghĩa sự thật đã được chứng minh.": [
+      "lib/labels.ts"
+    ],
+    "Evidence được trích mâu thuẫn với claim": [
+      "lib/labels.ts"
+    ],
+    "Evidence không đạt ngưỡng hỗ trợ": [
+      "lib/labels.ts"
+    ],
+    "Ghi chú người dùng": [
+      "lib/labels.ts"
+    ],
+    "Giải thích": [
+      "lib/labels.ts"
+    ],
+    "Giao diện và ngôn ngữ": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "giây": [
+      "auth/AuthGate.tsx"
+    ],
+    "Giữ video gốc": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Grouping": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Hiển thị đoạn trích đã kiểm chứng": [
+      "components/viewer.tsx"
+    ],
+    "Hoàn tất": [
+      "lib/labels.ts"
+    ],
+    "Hoàn tất một phần": [
+      "components/run/RunView.tsx",
+      "lib/labels.ts"
+    ],
+    "Hoạt động bảo mật gần đây": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Hỏi": [
+      "pages/QaPage.tsx"
+    ],
+    "Hỏi đáp": [
+      "components/run/RunView.tsx",
+      "pages/RunsPage.tsx",
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Hỏi được, nhưng thiếu một nhánh: không có hình ảnh (chỉ phụ đề), không có âm thanh, hoặc chưa đọc hết khung hình.": [
+      "lib/labels.ts"
+    ],
+    "Hỗ trợ": [
+      "components/ClaimCard.tsx",
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Hồng": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "https://www.youtube.com/watch?v=…": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Hủy": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Hủy lượt chạy": [
+      "components/run/RunView.tsx"
+    ],
+    "Hủy và xóa phần đã tải": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "ít nhất {0} ký tự": [
+      "lib/security.ts"
+    ],
+    "Ít nhất {0} ký tự, kết hợp chữ hoa, chữ thường, số hoặc ký tự đặc biệt.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Kéo thả tài liệu vào đây": [
+      "pages/SourcesPage.tsx"
+    ],
+    "kết hợp ít nhất 3 loại: chữ thường, chữ hoa, số, ký tự đặc biệt": [
+      "lib/security.ts"
+    ],
+    "Kết quả hỏi đáp và báo cáo tổng hợp được lưu ở đây, kèm cấu hình và phiên bản nguồn đã dùng.": [
+      "pages/RunsPage.tsx"
+    ],
+    "Kết quả thử nghiệm": [
+      "components/run/RunView.tsx"
+    ],
+    "Khi bật, đăng nhập cần thêm mã 6 số từ ứng dụng xác thực (Google Authenticator, Microsoft Authenticator, 1Password…). Lộ mật khẩu không đủ để vào tài khoản; máy chủ từ chối mọi phiên chưa qua bước này.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Không ánh xạ được về đoạn/vùng cụ thể; hiển thị đoạn trích đã kiểm chứng.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không ánh xạ được vị trí chính xác": [
+      "components/viewer.tsx"
+    ],
+    "không chứa tên email": [
+      "lib/security.ts"
+    ],
+    "Không claim nào qua kiểm chứng trong phạm vi nguồn đã chọn. Hệ thống không trả lời thay vì đoán.": [
+      "lib/labels.ts"
+    ],
+    "Không có âm thanh để phát (": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không có claim nào bị loại.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Không có đoạn lá nào trong khối được trích": [
+      "lib/labels.ts"
+    ],
+    "không có hình": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Không có hình": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không có hình bảng/slide cho nguồn này.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không có hoạt động — tự đăng xuất sau": [
+      "auth/AuthGate.tsx"
+    ],
+    "không có lời": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Không có lời": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không có lời nào được chép.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Không có trích dẫn hợp lệ": [
+      "lib/labels.ts"
+    ],
+    "Không dịch được đoạn này": [
+      "components/TranslationPanel.tsx"
+    ],
+    "không dùng chuỗi dễ đoán (1234, abcd, password…)": [
+      "lib/security.ts"
+    ],
+    "Không đăng xuất được các thiết bị khác.": [
+      "auth/session.ts"
+    ],
+    "Không đủ bằng chứng": [
+      "components/run/RunView.tsx",
+      "lib/labels.ts"
+    ],
+    "Không gian làm việc": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Không hoàn tất": [
+      "components/run/RunView.tsx"
+    ],
+    "Không kết nối được máy chủ.": [
+      "api/client.ts"
+    ],
+    "Không kiểm chứng được": [
+      "lib/labels.ts"
+    ],
+    "Không kiểm chứng được (dịch vụ lỗi)": [
+      "lib/labels.ts"
+    ],
+    "Không kiểm tra được phiên ({0}).": [
+      "auth/session.ts"
+    ],
+    "Không kiểm tra được trạng thái máy chủ": [
+      "components/Shell.tsx"
+    ],
+    "không phân trang, ": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Không quét được? Nhập khóa thủ công:": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Không tìm thấy trang": [
+      "components/Shell.tsx"
+    ],
+    "Không tìm thấy ứng dụng xác thực đã đăng ký cho tài khoản này.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Không tìm thấy workspace": [
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Khung": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Khung hình lúc {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Khung sau": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Khung trước": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Kiểm toán": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "ký tự": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Lịch sử": [
+      "pages/RunDetailPage.tsx",
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Link YouTube": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "LLM chỉ đề xuất cần hỏi gì. Mỗi câu hỏi con chạy pipeline QA có kiểm chứng; báo cáo ghép claim đã kiểm chứng bằng template, không để LLM viết thêm câu sự kiện. Tối đa": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "LLM tự đánh giá": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Loại bài giảng": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Lỗi": [
+      "lib/labels.ts"
+    ],
+    "Lỗi JSON của mô hình": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Lỗi máy chủ.": [
+      "api/client.ts"
+    ],
+    "Lời giảng": [
+      "lib/labels.ts"
+    ],
+    "Lời: chép tự động{0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Lời: phụ đề người dùng cung cấp": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Lớn": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Luồng sự kiện bị đóng. Tải lại trang để xem trạng thái mới nhất.": [
+      "api/client.ts"
+    ],
+    "lượt chạy · tạo": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Lượt chạy chốt phiên bản nguồn lúc bắt đầu; nguồn nạp sau không chen vào lượt đang chạy.": [
+      "components/RunOptions.tsx"
+    ],
+    "Lượt chạy đã bị hủy": [
+      "components/run/RunView.tsx"
+    ],
+    "Lượt chạy thất bại.": [
+      "components/run/RunView.tsx"
+    ],
+    "Lượt chạy vẫn tiếp tục trên máy chủ; các sự kiện sẽ được phát lại.": [
+      "components/run/RunView.tsx"
+    ],
+    "Lượt hỏi này dùng bản chép tại thời điểm chạy; bản chép đã được sửa sau đó.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Lưu": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Lưu tạo phiên bản bản chép mới và lập chỉ mục lại; các lượt hỏi cũ vẫn trỏ về phiên bản cũ. Đoạn đã sửa được tính là đã đối chiếu.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Lưu thuật ngữ": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Lý do nhóm:": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Mã 6 số từ ứng dụng xác thực": [
+      "auth/AuthGate.tsx"
+    ],
+    "Mã không đúng hoặc đã hết hạn. Kiểm tra đồng hồ điện thoại rồi thử lại.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Mã nguồn": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Mã QR đăng ký ứng dụng xác thực": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Mã xác thực 6 số": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Mã xác thực không đúng hoặc đã hết hạn.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Màu nhấn": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Máy chủ chưa sẵn sàng": [
+      "components/Shell.tsx"
+    ],
+    "Máy chủ từ chối phiên đăng nhập.": [
+      "auth/session.ts"
+    ],
+    "Mặc định chỉ giữ âm thanh và ảnh bảng/slide làm bằng chứng; video gốc bị xóa sau khi xử lý.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Mất kết nối khi tải video.": [
+      "api/client.ts"
+    ],
+    "Mất kết nối, đang kết nối lại…": [
+      "components/run/RunView.tsx"
+    ],
+    "Mật khẩu": [
+      "auth/AuthGate.tsx"
+    ],
+    "Mật khẩu cần: {0}.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Mật khẩu đạt yêu cầu.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Mâu thuẫn": [
+      "components/ClaimCard.tsx",
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Mô hình trả về sai định dạng": [
+      "lib/labels.ts"
+    ],
+    "Mô hình trả về sai định dạng JSON": [
+      "lib/labels.ts"
+    ],
+    "Mỗi workspace là một tập nguồn. Câu hỏi và báo cáo tổng hợp chỉ dùng nguồn trong workspace đó.": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Một nguồn khác cùng bối cảnh có đoạn mâu thuẫn. Xem cả hai phía trước khi dùng.": [
+      "lib/labels.ts"
+    ],
+    "Một nhóm nguồn khác — đã được đánh giá là độc lập — cũng hỗ trợ, và không tìm thấy mâu thuẫn trong phạm vi đã xét.": [
+      "lib/labels.ts"
+    ],
+    "Một phần đã tải lên sai kích thước và không ghi đè được. Hãy hủy phiên rồi tải lại từ đầu.": [
+      "lib/mediaUpload.ts"
+    ],
+    "Một số dịch vụ chậm": [
+      "components/Shell.tsx"
+    ],
+    "Một số phần không hoàn tất.": [
+      "components/run/RunView.tsx"
+    ],
+    "Mở bản gốc": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx"
+    ],
+    "Mở phiên bản mới nhất": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "MP4/WebM, tối đa {0}. Tải theo từng phần — mất mạng thì chọn lại đúng file để tải tiếp.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "ms": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Mục trong workspace": [
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "mục, mỗi mục": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "mục)": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Ngân sách": [
+      "components/run/RunView.tsx"
+    ],
+    "Ngân sách context (token)": [
+      "components/RunOptions.tsx"
+    ],
+    "Nghi ngờ lộ mật khẩu hoặc quên đăng xuất ở máy khác? Thu hồi mọi phiên: các thiết bị khác bị đăng xuất trong vòng 15 giây, kể cả khi token cũ chưa hết hạn. Nên đổi mật khẩu sau đó.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Ngôn ngữ giao diện": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Ngôn ngữ lời giảng": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Nguồn": [
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "nguồn ·": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Nguồn {0}": [
+      "components/viewer.tsx"
+    ],
+    "nguồn chỉ có phụ đề": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Nguồn đã bị xóa": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx"
+    ],
+    "Nguồn đã bị xóa — nội dung đã ẩn.": [
+      "components/ClaimCard.tsx"
+    ],
+    "Nguồn đã bị xóa; nội dung đã ẩn": [
+      "components/ClaimCard.tsx"
+    ],
+    "Nguồn gốc lượt chạy": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Nguồn khác cũng hỗ trợ ({0}), nhưng chưa xác định là độc lập.": [
+      "components/ClaimCard.tsx"
+    ],
+    "Nguồn khác hỗ trợ": [
+      "lib/labels.ts"
+    ],
+    "Nguồn khác mâu thuẫn": [
+      "lib/labels.ts"
+    ],
+    "Nguồn trong workspace": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Ngưỡng kiểm chứng chưa có calibration artifact cho model/miền này. \"Được bằng chứng hỗ trợ\" là tín hiệu của verifier, không phải bảo đảm sự thật.": [
+      "components/run/RunView.tsx"
+    ],
+    "Nhiều đoạn bản chép bị cảnh báo (độ tin thấp, lặp, lệch thời gian). Hỏi được, nhưng claim có số liệu trên các đoạn đó bị loại cho đến khi bạn sửa bản chép.": [
+      "lib/labels.ts"
+    ],
+    "Nhỏ": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Nhóm nguồn được trích": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Nhóm nguồn gốc": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Nội dung đã ẩn vì nguồn đã bị xóa.": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "PDF có lớp văn bản, Markdown, TXT": [
+      "pages/SourcesPage.tsx"
+    ],
+    "PDF có lớp văn bản, Markdown, TXT, DOCX, HTML": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Phạm vi nguồn": [
+      "components/RunOptions.tsx"
+    ],
+    "Phạm vi trộn bài giảng và tài liệu: hai loại dùng bộ mô hình khác nhau (tiếng Việt đa ngôn ngữ / tiếng Anh) nên chưa hỏi chung được. Hãy chọn riêng bài giảng hoặc riêng tài liệu.": [
+      "components/RunOptions.tsx"
+    ],
+    "Phát": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "phần còn lại của đoạn lá": [
+      "components/viewer.tsx"
+    ],
+    "Phần video tải lên bị lỗi kích thước; hãy hủy và tải lại.": [
+      "lib/mediaUpload.ts"
+    ],
+    "Phiên bản mới sẽ thay thế khi xử lý xong; đóng và mở lại nguồn để xem.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Phiên đăng nhập": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Phiên đăng nhập đã hết hạn. Hãy đăng nhập lại.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Phiên hiện tại đã qua xác thực hai lớp.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Phiên này đã bị đăng xuất (có thể từ thiết bị khác). Hãy đăng nhập lại.": [
+      "auth/AuthGate.tsx"
+    ],
+    "phủ {0}% thời lượng": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "phụ đề": [
+      "components/lecture/LectureViewer.tsx",
+      "pages/SourcesPage.tsx"
+    ],
+    "Phụ đề": [
+      "lib/labels.ts"
+    ],
+    "Phụ đề (bắt buộc)": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Phụ đề (tùy chọn)": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Phụ đề chồng lấn": [
+      "lib/labels.ts"
+    ],
+    "Phụ đề lỗi": [
+      "lib/labels.ts"
+    ],
+    "primary_attribution_risk_accepted: chỉ tính trên claim được giữ lại.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "primary_attribution_risk_generated: tín hiệu verifier trên evidence chính, không phải xác suất sai.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Profile": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "RAPTOR xây dựng chỉ mục như thế nào?": [
+      "pages/QaPage.tsx"
+    ],
+    "revision": [
+      "components/lecture/LectureViewer.tsx",
+      "components/viewer.tsx",
+      "pages/SourcesPage.tsx"
+    ],
+    "Rủi ro quy kết (sau lọc)": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Rủi ro quy kết (trước lọc)": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "s": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Sáng": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "sau khi lưu": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "sẵn sàng": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Sẵn sàng": [
+      "components/Shell.tsx",
+      "lib/labels.ts"
+    ],
+    "Sẵn sàng (giới hạn)": [
+      "lib/labels.ts"
+    ],
+    "Sắp tự đăng xuất": [
+      "auth/AuthGate.tsx"
+    ],
+    "Sinh báo cáo (": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Snapshot nguồn": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "So sánh": [
+      "lib/labels.ts"
+    ],
+    "Song song": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Số claim qua kiểm chứng trên số claim sinh hợp lệ.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Số liệu dựa trên đoạn bản chép bị cảnh báo — cần sửa bản chép trước": [
+      "lib/labels.ts"
+    ],
+    "Số liệu khác bản gốc — kiểm tra lại": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Số lượt đầu ra sai hợp đồng.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Số nhóm nguồn gốc — không tự gọi là số nguồn độc lập.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "SRT/VTT bạn có quyền dùng. Có phụ đề thì bỏ qua bước chép lời tự động.": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Sự kiện": [
+      "lib/labels.ts"
+    ],
+    "Sửa bản chép": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Sửa chữ trên bảng: {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Sửa đoạn lúc {0}": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Tải bản dịch (.txt)": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Tài khoản đã bật xác thực hai lớp: đăng nhập lại và nhập mã xác thực.": [
+      "auth/AuthGate.tsx"
+    ],
+    "Tải lên PDF có lớp văn bản, Markdown hoặc TXT, hoặc thêm một video bài giảng để bắt đầu.": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Tải lên và xử lý": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Tải một phần video thất bại.": [
+      "api/client.ts"
+    ],
+    "Tải thêm": [
+      "pages/RunsPage.tsx"
+    ],
+    "Tạm dừng": [
+      "components/lecture/LectureUpload.tsx",
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Tạo một workspace rồi thêm tài liệu để bắt đầu.": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Tạo tài khoản": [
+      "auth/AuthGate.tsx"
+    ],
+    "Tạo workspace": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Tắt xác thực hai lớp": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Tắt xác thực hai lớp? Từ giờ chỉ cần mật khẩu là đăng nhập được.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Tập trung nguồn": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Tất cả nguồn sẵn sàng (": [
+      "components/RunOptions.tsx"
+    ],
+    "Tên riêng, thuật ngữ tiếng Anh hay bị chép sai (vd. “SBERT”, “RAPTOR”). Đo trên bài giảng mẫu: lỗi chép giảm từ 5,8 % xuống 3,6 %. Chỉ áp dụng cho video tải lên": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Tên workspace mới, ví dụ: Tổng quan RAG cho tài liệu khoa học": [
+      "pages/WorkspacesPage.tsx"
+    ],
+    "Tham chiếu vẫn được giữ trong lịch sử, nhưng âm thanh, khung hình và bản chép đã bị xóa và không mở lại được.": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Tham chiếu vẫn được giữ trong lịch sử, nhưng nội dung đã bị ẩn và không được mở lại qua trình xem, kiểm toán hay xuất.": [
+      "components/viewer.tsx"
+    ],
+    "Thất bại": [
+      "lib/labels.ts"
+    ],
+    "Thấy đăng nhập lạ? Đăng xuất khỏi mọi thiết bị, đổi mật khẩu và bật xác thực hai lớp.": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Theo hệ thống": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Thêm bài giảng": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Thêm bài giảng YouTube": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Thêm câu hỏi con": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Thêm mục": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Thêm nguồn": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Thêm từ web hoặc DOI": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Thiếu cấu hình Supabase": [
+      "auth/AuthGate.tsx"
+    ],
+    "Thiếu URL tải lên.": [
+      "lib/mediaUpload.ts"
+    ],
+    "Thời gian chưa chắc": [
+      "lib/labels.ts"
+    ],
+    "thuật ngữ ·": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Thuật ngữ cho chép lời tự động": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Thuật ngữ, mỗi dòng một mục": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Thử lại": [
+      "components/ui.tsx"
+    ],
+    "Thử nghiệm": [
+      "components/ui.tsx"
+    ],
+    "Tỉ lệ claim lớn nhất có evidence chính ở một nhóm nguồn.": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Tỉ lệ sống sót": [
+      "components/run/MetricsPanel.tsx"
+    ],
+    "Tiến độ dịch": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Tiến độ nạp {0}": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Tiến độ tải video": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Tiến trình": [
+      "components/run/RunView.tsx"
+    ],
+    "Tiếng Anh": [
+      "lib/labels.ts"
+    ],
+    "Tiếng Việt": [
+      "lib/labels.ts"
+    ],
+    "Tiếp tục làm việc": [
+      "auth/AuthGate.tsx"
+    ],
+    "Tiếp tục tải": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Tiêu đề (tùy chọn)": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Tiêu đề mục": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Tiêu đề mục {0}": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Tím": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Tín hiệu kiểm chứng": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Tính năng sau MVP, đang ở mức thử nghiệm": [
+      "components/ui.tsx"
+    ],
+    "token": [
+      "components/run/AuditPanel.tsx",
+      "components/run/RunView.tsx",
+      "pages/RunsPage.tsx"
+    ],
+    "Tối": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Tổng hợp": [
+      "components/run/RunView.tsx",
+      "pages/RunsPage.tsx",
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Tổng hợp kiến thức đa nguồn có kiểm chứng": [
+      "components/Shell.tsx"
+    ],
+    "Tổng quan": [
+      "lib/labels.ts"
+    ],
+    "Trang": [
+      "components/viewer.tsx"
+    ],
+    "Trang {0}": [
+      "components/TranslationPanel.tsx"
+    ],
+    "Trạng thái": [
+      "components/run/ConsensusTable.tsx"
+    ],
+    "Trang web được lưu snapshot đã làm sạch; nội dung nguồn được coi là dữ liệu không tin cậy.": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Tự đánh giá của mô hình dưới ngưỡng": [
+      "lib/labels.ts"
+    ],
+    "Tự nhận diện": [
+      "lib/labels.ts"
+    ],
+    "useViewer cần nằm trong ViewerProvider": [
+      "components/viewerContext.ts"
+    ],
+    "Văn bản": [
+      "lib/labels.ts"
+    ],
+    "Verifier": [
+      "components/run/AuditPanel.tsx"
+    ],
+    "Về danh sách workspace": [
+      "components/Shell.tsx",
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Về trang chính": [
+      "components/Shell.tsx"
+    ],
+    "Ví dụ: So sánh Agreement Ranking và RAPTOR cho QA trên bài báo dài": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Vị trí trong bài giảng": [
+      "components/lecture/LectureViewer.tsx"
+    ],
+    "Video bài giảng": [
+      "components/lecture/LectureUpload.tsx",
+      "lib/labels.ts"
+    ],
+    "Video tải lên": [
+      "components/lecture/LectureUpload.tsx"
+    ],
+    "Vừa": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Vượt quá cuối video": [
+      "lib/labels.ts"
+    ],
+    "Workspace": [
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Workspace không tồn tại hoặc bạn không có quyền truy cập.": [
+      "pages/WorkspaceLayout.tsx"
+    ],
+    "Xác nhận": [
+      "auth/AuthGate.tsx"
+    ],
+    "Xác nhận và bật": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Xác thực hai lớp": [
+      "auth/AuthGate.tsx"
+    ],
+    "Xác thực hai lớp (TOTP)": [
+      "pages/SecurityPage.tsx"
+    ],
+    "Xám": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Xanh dương": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Xanh ngọc": [
+      "components/PreferencesMenu.tsx"
+    ],
+    "Xem nguồn {0}": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Xóa câu hỏi con": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Xóa mục {0}": [
+      "pages/SynthesisPage.tsx"
+    ],
+    "Xóa nguồn {0}": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Xóa nguồn {0} — “{1}”?\n\nNguồn bị ẩn ngay khỏi truy xuất; dữ liệu được xóa bởi job nền. Các lượt chạy cũ giữ tham chiếu nhưng ẩn nội dung.": [
+      "pages/SourcesPage.tsx"
+    ],
+    "Xuất kết quả": [
+      "components/run/RunView.tsx"
+    ]
+  }
+}

@@ -8,6 +8,7 @@ worker (`python -m msks.worker`) xử lý phần nặng.
 from __future__ import annotations
 
 import asyncio
+import hmac
 import json
 import logging
 import secrets
@@ -16,6 +17,7 @@ import uuid
 from contextlib import asynccontextmanager
 from typing import Annotated, Literal
 
+import httpx
 from fastapi import FastAPI, File, Header, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,7 +28,9 @@ from . import db
 from .api_deps import (  # noqa: F401 — re-export cho router và test
     UserDep, _uuid, decode_cursor, encode_cursor, idempotent_job, require_owned, require_workspace, source_row,
 )
-from .auth import CSRF_COOKIE, SESSION_COOKIE, verify_token
+from . import security
+from .api_deps import limit
+from .auth import CSRF_COOKIE, SESSION_COOKIE, check_origin, verify_token
 from .dto import SOURCE_SELECT, TERMINAL, job_dto, run_dto, run_event_dto, run_summary_dto, run_to_markdown, source_dto, workspace_dto
 from .errors import AppError, PermanentError, feature_disabled, not_found
 from .ingest import sha256, sniff
@@ -49,9 +53,14 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in get_settings().cors_origins.split(",") if o.strip()],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    # Chỉ đúng phương thức/header frontend dùng, thay cho "*".
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Content-Type", "Authorization", "X-CSRF-Token", "Idempotency-Key", "Last-Event-ID"],
+    expose_headers=["X-Trace-Id", "Retry-After"],
 )
+
+if any(o.strip().startswith("https://") for o in get_settings().cors_origins.split(",")) and not get_settings().cookie_secure:
+    log.error("Frontend chạy HTTPS nhưng MSKS_COOKIE_SECURE=false: cookie phiên có thể bị gửi qua HTTP. Bật MSKS_COOKIE_SECURE=true.")
 
 
 # ------------------------------------------------------------ lỗi + trace
@@ -60,8 +69,17 @@ app.add_middleware(
 @app.middleware("http")
 async def trace_middleware(request: Request, call_next):
     request.state.trace_id = uuid.uuid4().hex[:16]
-    response = await call_next(request)
+    # Chặn thân request quá lớn trước khi Starlette đọc vào bộ nhớ (multipart: giới hạn upload + phần đệm form).
+    settings = get_settings()
+    multipart = request.headers.get("content-type", "").startswith("multipart/")
+    ceiling = settings.max_upload_bytes + 1024 * 1024 if multipart else settings.max_json_bytes
+    length = request.headers.get("content-length")
+    if length is not None and (not length.isdigit() or int(length) > ceiling):
+        response = JSONResponse(AppError(413, "request_too_large", "Yêu cầu quá lớn.").body(request.state.trace_id), status_code=413)
+    else:
+        response = await call_next(request)
     response.headers["X-Trace-Id"] = request.state.trace_id
+    security.apply_security_headers(response.headers, request.url.path)
     return response
 
 
@@ -71,7 +89,7 @@ def _trace(request: Request) -> str | None:
 
 @app.exception_handler(AppError)
 async def app_error_handler(request: Request, exc: AppError):
-    return JSONResponse(exc.body(_trace(request)), status_code=exc.status)
+    return JSONResponse(exc.body(_trace(request)), status_code=exc.status, headers=exc.headers or None)
 
 
 @app.exception_handler(PermanentError)
@@ -134,9 +152,16 @@ class SessionIn(BaseModel):
 
 
 @app.post("/api/auth/session")
-def create_session(body: SessionIn, response: Response):
-    """Đổi access token Supabase lấy cookie HttpOnly cùng origin + CSRF token."""
+def create_session(body: SessionIn, response: Response, request: Request):
+    """Đổi access token Supabase lấy cookie HttpOnly cùng origin + CSRF token.
+
+    Chặn theo IP (chống thử token hàng loạt), từ chối phiên đã đăng xuất và token chưa qua 2FA khi tài khoản đã bật.
+    """
+    check_origin(request)
+    security.hit("auth_session", f"ip:{security.client_ip(request)}", request)
     user = verify_token(body.access_token)
+    security.enforce_session(user, request)
+    security.record_event("session_created", user.id, request, {"aal": user.aal})
     settings = get_settings()
     max_age = max(60, user.expires_at - int(time.time()))
     response.set_cookie(SESSION_COOKIE, body.access_token, max_age=max_age, httponly=True,
@@ -146,15 +171,51 @@ def create_session(body: SessionIn, response: Response):
     return {"user": {"id": user.id, "email": user.email}, "expires_at": user.expires_at}
 
 
+def _revoke_supabase_session(token: str, scope: str) -> bool:
+    """Đăng xuất phía Supabase: xóa phiên (scope=local) hoặc mọi phiên của người dùng (global) cùng refresh token."""
+    settings = get_settings()
+    try:
+        r = httpx.post(f"{settings.supabase_url.rstrip('/')}/auth/v1/logout", params={"scope": scope}, timeout=15,
+                       headers={"apikey": settings.supabase_publishable_key or settings.supabase_secret_key,
+                                "Authorization": f"Bearer {token}"})
+        return r.status_code in (200, 204)
+    except httpx.HTTPError:
+        log.warning("Không gọi được Supabase logout", exc_info=True)
+        return False
+
+
 @app.delete("/api/auth/session", status_code=204)
-def delete_session(response: Response):
+def delete_session(response: Response, request: Request, scope: Literal["local", "global"] = "local"):
+    """Đăng xuất: thu hồi phiên ở Supabase (token cũ bị từ chối trong ≤ 15 s) rồi xóa cookie.
+    `scope=global` đăng xuất khỏi mọi thiết bị."""
+    check_origin(request)
+    token = request.cookies.get(SESSION_COOKIE)
+    if token:
+        try:
+            user = verify_token(token)
+        except AppError:
+            user = None
+        expected = request.cookies.get(CSRF_COOKIE, "")
+        csrf_ok = bool(expected) and hmac.compare_digest(expected.encode(), request.headers.get("x-csrf-token", "").encode())
+        # Chỉ thu hồi phiên khi CSRF hợp lệ (trang khác không ép được "đăng xuất mọi thiết bị"); xóa cookie thì luôn làm.
+        if user is not None and csrf_ok:
+            if _revoke_supabase_session(token, scope):
+                security.forget_sessions(user.id)
+                security.record_event("sessions_revoked_all" if scope == "global" else "session_revoked", user.id, request)
     response.delete_cookie(SESSION_COOKIE, path="/api")
     response.delete_cookie(CSRF_COOKIE, path="/")
 
 
 @app.get("/api/auth/me")
 def me(user: UserDep):
-    return {"id": user.id, "email": user.email}
+    _, mfa = security.session_status(user.id, user.session_id)
+    return {"id": user.id, "email": user.email, "aal": user.aal, "mfa_enabled": mfa, "expires_at": user.expires_at}
+
+
+@app.get("/api/auth/security-events")
+def security_events(user: UserDep):
+    """30 sự kiện bảo mật gần nhất của chính người dùng (đăng nhập vào app, đăng xuất, bị chặn)."""
+    return {"items": security.recent_events(user.id)}
 
 
 # -------------------------------------------------------------- workspace
@@ -178,7 +239,7 @@ def list_workspaces(user: UserDep):
     return [workspace_dto(r) for r in rows]
 
 
-@app.post("/api/workspaces", status_code=201)
+@app.post("/api/workspaces", status_code=201, dependencies=[limit("workspace_create")])
 def create_workspace(body: WorkspaceIn, user: UserDep):
     name = body.name.strip()
     if not name:
@@ -217,7 +278,7 @@ def list_sources(workspace_id: str, user: UserDep, cursor: str | None = None, li
     return {"items": [source_dto(r) for r in items], "next_cursor": next_cursor}
 
 
-@app.post("/api/workspaces/{workspace_id}/sources", status_code=202)
+@app.post("/api/workspaces/{workspace_id}/sources", status_code=202, dependencies=[limit("upload")])
 async def upload_source(
     workspace_id: str,
     user: UserDep,
@@ -272,10 +333,10 @@ async def upload_source(
         return source_dto(source_row(conn, source_id))
 
 
-@app.delete("/api/sources/{source_id}", status_code=202)
+@app.delete("/api/sources/{source_id}", status_code=202, dependencies=[limit("source_delete")])
 def delete_source(source_id: str, user: UserDep):
     with db.tx() as conn:
-        source = require_owned(conn, "source", source_id, user, "Nguồn")
+        source = require_owned(conn, "source", source_id, user, "Nguồn", lock=True)
         if source["deleted_at"]:
             job = conn.execute(
                 "select id from public.job where target_id = %s and kind = 'delete' order by created_at desc limit 1", (source["id"],)
@@ -379,7 +440,7 @@ def scope_snapshot(conn, workspace_id: str, source_ids: list[str], requested_pro
     }
 
 
-@app.post("/api/workspaces/{workspace_id}/qa", status_code=202)
+@app.post("/api/workspaces/{workspace_id}/qa", status_code=202, dependencies=[limit("qa"), limit("qa_daily")])
 def ask(workspace_id: str, body: QaIn, user: UserDep,
         idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None):
     settings = get_settings()
@@ -427,12 +488,12 @@ def _accepted(run_id: str) -> dict:
     return {"run_id": run_id, "status_url": f"/api/runs/{run_id}", "stream_url": f"/api/runs/{run_id}/stream"}
 
 
-@app.post("/api/workspaces/{workspace_id}/synthesis/outline")
+@app.post("/api/workspaces/{workspace_id}/synthesis/outline", dependencies=[limit("synthesis"), limit("synthesis_daily")])
 def outline(workspace_id: str, user: UserDep):
     raise feature_disabled("Tổng hợp (synthesis)")
 
 
-@app.post("/api/workspaces/{workspace_id}/synthesis")
+@app.post("/api/workspaces/{workspace_id}/synthesis", dependencies=[limit("synthesis"), limit("synthesis_daily")])
 def synthesis(workspace_id: str, user: UserDep):
     raise feature_disabled("Tổng hợp (synthesis)")
 
@@ -533,7 +594,7 @@ async def stream_run(run_id: str, request: Request, user: UserDep,
                              headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
-@app.get("/api/runs/{run_id}/export")
+@app.get("/api/runs/{run_id}/export", dependencies=[limit("export")])
 def export_run(run_id: str, user: UserDep, format: Literal["md", "json", "docx", "pdf"] = "md"):
     if format in ("docx", "pdf"):
         raise feature_disabled(f"Xuất {format.upper()}")
@@ -552,6 +613,9 @@ def export_run(run_id: str, user: UserDep, format: Literal["md", "json", "docx",
 from .api_media import router as media_router  # noqa: E402
 
 app.include_router(media_router)
+from .api_translation import router as translation_router  # noqa: E402
+
+app.include_router(translation_router)
 
 
 

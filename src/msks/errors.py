@@ -3,12 +3,13 @@ from __future__ import annotations
 
 
 class AppError(Exception):
-    def __init__(self, status: int, code: str, message: str, retryable: bool = False):
+    def __init__(self, status: int, code: str, message: str, retryable: bool = False, headers: dict[str, str] | None = None):
         super().__init__(message)
         self.status = status
         self.code = code
         self.message = message
         self.retryable = retryable
+        self.headers = headers or {}   # vd. Retry-After khi 429
 
     def body(self, trace_id: str | None = None) -> dict:
         return {"code": self.code, "message": self.message, "retryable": self.retryable, "trace_id": trace_id}

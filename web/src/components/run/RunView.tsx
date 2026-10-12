@@ -13,6 +13,7 @@ import { ConsensusTable } from './ConsensusTable'
 import { ExportMenu } from './ExportMenu'
 import { MetricsPanel } from './MetricsPanel'
 import { StageProgress } from './StageProgress'
+import { t, msg, translated } from '../../i18n'
 
 /** Một lượt chạy: nhận SSE khi đang chạy, đọc kết quả đã persist khi đã kết thúc. */
 export function RunView({ runId }: { runId: string }) {
@@ -41,15 +42,14 @@ export function RunView({ runId }: { runId: string }) {
         <RunHeader run={run} />
 
         {run.provenance && !run.provenance.calibration_artifact && (
-          <Notice tone="warn" title="Kết quả thử nghiệm">
-            Ngưỡng kiểm chứng chưa có calibration artifact cho model/miền này. "Được bằng chứng hỗ trợ" là tín hiệu của verifier,
-            không phải bảo đảm sự thật.
+          <Notice tone="warn" title={t('Kết quả thử nghiệm')}>
+            {t('Ngưỡng kiểm chứng chưa có calibration artifact cho model/miền này. "Được bằng chứng hỗ trợ" là tín hiệu của verifier, không phải bảo đảm sự thật.')}
           </Notice>
         )}
         {stream.connection === 'reconnecting' && (
-          <Notice title="Mất kết nối, đang kết nối lại…">
+          <Notice title={t('Mất kết nối, đang kết nối lại…')}>
             <span className="inline-flex items-center gap-1">
-              <WifiOff className="size-3.5" /> Lượt chạy vẫn tiếp tục trên máy chủ; các sự kiện sẽ được phát lại.
+              <WifiOff className="size-3.5" /> {t('Lượt chạy vẫn tiếp tục trên máy chủ; các sự kiện sẽ được phát lại.')}
             </span>
           </Notice>
         )}
@@ -64,7 +64,7 @@ export function RunView({ runId }: { runId: string }) {
 
         {terminal && run.rejected_claims.length > 0 && (
           <p className="text-sm text-muted">
-            {run.rejected_claims.length} claim không qua kiểm chứng nên không hiển thị ở trên — xem tab “Claim bị loại”.
+            {run.rejected_claims.length} {t('claim không qua kiểm chứng nên không hiển thị ở trên — xem tab “Claim bị loại”.')}
           </p>
         )}
         {terminal && <ConsensusTable claims={run.claims} />}
@@ -73,7 +73,7 @@ export function RunView({ runId }: { runId: string }) {
 
       <aside className="space-y-4">
         <section className="card p-4">
-          <h3 className="label mb-3">Tiến trình</h3>
+          <h3 className="label mb-3">{t('Tiến trình')}</h3>
           {terminal ? (
             <RunStatusBadge status={run.status} />
           ) : (
@@ -83,13 +83,13 @@ export function RunView({ runId }: { runId: string }) {
         </section>
         {terminal && run.metrics && (
           <section className="card p-4">
-            <h3 className="label mb-1">Chỉ số kiểm chứng</h3>
+            <h3 className="label mb-1">{t('Chỉ số kiểm chứng')}</h3>
             <MetricsPanel metrics={run.metrics} />
           </section>
         )}
         {(run.status === 'succeeded' || run.status === 'partial') && (
           <section className="card p-4">
-            <h3 className="label mb-3">Xuất kết quả</h3>
+            <h3 className="label mb-3">{t('Xuất kết quả')}</h3>
             <ExportMenu runId={run.run_id} />
           </section>
         )}
@@ -103,18 +103,18 @@ function RunHeader({ run }: { run: Run }) {
   return (
     <header className="space-y-2">
       <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
-        <Pill className="bg-surface-2 text-fg">{run.mode === 'qa' ? 'Hỏi đáp' : 'Tổng hợp'}</Pill>
+        <Pill className="bg-surface-2 text-fg">{run.mode === 'qa' ? t('Hỏi đáp') : t('Tổng hợp')}</Pill>
         {run.query_type && <Pill className="bg-accent-soft text-accent">{QUERY_TYPE[run.query_type]}</Pill>}
         <RunStatusBadge status={run.status} />
         {run.answer_status && <AnswerStatusBadge status={run.answer_status} />}
-        <span>Ngân sách {run.budget.context_tokens} token</span>
+        <span>{t('Ngân sách')} {run.budget.context_tokens} {t('token')}</span>
         <span>·</span>
         <span>{fmtDate(run.created_at)}</span>
         {run.rerun_of && (
           <>
             <span>·</span>
             <Link to={`/w/${run.workspace_id}/runs/${run.rerun_of}`} className="text-accent hover:underline">
-              chạy lại từ lượt trước
+              {t('chạy lại từ lượt trước')}
             </Link>
           </>
         )}
@@ -126,19 +126,19 @@ function RunHeader({ run }: { run: Run }) {
 
 function TerminalNotice({ run }: { run: Run }) {
   if (run.status === 'failed') {
-    return <ErrorBox error={new Error(run.error?.message ?? 'Lượt chạy thất bại.')} />
+    return <ErrorBox error={new Error(run.error?.message ?? t('Lượt chạy thất bại.'))} />
   }
   if (run.status === 'cancelled') {
     return (
-      <Notice title="Lượt chạy đã bị hủy">
-        Các claim đã kiểm chứng trước khi hủy vẫn được giữ; kết quả trả về sau khi hủy không được publish.
+      <Notice title={t('Lượt chạy đã bị hủy')}>
+        {t('Các claim đã kiểm chứng trước khi hủy vẫn được giữ; kết quả trả về sau khi hủy không được publish.')}
       </Notice>
     )
   }
   if (run.status === 'partial') {
     return (
-      <Notice tone="warn" title="Hoàn tất một phần">
-        {run.error?.message ?? 'Một số phần không hoàn tất.'}
+      <Notice tone="warn" title={t('Hoàn tất một phần')}>
+        {run.error?.message ?? t('Một số phần không hoàn tất.')}
       </Notice>
     )
   }
@@ -167,7 +167,7 @@ function CancelButton({ run }: { run: Run }) {
     <div className="mt-3 space-y-2">
       <button className="btn btn-outline w-full" onClick={() => cancel.mutate()} disabled={requested || cancel.isPending}>
         {cancel.isPending ? <Spinner /> : <Ban className="size-4" />}
-        {requested ? 'Đã yêu cầu hủy' : 'Hủy lượt chạy'}
+        {requested ? t('Đã yêu cầu hủy') : t('Hủy lượt chạy')}
       </button>
       {cancel.error && <ErrorBox error={cancel.error} />}
     </div>
@@ -192,9 +192,9 @@ function RerunButton({ run }: { run: Run }) {
   return (
     <section className="card space-y-2 p-4">
       <button className="btn btn-outline w-full" onClick={() => rerun.mutate()} disabled={rerun.isPending}>
-        {rerun.isPending ? <Spinner /> : <RotateCcw className="size-4" />} Chạy lại câu hỏi
+        {rerun.isPending ? <Spinner /> : <RotateCcw className="size-4" />} {t('Chạy lại câu hỏi')}
       </button>
-      <p className="text-xs text-muted">Dùng cùng tập nguồn, với phiên bản nguồn và cấu hình máy chủ hiện tại. Kết quả có thể khác.</p>
+      <p className="text-xs text-muted">{t('Dùng cùng tập nguồn, với phiên bản nguồn và cấu hình máy chủ hiện tại. Kết quả có thể khác.')}</p>
       {rerun.error && <ErrorBox error={rerun.error} />}
     </section>
   )
@@ -203,7 +203,7 @@ function RerunButton({ run }: { run: Run }) {
 function VerifyingPlaceholder() {
   return (
     <div className="card flex items-center gap-3 p-4 text-sm text-muted">
-      <Spinner /> Claim chỉ xuất hiện ở đây sau khi đã qua kiểm chứng…
+      <Spinner /> {t('Claim chỉ xuất hiện ở đây sau khi đã qua kiểm chứng…')}
     </div>
   )
 }
@@ -219,11 +219,11 @@ function ClaimList({ claims, running }: { claims: ClaimResult[]; running: boolea
   )
 }
 
-const SECTION_NOTE: Record<ReportSection['status'], string | null> = {
+const SECTION_NOTE: Record<ReportSection['status'], string | null> = translated({
   complete: null,
-  insufficient_evidence: 'Không đủ bằng chứng',
-  failed: 'Không hoàn tất',
-}
+  insufficient_evidence: msg('Không đủ bằng chứng'),
+  failed: msg('Không hoàn tất'),
+})
 
 function Report({ sections, claims, running }: { sections: ReportSection[]; claims: ClaimResult[]; running: boolean }) {
   const byId = new Map(claims.map((c) => [c.id, c]))
@@ -254,7 +254,7 @@ function Report({ sections, claims, running }: { sections: ReportSection[]; clai
       ))}
       {running && (
         <section className="space-y-3">
-          <h3 className="label">Đang soạn mục tiếp theo…</h3>
+          <h3 className="label">{t('Đang soạn mục tiếp theo…')}</h3>
           {inProgress.map((claim) => (
             <ClaimCard key={claim.id} claim={claim} />
           ))}

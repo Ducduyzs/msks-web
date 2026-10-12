@@ -7,12 +7,14 @@ import { BudgetSelect, ProviderDisclosure, SourcePicker } from '../components/Ru
 import { RunView } from '../components/run/RunView'
 import { ErrorBox, Spinner } from '../components/ui'
 import { useSources } from '../hooks/queries'
+import { isQueryable } from '../lib/labels'
+import { t, msg, translated } from '../i18n'
 
-const EXAMPLES = [
-  'Agreement Ranking so với RAPTOR thế nào trên tài liệu dài?',
-  'RAPTOR xây dựng chỉ mục như thế nào?',
-  'Chi phí dựng index của hai phương pháp ra sao?',
-]
+const EXAMPLES = translated([
+  msg('Agreement Ranking so với RAPTOR thế nào trên tài liệu dài?'),
+  msg('RAPTOR xây dựng chỉ mục như thế nào?'),
+  msg('Chi phí dựng index của hai phương pháp ra sao?'),
+])
 
 export function QaPage() {
   const { workspaceId = '' } = useParams()
@@ -38,7 +40,7 @@ export function QaPage() {
     },
   })
 
-  const readyCount = sources.data?.filter((s) => s.status === 'ready' && !s.deleted_at).length ?? 0
+  const readyCount = sources.data?.filter((s) => isQueryable(s.status) && !s.deleted_at).length ?? 0
   const canSubmit = question.trim().length >= 3 && readyCount > 0 && !ask.isPending
 
   function submit(event: Pick<FormEvent, 'preventDefault'>) {
@@ -50,14 +52,14 @@ export function QaPage() {
     <div className="space-y-6">
       <form onSubmit={submit} className="card space-y-4 p-4">
         <label htmlFor="question" className="sr-only">
-          Câu hỏi
+          {t('Câu hỏi')}
         </label>
         <div className="flex flex-col gap-2 sm:flex-row">
           <textarea
             id="question"
             className="input min-h-[52px] resize-y"
             rows={2}
-            placeholder="Đặt câu hỏi về các nguồn trong workspace… (Enter để gửi, Shift+Enter xuống dòng)"
+            placeholder={t('Đặt câu hỏi về các nguồn trong workspace… (Enter để gửi, Shift+Enter xuống dòng)')}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={(e) => {
@@ -66,7 +68,7 @@ export function QaPage() {
             maxLength={4000}
           />
           <button className="btn btn-primary shrink-0 sm:self-start" disabled={!canSubmit}>
-            {ask.isPending ? <Spinner /> : <Send className="size-4" />} Hỏi
+            {ask.isPending ? <Spinner /> : <Send className="size-4" />} {t('Hỏi')}
           </button>
         </div>
         <div className="flex flex-wrap gap-x-3 gap-y-1">
@@ -81,7 +83,7 @@ export function QaPage() {
           <BudgetSelect value={budget} onChange={setBudget} />
         </div>
         <ProviderDisclosure />
-        {sources.data && !readyCount && <p className="text-sm text-contested">Chưa có nguồn nào sẵn sàng. Thêm nguồn ở tab “Nguồn”.</p>}
+        {sources.data && !readyCount && <p className="text-sm text-contested">{t('Chưa có nguồn nào sẵn sàng. Thêm nguồn ở tab “Nguồn”.')}</p>}
       </form>
       {ask.error && <ErrorBox error={ask.error} onRetry={() => ask.mutate()} />}
       {runId && <RunView key={runId} runId={runId} />}

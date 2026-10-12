@@ -24,9 +24,16 @@ import type {
   Budget,
   ClaimResult,
   ContextBlock,
+  Modality,
   EvidenceRef,
   ExportFormat,
   Job,
+  Language,
+  LocatorItem,
+  MediaCapabilities,
+  MediaSessionRequest,
+  MediaUploadSession,
+  MediaUrl,
   OutlineRequest,
   Page,
   PageSpan,
@@ -47,10 +54,25 @@ import type {
   SourceContent,
   SourceKind,
   SourceStatus,
+  SourceTranslation,
+  TranslationDetail,
+  TranslationLanguage,
   SynthesisRequest,
+  Timeline as MediaTimeline,
+  TranscriptEdit,
   Workspace,
 } from './types'
 import { utf16ToCp } from '../lib/codepoints'
+import {
+  LECTURE_DURATION_MS,
+  buildTimeline,
+  frameDataUrl,
+  lectureContent,
+  lectureCoverage,
+  parseCaptions,
+  sampleLecture,
+  type LectureData,
+} from './mockLecture'
 
 // ------------------------------------------------------------------ helpers
 
@@ -58,7 +80,23 @@ interface StoredSource {
   source: Source
   content: SourceContent | null
   purged: boolean
+  /** Bài giảng: dữ liệu trích xuất theo từng parse revision (sửa bản chép tạo revision mới). */
+  lecture?: { revisions: Map<string, MediaTimeline>; captions: boolean }
 }
+
+interface StoredSession {
+  session: MediaUploadSession
+  uploaded: Set<number>
+  captionText?: string
+  sourceId?: string
+}
+
+const MEDIA_PART_BYTES = 45 * 1024 * 1024
+const MAX_MEDIA_BYTES = 400 * 1024 * 1024
+const REVIEW_RATIO = 0.5
+const LECTURE_KINDS: SourceKind[] = ['video', 'youtube', 'drive']
+const isLectureKind = (kind: SourceKind) => LECTURE_KINDS.includes(kind)
+const QUERYABLE: SourceStatus[] = ['ready', 'ready_limited', 'review_required']
 
 type PlannedEvent = { at: number; event: RunEvent }
 
@@ -158,6 +196,8 @@ export class MockApi implements Api {
   private runs = new Map<string, StoredRun>()
   private jobs = new Map<string, Job>()
   private idempotent = new Map<string, Promise<unknown>>()
+  private sessions = new Map<string, StoredSession>()
+  private translations = new Map<string, TranslationDetail>()
 
   constructor() {
     const workspace: Workspace = {
@@ -207,6 +247,18 @@ export class MockApi implements Api {
         purged: false,
       })
     }
+    // Bài giảng ở workspace riêng: một run chỉ dùng một model profile, nên trộn bài giảng với tài liệu tiếng Anh
+    // khiến phạm vi "tất cả nguồn" bị từ chối (422 profile_index_missing) — giống backend.
+    const course: Workspace = {
+      id: 'ws_lecture',
+      name: 'Demo: Bài giảng tiếng Việt',
+      created_at: '2026-10-05T09:30:00.000Z',
+      source_count: 0,
+      run_count: 0,
+      asr_glossary: ['Agreement Ranking', 'cross-encoder', 'SBERT', 'reciprocal rank fusion', 'RAPTOR', 'PeerQA'],
+    }
+    this.workspaces.set(course.id, course)
+    this.createLecture(course.id, { kind: 'video', title: 'Bài giảng: Agreement Ranking (mẫu, tiếng Việt)', language: 'vi' }, true)
   }
 
   private once<T>(key: string, create: () => Promise<T>): Promise<T> {
@@ -426,13 +478,433 @@ export class MockApi implements Api {
     return clone(job)
   }
 
+  // ---------------------------------------------------------------- bài giảng
+
+  async setAsrGlossary(workspaceId: string, terms: string[]) {
+    await wait(120)
+    const workspace = this.requireWorkspace(workspaceId)
+    // Cùng giới hạn với media/asr.clean_glossary.
+    const seen = new Set<string>()
+    const clean: string[] = []
+    for (const raw of terms) {
+      const term = raw.normalize('NFC').replace(/\p{C}/gu, '').replace(/\s+/g, ' ').trim()
+      if (!term || seen.has(term.toLocaleLowerCase())) continue
+      if ([...term].length > 60) throw err(422, 'invalid_glossary', `Thuật ngữ dài quá 60 ký tự: ${term.slice(0, 30)}…`)
+      seen.add(term.toLocaleLowerCase())
+      clean.push(term)
+    }
+    if (clean.length > 40) throw err(422, 'invalid_glossary', 'Tối đa 40 thuật ngữ.')
+    if (clean.join(', ').length > 400) throw err(422, 'invalid_glossary', 'Glossary dài quá 400 ký tự; giữ các thuật ngữ hay bị chép sai nhất.')
+    workspace.asr_glossary = clean
+    return { terms: [...clean], applies_to: 'new_uploads' as const }
+  }
+
+  private sessionView(stored: StoredSession): MediaUploadSession {
+    const { session } = stored
+    return clone({
+      ...session,
+      parts: session.parts.map((part) => {
+        const uploaded = session.status === 'completed' || stored.uploaded.has(part.index)
+        return session.status === 'open' && !uploaded
+          ? { index: part.index, size: part.size, uploaded, upload_url: `mock-upload://${session.id}/${part.index}`, method: 'PUT' as const }
+          : { index: part.index, size: part.size, uploaded }
+      }),
+    })
+  }
+
+  private requireSession(sessionId: string) {
+    const stored = this.sessions.get(sessionId)
+    if (!stored) throw err(404, 'upload_session_not_found', 'Không tìm thấy phiên tải lên.')
+    return stored
+  }
+
+  createMediaSession(workspaceId: string, request: MediaSessionRequest, idempotencyKey: string) {
+    return this.once(`media:${idempotencyKey}`, async () => {
+      await wait(150)
+      this.requireWorkspace(workspaceId)
+      if (!/\.(mp4|m4v|webm)$/i.test(request.filename) || !request.mime.startsWith('video/')) {
+        throw err(415, 'unsupported_media_type', 'MVP nhận video MP4/WebM.')
+      }
+      if (request.size_bytes > MAX_MEDIA_BYTES) throw err(413, 'file_too_large', `Video vượt giới hạn ${MAX_MEDIA_BYTES / 1024 / 1024} MB.`)
+      const id = uid('ups')
+      const count = Math.max(1, Math.ceil(request.size_bytes / MEDIA_PART_BYTES))
+      const session: MediaUploadSession = {
+        id,
+        workspace_id: workspaceId,
+        status: 'open',
+        filename: request.filename,
+        mime: request.mime,
+        expected_bytes: request.size_bytes,
+        part_bytes: MEDIA_PART_BYTES,
+        part_count: count,
+        language: request.language,
+        keep_original: request.keep_original,
+        caption: null,
+        parts: Array.from({ length: count }, (_, index) => ({
+          index,
+          size: index < count - 1 ? MEDIA_PART_BYTES : request.size_bytes - MEDIA_PART_BYTES * (count - 1),
+          uploaded: false,
+        })),
+      }
+      const stored: StoredSession = { session, uploaded: new Set() }
+      this.sessions.set(id, stored)
+      return this.sessionView(stored)
+    })
+  }
+
+  async getMediaSession(sessionId: string) {
+    await wait(80)
+    return this.sessionView(this.requireSession(sessionId))
+  }
+
+  uploadPart(url: string, blob: Blob, onProgress: (loaded: number) => void, signal?: AbortSignal) {
+    const match = url.match(/^mock-upload:\/\/([^/]+)\/(\d+)$/)
+    return new Promise<void>((resolve, reject) => {
+      if (!match) return reject(err(400, 'invalid_upload_url', 'URL tải lên không hợp lệ.'))
+      const stored = this.sessions.get(match[1])
+      const index = Number(match[2])
+      if (!stored || stored.session.status !== 'open') return reject(err(409, 'session_closed', 'Phiên upload đã đóng.'))
+      if (blob.size !== stored.session.parts[index]?.size) return reject(err(400, 'part_size_mismatch', 'Kích thước phần không khớp.'))
+      // Giả lập tiến độ gửi: ~10 bước, tối đa ~1,2 s mỗi phần.
+      const steps = 10
+      let step = 0
+      const timer = setInterval(() => {
+        step++
+        onProgress(Math.round((blob.size * step) / steps))
+        if (step >= steps) {
+          clearInterval(timer)
+          stored.uploaded.add(index)
+          resolve()
+        }
+      }, 120)
+      signal?.addEventListener(
+        'abort',
+        () => {
+          clearInterval(timer)
+          reject(new DOMException('Đã dừng tải lên.', 'AbortError'))
+        },
+        { once: true },
+      )
+    })
+  }
+
+  async attachCaption(sessionId: string, file: File) {
+    await wait(120)
+    const stored = this.requireSession(sessionId)
+    if (stored.session.status !== 'open') throw err(409, 'session_closed', 'Phiên upload đã đóng.')
+    if (!/\.(srt|vtt)$/i.test(file.name)) throw err(415, 'unsupported_media_type', 'Phụ đề phải là SRT hoặc WebVTT.')
+    const text = await file.text()
+    if (!parseCaptions(text).length) throw err(422, 'caption_invalid', 'File phụ đề không có cue hợp lệ.')
+    stored.captionText = text
+    stored.session.caption = { filename: file.name }
+    return this.sessionView(stored)
+  }
+
+  async completeMediaSession(sessionId: string) {
+    await wait(200)
+    const stored = this.requireSession(sessionId)
+    if (stored.session.status === 'completed' && stored.sourceId) return clone(this.sources.get(stored.sourceId)!.source)
+    if (stored.session.status !== 'open') throw err(409, 'session_closed', 'Phiên upload đã hết hạn hoặc bị hủy.')
+    const missing = stored.session.parts.filter((p) => !stored.uploaded.has(p.index)).map((p) => p.index)
+    if (missing.length) throw err(409, 'upload_incomplete', `Còn ${missing.length} phần chưa tải lên đủ: ${missing.slice(0, 10).join(', ')}.`)
+    const cues = stored.captionText ? parseCaptions(stored.captionText) : undefined
+    const source = this.createLecture(stored.session.workspace_id, {
+      kind: 'video',
+      title: stored.session.filename.replace(/\.[^.]+$/, ''),
+      language: stored.session.language,
+      cues,
+    })
+    stored.session.status = 'completed'
+    stored.sourceId = source.id
+    return source
+  }
+
+  async cancelMediaSession(sessionId: string) {
+    await wait(100)
+    const stored = this.requireSession(sessionId)
+    if (stored.session.status !== 'open') throw err(409, 'session_closed', 'Phiên upload đã đóng.')
+    stored.session.status = 'cancelled'
+    stored.uploaded.clear()
+  }
+
+  async addYoutube(workspaceId: string, input: { url: string; language: Language; title?: string; caption: File }) {
+    await wait(250)
+    this.requireWorkspace(workspaceId)
+    const id = input.url.trim().match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([A-Za-z0-9_-]{11})/)?.[1]
+      ?? (/^[A-Za-z0-9_-]{11}$/.test(input.url.trim()) ? input.url.trim() : null)
+    if (!id) throw err(422, 'invalid_youtube_url', 'Link YouTube không hợp lệ.')
+    if (!/\.(srt|vtt)$/i.test(input.caption.name)) throw err(415, 'unsupported_media_type', 'Phụ đề phải là SRT hoặc WebVTT.')
+    const cues = parseCaptions(await input.caption.text())
+    if (!cues.length) throw err(422, 'caption_invalid', 'File phụ đề không có cue hợp lệ.')
+    return this.createLecture(workspaceId, {
+      kind: 'youtube',
+      title: input.title?.trim() || `YouTube ${id}`,
+      language: input.language,
+      cues,
+      url: `https://www.youtube.com/watch?v=${id}`,
+    })
+  }
+
+  /** Tạo nguồn bài giảng và mô phỏng pipeline (probe → chép lời → đọc bảng → index). */
+  private createLecture(
+    workspaceId: string,
+    options: { kind: SourceKind; title: string; language: Language; cues?: { start_ms: number; end_ms: number; text: string }[]; url?: string },
+    immediate = false,
+  ): Source {
+    const id = uid('src')
+    const jobId = uid('job')
+    const youtube = options.kind === 'youtube'
+    const captions = !!options.cues
+    const base = sampleLecture(id, options.cues)
+    const data: LectureData = youtube ? { segments: base.segments, regions: [], assets: [] } : base
+    const duration = Math.max(LECTURE_DURATION_MS, ...data.segments.map((s) => s.end_ms))
+    const capabilities: MediaCapabilities = {
+      audio_available: !youtube,
+      visual_available: !youtube,
+      captions_available: captions,
+      original_playback_available: youtube ? 'external' : 'audio_and_frames',
+    }
+    const coverage = lectureCoverage(data, captions, duration)
+    const finalStatus: SourceStatus =
+      (coverage.flagged_ratio ?? 0) > REVIEW_RATIO ? 'review_required' : youtube ? 'ready_limited' : 'ready'
+    const stored: StoredSource = {
+      content: null,
+      purged: false,
+      lecture: { revisions: new Map(), captions },
+      source: {
+        id,
+        workspace_id: workspaceId,
+        alias: this.nextAlias(workspaceId),
+        kind: options.kind,
+        title: options.title,
+        url: options.url,
+        authors: [],
+        source_type: youtube ? 'web' : 'user_note',
+        origin_group_id: youtube ? `yt-${id}` : `g-${id}`,
+        independence_status: 'unknown',
+        grouping_version: 1,
+        status: 'uploaded',
+        progress: 0.05,
+        job_id: jobId,
+        created_at: nowIso(),
+        language: options.language,
+        capabilities: { ...capabilities, audio_available: null, visual_available: null },
+      },
+    }
+    this.sources.set(id, stored)
+    this.jobs.set(jobId, { id: jobId, kind: 'ingest', target_id: id, state: 'queued', retry_count: 0 })
+    const publish = () => {
+      const parseRevisionId = uid('pr')
+      stored.lecture!.revisions.set(parseRevisionId, buildTimeline(id, parseRevisionId, data, capabilities, coverage, null))
+      stored.content = lectureContent(id, parseRevisionId, data)
+      Object.assign(stored.source, {
+        status: finalStatus,
+        progress: 1,
+        duration_ms: duration,
+        capabilities,
+        coverage,
+        revision: {
+          document_revision_id: uid('dr'),
+          revision_no: 1,
+          parse_revision_id: parseRevisionId,
+          page_count: null,
+          leaf_count: data.segments.length + new Set(data.regions.map((r) => r.text)).size,
+        },
+      })
+      Object.assign(this.jobs.get(jobId)!, { state: 'succeeded', stage: 'publish' })
+    }
+    if (immediate) {
+      stored.source.created_at = '2026-10-05T09:00:00.000Z'
+      publish()
+      return clone(stored.source)
+    }
+    const steps: [number, SourceStatus, number, string][] = [
+      [500, 'parsing', 0.15, 'extract_audio'],
+      [1400, 'parsing', 0.3, captions ? 'captions' : 'transcribe'],
+      [2400, 'parsing', 0.55, 'visual_read'],
+      [3200, 'chunking', 0.7, 'align'],
+      [3900, 'embedding', 0.85, 'embedding'],
+    ]
+    for (const [at, status, progress, stage] of steps) {
+      setTimeout(() => {
+        if (stored.source.deleted_at) return
+        Object.assign(stored.source, { status, progress })
+        Object.assign(this.jobs.get(jobId)!, { state: 'running', stage })
+      }, at)
+    }
+    setTimeout(() => !stored.source.deleted_at && publish(), 4600)
+    return clone(stored.source)
+  }
+
+  async getTimeline(sourceId: string, parseRevisionId: string) {
+    await wait(150)
+    const stored = this.sources.get(sourceId)
+    if (!stored || stored.purged) throw err(404, 'source_not_found', 'Không tìm thấy nguồn.')
+    if (stored.source.deleted_at) throw err(410, 'source_deleted', 'Nguồn đã bị xóa; nội dung không còn được hiển thị.')
+    const timeline = stored.lecture?.revisions.get(parseRevisionId)
+    if (!timeline) throw err(404, 'not_found', 'Không tìm thấy timeline của phiên bản.')
+    return clone(timeline)
+  }
+
+  async getMediaUrl(sourceId: string, assetId: string): Promise<MediaUrl> {
+    await wait(60)
+    const stored = this.sources.get(sourceId)
+    if (!stored || stored.purged) throw err(404, 'source_not_found', 'Không tìm thấy nguồn.')
+    if (stored.source.deleted_at) throw err(410, 'source_deleted', 'Nguồn đã bị xóa; nội dung không còn được hiển thị.')
+    for (const timeline of stored.lecture?.revisions.values() ?? []) {
+      const asset = timeline.assets.find((a) => a.id === assetId)
+      if (asset) {
+        const data: LectureData = { segments: timeline.segments, regions: timeline.regions, assets: timeline.assets }
+        return { asset_id: asset.id, kind: asset.kind, mime: asset.mime, url: frameDataUrl(data, asset.id), expires_in: 300 }
+      }
+    }
+    throw err(404, 'not_found', 'Không tìm thấy media.')
+  }
+
+  async createTranscriptRevision(sourceId: string, edit: TranscriptEdit) {
+    await wait(200)
+    const stored = this.sources.get(sourceId)
+    if (!stored || stored.purged || !stored.lecture) throw err(404, 'source_not_found', 'Không tìm thấy nguồn.')
+    if (stored.source.deleted_at) throw err(410, 'source_deleted', 'Nguồn đã bị xóa; nội dung không còn được hiển thị.')
+    if (!edit.segments.length && !edit.regions.length) throw err(422, 'empty_edit', 'Không có thay đổi nào.')
+    const base = stored.lecture.revisions.get(edit.base_revision_id)
+    if (!base) throw err(404, 'not_found', 'Không tìm thấy phiên bản trích xuất.')
+    if ([...this.jobs.values()].some((j) => j.target_id === sourceId && (j.state === 'queued' || j.state === 'running'))) {
+      throw err(409, 'source_busy', 'Nguồn đang được xử lý; thử lại sau khi hoàn tất.')
+    }
+    const segmentEdits = new Map(edit.segments.map((e) => [e.id, e.text]))
+    const regionEdits = new Map(edit.regions.map((e) => [e.id, e.text]))
+    const unknown = [...segmentEdits.keys()].filter((id) => !base.segments.some((s) => s.id === id)).length
+      + [...regionEdits.keys()].filter((id) => !base.regions.some((r) => r.id === id)).length
+    if (unknown) throw err(422, 'unknown_items', `${unknown} mục không thuộc phiên bản này.`)
+    const jobId = uid('job')
+    const job: Job = { id: jobId, kind: 'reindex', target_id: sourceId, state: 'queued', retry_count: 0 }
+    this.jobs.set(jobId, job)
+    setTimeout(() => {
+      if (stored.source.deleted_at) return
+      // Đoạn đã sửa = đã được người đối chiếu: bỏ cờ cảnh báo, origin manual_edit (pipeline.apply_transcript_edit).
+      const data: LectureData = {
+        segments: base.segments.map((s) =>
+          segmentEdits.has(s.id) ? { ...s, text: segmentEdits.get(s.id)!, origin: 'manual_edit', flags: [], reviewed: true } : s,
+        ),
+        regions: base.regions.map((r) => (regionEdits.has(r.id) ? { ...r, text: regionEdits.get(r.id)!, review_state: 'reviewed', flags: [] } : r)),
+        assets: base.assets,
+      }
+      const parseRevisionId = uid('pr')
+      const coverage = { ...lectureCoverage(data, stored.lecture!.captions, base.duration_ms ?? LECTURE_DURATION_MS), ...{ visual_read: base.coverage?.visual_read } }
+      stored.lecture!.revisions.set(parseRevisionId, buildTimeline(sourceId, parseRevisionId, data, base.capabilities!, coverage, base.extraction_revision_id))
+      stored.content = lectureContent(sourceId, parseRevisionId, data)
+      const status: SourceStatus = (coverage.flagged_ratio ?? 0) > REVIEW_RATIO ? 'review_required' : stored.source.kind === 'youtube' ? 'ready_limited' : 'ready'
+      Object.assign(stored.source, { status, coverage, revision: { ...stored.source.revision!, parse_revision_id: parseRevisionId } })
+      Object.assign(job, { state: 'succeeded', stage: 'publish' })
+    }, 1500)
+    return clone(job)
+  }
+
+  // ------------------------------------------------------------ dịch tài liệu
+
+  async listTranslationLanguages(): Promise<TranslationLanguage[]> {
+    await wait(60)
+    return [
+      { code: 'vi', name: 'Vietnamese' },
+      { code: 'en', name: 'English (US)' },
+      { code: 'zh-Hans', name: 'Simplified Chinese' },
+      { code: 'ja', name: 'Japanese' },
+      { code: 'ko', name: 'Korean' },
+      { code: 'fr', name: 'French' },
+      { code: 'de', name: 'German' },
+    ]
+  }
+
+  /** Mock không gọi LLM: "bản dịch" là đoạn gốc gắn nhãn ngôn ngữ, đủ để thử giao diện song song và tiến độ. */
+  async requestTranslation(sourceId: string, targetLang: string): Promise<SourceTranslation> {
+    await wait(150)
+    const stored = this.sources.get(sourceId)
+    if (!stored || stored.purged) throw err(404, 'not_found', 'Nguồn không tồn tại hoặc bạn không có quyền truy cập.')
+    if (stored.source.deleted_at) throw err(410, 'source_deleted', 'Nguồn đã bị xóa; nội dung không còn được hiển thị.')
+    if (!QUERYABLE.includes(stored.source.status) || !stored.content) throw err(409, 'source_not_ready', 'Nguồn chưa xử lý xong nên chưa dịch được.')
+    const languages = await this.listTranslationLanguages()
+    if (!languages.some((l) => l.code === targetLang)) throw err(422, 'unsupported_language', 'Ngôn ngữ đích chưa được hỗ trợ.')
+    const revision = stored.content.parse_revision_id
+    const key = `${revision}:${targetLang}`
+    const existing = this.translations.get(key)
+    if (existing && existing.status !== 'failed') return clone({ ...existing, segments: undefined } as unknown as SourceTranslation)
+    const text = stored.content.text
+    const paragraphs: { start: number; end: number; text: string }[] = []
+    let at = 0
+    for (const part of text.split('\n\n')) {
+      const start = text.indexOf(part, at)
+      at = start + part.length
+      if (part.trim()) paragraphs.push({ start: utf16ToCp(text, start), end: utf16ToCp(text, at), text: part })
+    }
+    const detail: TranslationDetail = {
+      id: uid('tr'),
+      source_id: sourceId,
+      parse_revision_id: revision,
+      target_lang: targetLang,
+      status: 'queued',
+      progress: 0,
+      segment_count: paragraphs.length,
+      char_count: text.length,
+      flagged_count: 0,
+      model: 'mock',
+      error: null,
+      created_at: nowIso(),
+      finished_at: null,
+      segments: [],
+    }
+    this.translations.set(key, detail)
+    const lecture = stored.lecture?.revisions.get(revision)
+    paragraphs.forEach((paragraph, index) => {
+      setTimeout(() => {
+        const segment = lecture?.segments.find((s) => s.text === paragraph.text)
+        detail.status = index === paragraphs.length - 1 ? 'succeeded' : 'running'
+        detail.progress = (index + 1) / paragraphs.length
+        detail.segments.push({
+          node_id: `leaf_${sourceId}_${paragraph.start}`,
+          ordinal: index,
+          original: paragraph.text,
+          text: `〔${targetLang}〕 ${paragraph.text}`,
+          flags: [],
+          char_start: paragraph.start,
+          char_end: paragraph.end,
+          page_start: null,
+          page_end: null,
+          modality: lecture ? (segment ? 'speech' : 'board') : 'text',
+          start_ms: segment?.start_ms ?? null,
+          end_ms: segment?.end_ms ?? null,
+        })
+        if (detail.status === 'succeeded') detail.finished_at = nowIso()
+      }, 300 + index * 120)
+    })
+    return clone({ ...detail, segments: undefined } as unknown as SourceTranslation)
+  }
+
+  async getTranslation(sourceId: string, parseRevisionId: string, targetLang: string): Promise<TranslationDetail> {
+    await wait(80)
+    const stored = this.sources.get(sourceId)
+    if (stored?.source.deleted_at) throw err(410, 'source_deleted', 'Nguồn đã bị xóa; nội dung không còn được hiển thị.')
+    const detail = this.translations.get(`${parseRevisionId}:${targetLang}`)
+    if (!detail || detail.source_id !== sourceId) throw err(404, 'not_found', 'Bản dịch không tồn tại hoặc bạn không có quyền truy cập.')
+    return clone(detail)
+  }
+
   // ------------------------------------------------------------- run helpers
 
   private scope(workspaceId: string, sourceIds: string[]) {
     const scope = this.visibleSources(workspaceId).filter(
-      (s) => s.source.status === 'ready' && !s.source.deleted_at && (sourceIds.length === 0 || sourceIds.includes(s.source.id)),
+      (s) => QUERYABLE.includes(s.source.status) && !s.source.deleted_at && (sourceIds.length === 0 || sourceIds.includes(s.source.id)),
     )
     if (!scope.length) throw err(422, 'empty_scope', 'Phạm vi không có nguồn nào sẵn sàng.')
+    const lectures = scope.filter((s) => isLectureKind(s.source.kind))
+    if (lectures.length && lectures.length < scope.length) {
+      // Như backend: một run chỉ dùng một model profile; bài giảng (lecture_vi_v1) và tài liệu (product) khác profile.
+      throw err(
+        422,
+        'profile_index_missing',
+        `Phạm vi trộn bài giảng (${lectures.map((s) => s.source.alias).join(', ')}) và tài liệu: chưa có chỉ mục chung cùng profile. Hãy hỏi riêng từng loại.`,
+      )
+    }
     return scope
   }
 
@@ -507,7 +979,15 @@ export class MockApi implements Api {
       .map((seed) => this.buildClaim(scope, seed))
       .filter((c): c is ClaimResult => c !== null)
       .slice(0, BLOCKS_PER_BUDGET[budget])
-    const context: ContextBlock[] = claims.map((claim, index) => {
+    const context = this.contextFor(runId, claims)
+    const rejected: RejectedWithSupport[] = claims.length
+      ? SEED_REJECTED.filter((r) => !sectionKeys || sectionKeys.includes(r.section_key)).map((r) => ({ ...r, id: `${r.id}_${runId}` }))
+      : []
+    return { claims, context, rejected }
+  }
+
+  private contextFor(runId: string, claims: ClaimResult[]): ContextBlock[] {
+    return claims.map((claim, index) => {
       const primary = claim.evidence[0]
       const block: ContextBlock = {
         id: `cb_${runId}_${claim.id}`,
@@ -528,13 +1008,75 @@ export class MockApi implements Api {
           packing_utility: Number((4.1 - index * 0.63).toFixed(3)),
         },
       }
+      if (primary.locator) {
+        block.modality = primary.modality
+        block.start_ms = primary.locator.start_ms ?? null
+        block.end_ms = primary.locator.end_ms ?? null
+      }
       primary.context_block_id = block.id
       return block
     })
+  }
+
+  /** QA trên bài giảng: citation có locator thời gian/vùng bảng; claim "tốt hơn" bị chốt như vi_text.claim_guard. */
+  private lecturePlan(runId: string, scope: StoredSource[]) {
+    const claims: ClaimResult[] = []
+    for (const stored of scope) {
+      const timeline = stored.lecture?.revisions.get(stored.source.revision!.parse_revision_id)
+      if (!timeline) continue
+      const board = timeline.regions.find((r) => r.included && /k\s*=\s*60/.test(r.text))
+      const speech = timeline.segments.find((s) => s.text.includes('32 giây'))
+      const items: { id: string; text: string; quote: string; modality: Modality; item: LocatorItem }[] = []
+      if (board) {
+        items.push({
+          id: `cl_k_${stored.source.id}`,
+          text: 'Hằng số k trong Agreement Ranking bằng 60.',
+          quote: board.text,
+          modality: 'board',
+          item: {
+            type: 'region', id: board.id, start_ms: board.visible_from_ms, end_ms: board.visible_to_ms,
+            asset_id: board.frame_asset_id, bbox: board.bbox, flags: board.flags, reviewed: board.review_state === 'reviewed',
+          },
+        })
+      }
+      if (speech) {
+        items.push({
+          id: `cl_index_${stored.source.id}`,
+          text: 'Lập chỉ mục 70 bài báo với Agreement Ranking mất 32 giây.',
+          quote: speech.text,
+          modality: stored.lecture!.captions ? 'caption' : 'speech',
+          item: {
+            type: 'segment', id: speech.id, start_ms: speech.start_ms, end_ms: speech.end_ms,
+            asset_id: speech.audio_asset_id, bbox: null, flags: speech.flags, reviewed: speech.reviewed,
+          },
+        })
+      }
+      for (const { id, text, quote, modality, item } of items) {
+        const evidence = this.evidence(scope, { alias: stored.source.alias, quote, support: 0.97, contradiction: 0.01 }, 'primary')
+        if (!evidence) continue
+        evidence.verifier_revision = 'mdeberta-v3-base-mnli-xnli@mock'
+        evidence.modality = modality
+        evidence.transcription_state = item.reviewed ? 'reviewed' : 'automatic'
+        evidence.locator = {
+          modality, start_ms: item.start_ms, end_ms: item.end_ms, precision: item.type, items: [item],
+          extraction_revision_id: timeline.extraction_revision_id,
+        }
+        claims.push({
+          id: `${id}_${runId}`,
+          text,
+          status: 'supported',
+          cross_check_status: 'completed',
+          verification_method: 'nli_visible_evidence',
+          generator_confidence: 0.9,
+          support_basis: item.reviewed ? 'reviewed_transcript' : 'automatic_transcript',
+          evidence: [evidence],
+        })
+      }
+    }
     const rejected: RejectedWithSupport[] = claims.length
-      ? SEED_REJECTED.filter((r) => !sectionKeys || sectionKeys.includes(r.section_key)).map((r) => ({ ...r, id: `${r.id}_${runId}` }))
+      ? [{ id: `rj_superior_${runId}`, text: 'Agreement Ranking tốt hơn RAPTOR trên PeerQA.', reason: 'non_inferiority_overclaimed', support: 0.97 }]
       : []
-    return { claims, context, rejected }
+    return { claims, context: this.contextFor(runId, claims), rejected }
   }
 
   private metrics(claims: ClaimResult[], rejected: { support?: number | null }[], context: ContextBlock[], jsonErrors: number, latency: number): RunMetrics {
@@ -567,6 +1109,26 @@ export class MockApi implements Api {
   }
 
   private provenance(scope: StoredSource[]): Provenance {
+    if (scope.length && scope.every((s) => isLectureKind(s.source.kind))) {
+      return {
+        ...this.provenance([]),
+        profile: 'lecture_vi_v1',
+        verifier_revision: 'mdeberta-v3-base-mnli-xnli@mock',
+        models: {
+          embedding: 'BAAI/bge-m3',
+          reranker: 'BAAI/bge-reranker-v2-m3',
+          sbert: 'sentence-transformers/paraphrase-multilingual-mpnet-base-v2',
+          nli: 'MoritzLaurer/mDeBERTa-v3-base-mnli-xnli',
+          llm: 'mock',
+        },
+        source_snapshot: scope.map((s) => ({
+          source_id: s.source.id,
+          alias: s.source.alias,
+          document_revision_id: s.source.revision!.document_revision_id,
+          parse_revision_id: s.source.revision!.parse_revision_id,
+        })),
+      }
+    }
     return {
       profile: 'product',
       config_hash: 'cfg_mock_0001',
@@ -618,7 +1180,7 @@ export class MockApi implements Api {
       run_id: runId,
       workspace_id: workspaceId,
       mode,
-      profile: 'product',
+      profile: scope.length && scope.every((s) => isLectureKind(s.source.kind)) ? 'lecture_vi_v1' : 'product',
       query,
       budget: { context_tokens: budget },
       source_ids: sourceIds,
@@ -671,7 +1233,8 @@ export class MockApi implements Api {
       timeline.stage('pack', 500)
       const groups = new Set(scope.map((s) => s.source.origin_group_id))
       let answer: AnswerStatus = 'answered'
-      let plan = this.plan(runId, scope, request.budget)
+      const lectureScope = scope.every((s) => isLectureKind(s.source.kind))
+      let plan = lectureScope ? this.lecturePlan(runId, scope) : this.plan(runId, scope, request.budget)
       let jsonErrors = 0
 
       if (queryType === 'comparative_multi_hop' && groups.size < 2) {
